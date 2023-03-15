@@ -1,0 +1,31 @@
+#+options: toc:nil
++-----------------------------------------------------------------------------------------+
+|                          Politechnika Świętokrzyska w Kielcach                          |
+|                    Wydział Elektrotechniki,Automatyki I Informatyki                     |
++-----------------------------------------------------------------------------------------+
+|                           Podstawy Programownaia 2 - Projekt                            |
+|                        Informatyka - I Rok akademicki 2022/2023                         |
++----------------------------------------------------------------+------------------------+
+|                        Temat Projektu:                         |       Wykonali:        |
+|                    Wypożyczalnia Samochodów                    |     1. Rafał Grot      |
+|                                                                |     2. Kamil Gunia     |
+|                                                                |    3. Jakub Grzelec    |
+|                                                                | 4. Karina Goszczyńska  |
++----------------------------------------------------------------+------------------------+
+* Pierwszy kamień milowy
+1. Opanowanie systemu kotroli wersji =git=.
+2. Podział pracy w zespole.
+3. Projekt relacyjniej bazy danych samochodów, klientów, wypożyczeń.
+4. Zapoznanie się z biblioteką =sqlite= [[https://www.sqlite.org]] ,nauka tworzenia i wykonwywania porstych kwerend za jej pomocą.
+5. Wstępna implementacja interfejsu użytkownia.
+6. Testowanie poprawności działąnia menu.
+7. Przygotowanie przy użyciu sprawozdania z postępów prac nad projektem.
+* Drugi kamień milowy
+1. Implementacja bazy danych.
+2. Implementacja dodawania, usuwania oraz modyfikacji -- Samochodów i kilentów.
+3. Implementacja wypożyczania i oddawania samochodów
+4. Wyświetlanie samochodów z możliwością sortowania rosnącego/malejącego.
+* I termin
+1. Stworzenie dokumentacji w porgramie =Doxygen=
+2. Sporządzenie sprawodzania.
+3. Dodanie ewentualnych ulepszeń.
