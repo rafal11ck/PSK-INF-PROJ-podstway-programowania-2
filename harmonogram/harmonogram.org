@@ -20,11 +20,13 @@
 5. Wstępna implementacja interfejsu użytkownia.
 6. Testowanie poprawności działąnia menu.
 7. Przygotowanie przy użyciu sprawozdania z postępów prac nad projektem.
+8. Podsumowanie co się udało/nie udało
 * Drugi kamień milowy
 1. Implementacja bazy danych.
 2. Implementacja dodawania, usuwania oraz modyfikacji -- Samochodów i kilentów.
 3. Implementacja wypożyczania i oddawania samochodów
 4. Wyświetlanie samochodów z możliwością sortowania rosnącego/malejącego.
+5. podsumowanie
 * I termin
 1. Stworzenie dokumentacji w porgramie =Doxygen=
 2. Sporządzenie sprawodzania.
