@@ -1,4 +1,5 @@
 #include <ncurses.h>
+// Podczas linkowania trzeba dać "-lncurses" (gcc)
 
 int main() {
   initscr();
@@ -6,4 +7,5 @@ int main() {
   refresh();
   getch();
   endwin();
+  return 0;
 }
