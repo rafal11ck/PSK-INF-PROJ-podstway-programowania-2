@@ -8,6 +8,6 @@ struct Client {
   int m_id;        //! Unique id
   char *m_name;    //! String holding first name
   char *m_surname; //! String holding second name
-}
+};
 
 #endif // KLIENT_H_
