@@ -1,6 +1,9 @@
 #include "stdbool.h"
 
-/** @file */
+/**
+ * @file
+ * @brief Doubly linked list interface.
+ *  */
 
 /**
  * @brief Doubly linked list node.
@@ -28,6 +31,7 @@ struct List {
 };
 
 /**
+ * @brief Returns empty list
  * @return Returns poitner to empty list.
  */
 struct List *listCreateList();
@@ -53,8 +57,8 @@ bool listPushBack(struct List *list, void *data);
  * sorted.
  * @param list List into which item is inserted.
  * @param data Pointer to data that will be inserted.
- * @param lessFun Pointer to function that compares two data instances.
+ * @param prevFun Pointer to function that compares two data instances.
  * @return false if everything is fine.
  **/
-bool listInsertData(struct List *list, void *data,
+bool listInsert(struct List *list, void *data,
                     bool (*prevFun)(const void *, const void *));

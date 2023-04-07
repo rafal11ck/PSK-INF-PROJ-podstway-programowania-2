@@ -4,11 +4,26 @@
 #include <stdlib.h>
 
 /**
- * @breief Instantiates ListNode containing pointer to data.
+ * @file
+ * @brief Doubly linked list implementation.
+ * */
+
+/**
+ * @brief Instantiates ListNode containing pointer to data.
  * @param data Pointer to data.
  * @return Pointer to ListNode that was instatntitated.
  * */
 struct ListNode *listCreateNode(void *data);
+
+/**
+ * @brief Inserts data into list before given node.
+ * @param list List pointer.
+ * @param node Node before which data should be inserted.
+ * @param data Data to be inserted pointer.
+ * @return False if everything is fine.
+ * List has to be non empty;
+ * */
+bool listInsertBefore(struct List *list, struct ListNode *node, void *data);
 
 struct List *listCreateList() {
   struct List *list = malloc(sizeof(struct List));
@@ -48,8 +63,8 @@ bool listPushBack(struct List *list, void *data) {
   return false;
 }
 
-bool listInsertData(struct List *list, void *data,
-                    bool (*prevFun)(const void *, const void *)) {
+bool listInsert(struct List *list, void *data,
+                bool (*prevFun)(const void *, const void *)) {
   struct ListNode *it = list->m_front;
   // go to next element as long as cureent element has to be after new element
   while (it != NULL && prevFun(it->m_data, data)) {
@@ -61,7 +76,7 @@ bool listInsertData(struct List *list, void *data,
   else if (it == NULL)
     listPushBack(list, data);
   else {
-    // TODO insert previous
+    listInsertBefore(list, it, data);
   }
   return true;
 }
@@ -73,4 +88,21 @@ struct ListNode *listCreateNode(void *data) {
   node->m_next = NULL;
   node->m_prev = NULL;
   return node;
+}
+
+bool listInsertBefore(struct List *list, struct ListNode *node, void *data) {
+  // Ensure list is non empty.
+  assert(list->m_front != NULL);
+  struct ListNode *newNode = listCreateNode(data);
+  // Make newNode previous point to node that is previous to the node that we
+  // insert berfore.
+  newNode->m_prev = node->m_prev;
+  // Make node that we insert before next of newNode.
+  newNode->m_next = node;
+
+  // Make node preceeding newNode point to newNode.
+  newNode->m_prev->m_next = newNode;
+  // Make node after newNode point to newNode.
+  node->m_prev = newNode;
+  return false;
 }
