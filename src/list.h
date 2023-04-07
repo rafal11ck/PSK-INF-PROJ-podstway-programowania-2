@@ -1,5 +1,7 @@
 #include "stdbool.h"
 
+/** @file */
+
 /**
  * @brief Doubly linked list node.
  * */
@@ -7,8 +9,10 @@ struct ListNode {
   //! Pointer to data.
   void *m_data;
   //! Pointer to the previous element of the list.
+  //! - NULL if it's first element.
   struct ListNode *m_prev;
   //! Pointer to the next element of the list.
+  //! - NULL if it's last element.
   struct ListNode *m_next;
 };
 
@@ -19,8 +23,7 @@ struct List {
   //! Pointer to first elemenet of the list.
   struct ListNode *m_front;
 
-  //! Pointer to last elemenet of the list.\n
-  //! - If list is empty holds `NULL`.
+  //! Pointer to last elemenet of the list.
   struct ListNode *m_back;
 };
 
@@ -31,8 +34,18 @@ struct List *listCreateList();
 
 /**
  * @brief Adds item to the front of list.
- * @param list List to which item is added.
- * @param data Pointer to data.
+ * @param list List into which item is added.
+ * @param data Pointer to data that will be pushed.
  * @return false if everything is fine.
  * */
 bool listPushFront(struct List *list, void *data);
+
+/**
+ * @brief Inserts data in list at appropriate positon so that list remains
+ * sorted.
+ * @param list List into which item is inserted.
+ * @param data Pointer to data that will be inserted.
+ * @param prevFun Pointer to function that compares two data instances.
+ **/
+bool listInsertData(struct List *list, void *data,
+                    bool (*prevFun)(void *, void *));
