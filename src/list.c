@@ -24,3 +24,16 @@ bool listPushFront(struct List *list, void *data) {
     list->m_back = node;
   return false;
 }
+
+bool listInsertData(struct List *list, void *data,
+                    bool (*prevFun)(const void *, const void *)) {
+  // create new node
+  struct ListNode *node = malloc(sizeof(struct ListNode));
+  assert(node);
+  node->m_data = data;
+  // copy pointer to first element of list
+  struct ListNode *it;
+  while (!prevFun(node->m_data, it->m_next->m_data))
+
+    return true;
+}
