@@ -1,4 +1,3 @@
-
 /**
  * @brief Structure contaiong information about single car
  */
