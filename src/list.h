@@ -20,8 +20,8 @@ struct ListNode {
 };
 
 /**
- * @brief Holds list.
- **/
+ * @brief Stores pointers to first and last elements of double linked list.
+ */
 struct List {
   //! Pointer to first elemenet of the list.
   struct ListNode *m_front;
@@ -32,7 +32,7 @@ struct List {
 
 /**
  * @brief Returns empty list
- * @return Returns poitner to empty list.
+ * @return Poitner to empty list.
  */
 struct List *listCreateList();
 
@@ -61,4 +61,20 @@ bool listPushBack(struct List *list, void *data);
  * @return false if everything is fine.
  **/
 bool listInsert(struct List *list, void *data,
-                    bool (*prevFun)(const void *, const void *));
+                bool (*prevFun)(const void *, const void *));
+
+/**
+ * @brief Returns pointer to the first element of list.
+ * @param list List pointer of which first element is wanted.
+ * @return Pointer to the first element in the List.
+ * - Returns NULL if List is empty.
+ */
+struct ListNode *listGetFront(struct List *list);
+
+/**
+ * @brief Returns pointer to the last element of list.
+ * @param list List pointer of which last element is wanted.
+ * @return Pointer to the last element in the List.
+ * - Returns NULL if List is empty.
+ */
+struct ListNode *listGetBack(struct List *list);

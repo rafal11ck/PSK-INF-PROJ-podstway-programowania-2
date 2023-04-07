@@ -7,3 +7,6 @@ add_library(car car.h car.c)
 add_library(client car.h client.c)
 add_library(retnal rental.h rental.c)
 add_library(list list.h list.c)
+
+add_executable(testlist testlist.c)
+target_link_libraries(testlist list)

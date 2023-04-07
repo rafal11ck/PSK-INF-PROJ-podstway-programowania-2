@@ -25,6 +25,22 @@ struct ListNode *listCreateNode(void *data);
  * */
 bool listInsertBefore(struct List *list, struct ListNode *node, void *data);
 
+/**
+ * @brief Returns pointer to the first element of list.
+ * @param list List pointer of which first element is wanted.
+ * @return Pointer to the first element in the List.
+ * - Returns NULL if List is empty.
+ */
+struct ListNode *listGetFront(struct List *list);
+
+/**
+ * @brief Returns pointer to the last element of list.
+ * @param list List pointer of which last element is wanted.
+ * @return Pointer to the last element in the List.
+ * - Returns NULL if List is empty.
+ */
+struct ListNode *listGetBack(struct List *list);
+
 struct List *listCreateList() {
   struct List *list = malloc(sizeof(struct List));
   // ensure that memory was allocated
@@ -105,4 +121,12 @@ bool listInsertBefore(struct List *list, struct ListNode *node, void *data) {
   // Make node after newNode point to newNode.
   node->m_prev = newNode;
   return false;
+}
+
+struct ListNode *listGetFront(struct List *list) {
+  return list->m_front;
+}
+
+struct ListNode *listGetBack(struct List *list) {
+  return list->m_back;
 }
