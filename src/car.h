@@ -1,5 +1,5 @@
 /**
- * @brief Structure contaiong information about single car
+ * @brief Structure contaiong information about car.
  */
 struct Car {
   //! registraction number.

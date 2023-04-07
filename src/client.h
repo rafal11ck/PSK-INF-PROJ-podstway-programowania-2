@@ -5,8 +5,6 @@
  * @brief Structure hodling client single data
  */
 struct Client {
-  //! ID coresponding to primary key in database.
-  int m_clientId;
   //! %Client's card ID.
   int m_cardId;
   //! String holding first name.

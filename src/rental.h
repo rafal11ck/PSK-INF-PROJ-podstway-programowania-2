@@ -1,11 +1,11 @@
 #include "client.h"
 
 /**
- * @brief Contains infomation about single rental
+ * @brief Contains infomation about rental.
  */
 struct Rental {
   //! \link Client::m_cardId Card id of client \endlink who rents car.
-  char *m_clientCardID;
+  int m_clientCardID;
   //! \link Car::m_regNum Car registraction number \endlink of rented car.
   char *m_carReg;
   //! Rental start date.
