@@ -26,20 +26,15 @@ struct ListNode *listCreateNode(void *data);
 bool listInsertBefore(struct List *list, struct ListNode *node, void *data);
 
 /**
- * @brief Returns pointer to the first element of list.
- * @param list List pointer of which first element is wanted.
- * @return Pointer to the first element in the List.
- * - Returns NULL if List is empty.
+ * @brief Dealocates data poined by ListNode::m_data and ListNode.
+ * @param node for dealocation.
  */
-struct ListNode *listGetFront(struct List *list);
-
-/**
- * @brief Returns pointer to the last element of list.
- * @param list List pointer of which last element is wanted.
- * @return Pointer to the last element in the List.
- * - Returns NULL if List is empty.
- */
-struct ListNode *listGetBack(struct List *list);
+inline bool listDealocateListNode(struct ListNode *node) {
+  assert(node != NULL);
+  free(node->m_data);
+  free(node);
+  return false;
+}
 
 struct List *listCreateList() {
   struct List *list = malloc(sizeof(struct List));
@@ -129,4 +124,28 @@ struct ListNode *listGetFront(struct List *list) {
 
 struct ListNode *listGetBack(struct List *list) {
   return list->m_back;
+}
+
+bool listDeleteNode(struct List *list, struct ListNode *node) {
+  assert(node != NULL);
+  // If node for removal is first in the list
+  if (node == listGetFront(list)) {
+    list->m_front = node->m_next;
+    // If it's only one ListNode in List.
+    if (node == listGetBack(list))
+      list->m_back = node->m_prev;
+    else
+      node->m_next->m_prev = node->m_prev;
+  }
+  // ListNode for removal is not at front in the List.
+  else {
+    node->m_prev->m_next = node->m_next;
+    // node for removal is last in the list
+    if (node == listGetBack(list))
+      list->m_back = node->m_prev;
+    else
+      node->m_next->m_prev = node->m_prev;
+  }
+  listDealocateListNode(node);
+  return false;
 }

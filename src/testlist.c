@@ -3,11 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/**
- * @file
- * @brief List unit test.
- * */
-
 //! Number of items to push during tests
 #define N 5
 
