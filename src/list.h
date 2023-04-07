@@ -33,7 +33,7 @@ struct List {
 struct List *listCreateList();
 
 /**
- * @brief Adds item to the front of list.
+ * @brief Adds item at the front of list.
  * @param list List into which item is added.
  * @param data Pointer to data that will be pushed.
  * @return false if everything is fine.
@@ -41,11 +41,20 @@ struct List *listCreateList();
 bool listPushFront(struct List *list, void *data);
 
 /**
+ * @brief Adds item at the end of list.
+ * @param list List into which item is added.
+ * @param data Pointer to data that will be pushed.
+ * @return false if everything is fine.
+ * */
+bool listPushBack(struct List *list, void *data);
+
+/**
  * @brief Inserts data in list at appropriate positon so that list remains
  * sorted.
  * @param list List into which item is inserted.
  * @param data Pointer to data that will be inserted.
- * @param prevFun Pointer to function that compares two data instances.
+ * @param lessFun Pointer to function that compares two data instances.
+ * @return false if everything is fine.
  **/
 bool listInsertData(struct List *list, void *data,
-                    bool (*prevFun)(void *, void *));
+                    bool (*prevFun)(const void *, const void *));
