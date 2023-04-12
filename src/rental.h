@@ -4,10 +4,12 @@
  * @brief Contains infomation about rental.
  */
 struct Rental {
-  //! \link Client::m_cardId Card id of client \endlink who rents car.
-  int m_clientCardID;
+  //! Rental Id.
+  long long m_rentalID;
+  //! \link Client::m_cId Card id of client \endlink who rents car.
+  long long m_clientID;
   //! \link Car::m_regNum Car registraction number \endlink of rented car.
-  char *m_carReg;
+  char *m_carRegNum;
   //! Rental start date.
   char *m_since;
   //! Rental end date.

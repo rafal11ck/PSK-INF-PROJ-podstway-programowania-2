@@ -6,9 +6,9 @@
  */
 struct Client {
   //! %Client ID.
-  int m_clientId;
+  int m_ID;
   //! %Client's card ID.
-  int m_cardId;
+  int m_cardID;
   //! String holding first name.
   char *m_name;
   //! String holding second name.
