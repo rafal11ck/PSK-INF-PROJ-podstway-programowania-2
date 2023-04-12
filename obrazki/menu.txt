@@ -1,0 +1,62 @@
+digraph G{
+	rankdir="LR";
+	label="mainMenu";
+	mg[label="Main menu"];
+	mg -> rent;
+	mg -> Cars;
+	mg -> Clients;
+	mg -> exit;
+
+
+	subgraph cluster1{
+	label="Rentals";
+
+	rent[label="Rentals"];
+	newRent[label="newRent"];
+	returnRent;
+	listRents;
+
+	rent->listRents;
+	rent->returnRent;
+	rent->newRent;
+	}
+
+	returnRent->getDate;
+	returnRent->getCarID;
+	newRent->getDate;
+	newRent->getCarID;
+	newRent->getClientID;
+	getDate;
+
+	subgraph cluster2{
+	label="Cars"
+	Cars;
+	newCar;
+	removeCar;
+	editCar;
+	getCarID;
+	searchCar;
+
+	Cars->newCar;
+	Cars->removeCar;
+	Cars->editCar;
+	Cars->listCars;
+
+	getCarID->searchCar;
+	}
+	
+	editCar->getCarID;
+	removeCar->getCarID;
+
+	subgraph cluster3{
+		label="Clients"
+		Clients;
+		Clients->addClient;
+		Clients->removeClient;
+		Clients->editClient;
+
+		editClient->getClientID;
+		removeClient->getClientID;
+		getClientID;
+	}
+}
