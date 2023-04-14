@@ -22,7 +22,7 @@ void mainMenu() {
       system("cls");
       printf("Main Menu:\n");
 
-      // Wyœwietl opcje menu
+      // Wyswietl opcje menu
       for(i = 0; i < liczba_opcji; i++) {
          if(i == wybor) {
             printf(" -> %s\n", opcje[i]);
@@ -32,15 +32,15 @@ void mainMenu() {
          }
       }
 
-      // Odczytaj naciœniêty klawisz
+      // Odczytaj nacisniety klawisz
       int klawisz = getch();
 
       if(klawisz == 224) {
          klawisz = getch();
-         if(klawisz == 72 && wybor > 0) { // Strza³ka w górê
+         if(klawisz == 72 && wybor > 0) { // Strzalka w gore
             wybor--;
          }
-         else if(klawisz == 80 && wybor < liczba_opcji - 1) { // Strza³ka w dó³
+         else if(klawisz == 80 && wybor < liczba_opcji - 1) { // Strzalka w dol
             wybor++;
          }
       }
@@ -60,13 +60,13 @@ void mainMenu() {
                break;
          }
 
-         // Zakoñcz program, jeœli u¿ytkownik wybra³ opcjê "Wyjœcie"
+         // Zakoncz program, jesli uzytkownik wybral opcje "Wyjscie"
          if(wybor == liczba_opcji - 1) {
             break;
          }
 
-         // Poczekaj na naciœniêcie dowolnego klawisza, aby wróciæ do menu
-         printf("Naciœnij dowolny klawisz, aby kontynuowaæ...");
+         // Poczekaj na nacisniecie dowolnego klawisza, aby wrocic do menu
+         printf("Nacisnij dowolny klawisz, aby kontynuowac...");
          getch();
       }
    } while(1);
@@ -82,7 +82,7 @@ void carsMenu() {
       system("cls");
       printf("Cars Menu:\n");
 
-      // Wyœwietl opcje menu
+      // Wyswietl opcje carsmenu
       for(i = 0; i < liczba_opcji; i++) {
          if(i == wybor) {
             printf(" -> %s\n", opcje[i]);
@@ -92,15 +92,15 @@ void carsMenu() {
          }
       }
 
-      // Odczytaj naciœniêty klawisz
+      // Odczytaj nacisniety klawisz
       int klawisz = getch();
 
       if(klawisz == 224) {
          klawisz = getch();
-         if(klawisz == 72 && wybor > 0) { // Strza³ka w górê
+         if(klawisz == 72 && wybor > 0) { // Strzalka w gore
             wybor--;
          }
-         else if(klawisz == 80 && wybor < liczba_opcji - 1) { // Strza³ka w dó³
+         else if(klawisz == 80 && wybor < liczba_opcji - 1) { // Strzalka w dol
             wybor++;
          }
       }
@@ -125,12 +125,12 @@ void carsMenu() {
                break;
          }
 
-         // Zakoñcz program, jeœli u¿ytkownik wybra³ opcjê "Wyjœcie"
+         // Zakoncz menu, jesli uzytkownik wybral opcje "returnToMainMenu"
          if(wybor == liczba_opcji - 1) {
             break;
          }
 
-         // Poczekaj na naciœniêcie dowolnego klawisza, aby wróciæ do menu
+         // Poczekaj na nacisniecie dowolnego klawisza, aby wrocic do menu
          printf("Naciœnij dowolny klawisz, aby kontynuowaæ...");
          getch();
       }
@@ -147,7 +147,7 @@ void clientsMenu() {
       system("cls");
       printf("Clients Menu:\n");
 
-      // Wyœwietl opcje menu
+      // Wyswietl opcje clientsmenu
       for(i = 0; i < liczba_opcji; i++) {
          if(i == wybor) {
             printf(" -> %s\n", opcje[i]);
@@ -157,15 +157,15 @@ void clientsMenu() {
          }
       }
 
-      // Odczytaj naciœniêty klawisz
+      // Odczytaj nacisniety klawisz
       int klawisz = getch();
 
       if(klawisz == 224) {
          klawisz = getch();
-         if(klawisz == 72 && wybor > 0) { // Strza³ka w górê
+         if(klawisz == 72 && wybor > 0) { // Strzalka w gore
             wybor--;
          }
-         else if(klawisz == 80 && wybor < liczba_opcji - 1) { // Strza³ka w dó³
+         else if(klawisz == 80 && wybor < liczba_opcji - 1) { // Strzalka w dol
             wybor++;
          }
       }
@@ -187,12 +187,12 @@ void clientsMenu() {
                break;
          }
 
-         // Zakoñcz program, jeœli u¿ytkownik wybra³ opcjê "Wyjœcie"
+          // Zakoncz menu, jesli uzytkownik wybral opcje "returnToMainMenu"
          if(wybor == liczba_opcji - 1) {
             break;
          }
 
-         // Poczekaj na naciœniêcie dowolnego klawisza, aby wróciæ do menu
+          // Zakoncz menu, jesli uzytkownik wybral opcje "returnToMainMenu"
          printf("Naciœnij dowolny klawisz, aby kontynuowaæ...");
          getch();
       }
@@ -209,7 +209,7 @@ void rentalsMenu() {
       system("cls");
       printf("Rents Menu:\n");
 
-      // Wyœwietl opcje menu
+      // Wyswietl opcje menu
       for(i = 0; i < liczba_opcji; i++) {
          if(i == wybor) {
             printf(" -> %s\n", opcje[i]);
@@ -219,15 +219,15 @@ void rentalsMenu() {
          }
       }
 
-      // Odczytaj naciœniêty klawisz
+      // Odczytaj nacisniety klawisz
       int klawisz = getch();
 
       if(klawisz == 224) {
          klawisz = getch();
-         if(klawisz == 72 && wybor > 0) { // Strza³ka w górê
+         if(klawisz == 72 && wybor > 0) { // Strzalka w gore
             wybor--;
          }
-         else if(klawisz == 80 && wybor < liczba_opcji - 1) { // Strza³ka w dó³
+         else if(klawisz == 80 && wybor < liczba_opcji - 1) { // Strzalka w dol
             wybor++;
          }
       }
@@ -246,12 +246,12 @@ void rentalsMenu() {
                break;
          }
 
-         // Zakoñcz program, jeœli u¿ytkownik wybra³ opcjê "Wyjœcie"
+          // Zakoncz menu, jesli uzytkownik wybral opcje "returnToMainMenu"
          if(wybor == liczba_opcji - 1) {
             break;
          }
 
-         // Poczekaj na naciœniêcie dowolnego klawisza, aby wróciæ do menu
+         // Poczekaj na nacisniecie dowolnego klawisza, aby wrocic do menu
          printf("Naciœnij dowolny klawisz, aby kontynuowaæ...");
          getch();
       }
