@@ -1,24 +1,44 @@
+#include "menu.h"
 #include <ncurses.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-void mainMenu();
+/**
+ *@file
+ *@brief Menu implementation.
+ **/
+
+/**
+ * @brief Handles main menu.
+ */
+void mainMenuSelection();
+
+/**
+ * @brief Handles cars menu.
+ * */
 void carsMenu();
+
+/**
+ * @brief Handles clients menu.
+ * */
 void clientsMenu();
+
+/**
+ * @brief Handles rentals menu.
+ * */
 void rentalsMenu();
 
-int main() {
+void mainMenu() {
   initscr();
   noecho();
   cbreak();
   keypad(stdscr, TRUE);
-  mainMenu();
+  mainMenuSelection();
   endwin();
-  return 0;
 }
 
-void mainMenu() {
+void mainMenuSelection() {
   char *opcje[] = {"Cars", "Clients", "Rentals", "Exit"};
   const int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
 
