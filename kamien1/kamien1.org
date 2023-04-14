@@ -1,0 +1,43 @@
+#+options: toc:nil
++-----------------------------------------------------------------------------------------+
+|                          Politechnika Świętokrzyska w Kielcach                          |
+|                    Wydział Elektrotechniki,Automatyki I Informatyki                     |
++-----------------------------------------------------------------------------------------+
+|                           Podstawy Programownaia 2 - Projekt                            |
+|                        Informatyka - I Rok akademicki 2022/2023                         |
++----------------------------------------------------------------+------------------------+
+|                        Temat Projektu:                         |       Wykonali:        |
+|                    Wypożyczalnia Samochodów                    |     1. Rafał Grot      |
+|                                                                |     2. Kamil Gunia     |
+|                                                                |    3. Jakub Grzelec    |
+|                                                                | 4. Karina Goszczyńska  |
++----------------------------------------------------------------+------------------------+
+* Pierwszy kamień milowy
+** Opanowanie systemu kotroli wersji =git=.
+Mogło być lepiej ale damy radę.
+** Podział pracy w zespole.
+Mogło być lepiej ale damy radę.
+** Projekt relacyjniej bazy danych samochodów, klientów, wypożyczeń.
+Jest.
+** Zapoznanie się z biblioteką =sqlite= [[https://www.sqlite.org]] ,nauka tworzenia i wykonwywania porstych kwerend za jej pomocą.
+Mogło być lepiej ale damy radę.
+** Wstępna implementacja interfejsu użytkownia.
+Jest.
+** Testowanie poprawności działąnia menu.
+Działa.
+** Przygotowanie sprawozdania z postępów prac nad projektem.
+Jest.
+** Podsumowanie co się udało/nie udało
+Jest powyżej.
+Dodatkowo połowa zespołu opanowała Doxygen oraz podstawy biblioteki =ncurses=.
+Została napisana implementacja podwójnie linkowanej listy.
+* Drugi kamień milowy
+1. Implementacja bazy danych.
+2. Implementacja dodawania, usuwania oraz modyfikacji -- Samochodów i kilentów.
+3. Implementacja wypożyczania i oddawania samochodów
+4. Wyświetlanie samochodów z możliwością sortowania rosnącego/malejącego.
+5. podsumowanie
+* I termin
+1. Stworzenie dokumentacji w porgramie =Doxygen=
+2. Sporządzenie sprawodzania.
+3. Dodanie ewentualnych ulepszeń.
