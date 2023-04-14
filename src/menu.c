@@ -1,156 +1,259 @@
-#include <panel.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
 
-typedef struct _PANEL_DATA {
-  int hide; /* TRUE if panel is hidden */
-} PANEL_DATA;
-
-#define NLINES 10
-#define NCOLS 40
-
-void init_wins(WINDOW **wins, int n);
-void win_show(WINDOW *win, char *label, int label_color);
-void print_in_middle(WINDOW *win, int starty, int startx, int width,
-                     char *string, chtype color);
+void mainMenu();
+void carsMenu();
+void clientsMenu();
+void rentalsMenu();
 
 int main() {
-  WINDOW *my_wins[3];
-  PANEL *my_panels[3];
-  PANEL_DATA panel_datas[3];
-  PANEL_DATA *temp;
-  int ch;
-
-  /* Initialize curses */
-  initscr();
-  start_color();
-  cbreak();
-  noecho();
-  keypad(stdscr, TRUE);
-
-  /* Initialize all the colors */
-  init_pair(1, COLOR_RED, COLOR_BLACK);
-  init_pair(2, COLOR_GREEN, COLOR_BLACK);
-  init_pair(3, COLOR_BLUE, COLOR_BLACK);
-  init_pair(4, COLOR_CYAN, COLOR_BLACK);
-
-  init_wins(my_wins, 3);
-
-  /* Attach a panel to each window */   /* Order is bottom up */
-  my_panels[0] = new_panel(my_wins[0]); /* Push 0, order: stdscr-0 */
-  my_panels[1] = new_panel(my_wins[1]); /* Push 1, order: stdscr-0-1 */
-  my_panels[2] = new_panel(my_wins[2]); /* Push 2, order: stdscr-0-1-2 */
-
-  /* Initialize panel datas saying that nothing is hidden */
-  panel_datas[0].hide = FALSE;
-  panel_datas[1].hide = FALSE;
-  panel_datas[2].hide = FALSE;
-
-  set_panel_userptr(my_panels[0], &panel_datas[0]);
-  set_panel_userptr(my_panels[1], &panel_datas[1]);
-  set_panel_userptr(my_panels[2], &panel_datas[2]);
-
-  /* Update the stacking order. 2nd panel will be on top */
-  update_panels();
-
-  /* Show it on the screen */
-  attron(COLOR_PAIR(4));
-  mvprintw(LINES - 3, 0,
-           "Show or Hide a window with 'a'(first window)  'b'(Second Window)  "
-           "'c'(Third Window)");
-  mvprintw(LINES - 2, 0, "F1 to Exit");
-
-  attroff(COLOR_PAIR(4));
-  doupdate();
-
-  while ((ch = getch()) != KEY_F(1)) {
-    switch (ch) {
-    case 'a':
-      temp = (PANEL_DATA *)panel_userptr(my_panels[0]);
-      temp->hide = !temp->hide;
-      if (temp->hide == FALSE) {
-        hide_panel(my_panels[0]);
-      } else {
-        show_panel(my_panels[0]);
-      }
-      break;
-    case 'b':
-      temp = (PANEL_DATA *)panel_userptr(my_panels[1]);
-      if (temp->hide == FALSE) {
-        hide_panel(my_panels[1]);
-        temp->hide = TRUE;
-      } else {
-        show_panel(my_panels[1]);
-        temp->hide = FALSE;
-      }
-      break;
-    case 'c':
-      temp = (PANEL_DATA *)panel_userptr(my_panels[2]);
-      if (temp->hide == FALSE) {
-        hide_panel(my_panels[2]);
-        temp->hide = TRUE;
-      } else {
-        show_panel(my_panels[2]);
-        temp->hide = FALSE;
-      }
-      break;
-    }
-    update_panels();
-    doupdate();
-  }
-  endwin();
-  return 0;
+   mainMenu();
+   return 0;
 }
 
-/* Put all the windows */
-void init_wins(WINDOW **wins, int n) {
-  int x, y, i;
-  char label[80];
+void mainMenu() {
+   int wybor = 0;
+   char *opcje[] = {"Cars", "Clients", "Rentals", "Exit"};
+   int liczba_opcji = sizeof(opcje)/sizeof(opcje[0]);
+   int i;
 
-  y = 2;
-  x = 10;
-  for (i = 0; i < n; ++i) {
-    wins[i] = newwin(NLINES, NCOLS, y, x);
-    sprintf(label, "Window Number %d", i + 1);
-    win_show(wins[i], label, i + 1);
-    y += 3;
-    x += 7;
-  }
+   do {
+      system("cls");
+      printf("Main Menu:\n");
+
+      // Wyœwietl opcje menu
+      for(i = 0; i < liczba_opcji; i++) {
+         if(i == wybor) {
+            printf(" -> %s\n", opcje[i]);
+         }
+         else {
+            printf("    %s\n", opcje[i]);
+         }
+      }
+
+      // Odczytaj naciœniêty klawisz
+      int klawisz = getch();
+
+      if(klawisz == 224) {
+         klawisz = getch();
+         if(klawisz == 72 && wybor > 0) { // Strza³ka w górê
+            wybor--;
+         }
+         else if(klawisz == 80 && wybor < liczba_opcji - 1) { // Strza³ka w dó³
+            wybor++;
+         }
+      }
+      else if(klawisz == 13) { // ENTER
+         switch(wybor) {
+            case 0:
+               carsMenu();
+               break;
+            case 1:
+               clientsMenu();
+               break;
+            case 2:
+               rentalsMenu();
+               break;
+            case 3:
+               printf("Do widzenia!\n");
+               break;
+         }
+
+         // Zakoñcz program, jeœli u¿ytkownik wybra³ opcjê "Wyjœcie"
+         if(wybor == liczba_opcji - 1) {
+            break;
+         }
+
+         // Poczekaj na naciœniêcie dowolnego klawisza, aby wróciæ do menu
+         printf("Naciœnij dowolny klawisz, aby kontynuowaæ...");
+         getch();
+      }
+   } while(1);
 }
 
-/* Show the window with a border and a label */
-void win_show(WINDOW *win, char *label, int label_color) {
-  int startx, starty, height, width;
+void carsMenu() {
+       int wybor = 0;
+   char *opcje[] = {"listCars", "searchCars", "addCars", "removeCars", "editCars", "returnToMainMenu"};
+   int liczba_opcji = sizeof(opcje)/sizeof(opcje[0]);
+   int i;
 
-  getbegyx(win, starty, startx);
-  getmaxyx(win, height, width);
+   do {
+      system("cls");
+      printf("Cars Menu:\n");
 
-  box(win, 0, 0);
-  mvwaddch(win, 2, 0, ACS_LTEE);
-  mvwhline(win, 2, 1, ACS_HLINE, width - 2);
-  mvwaddch(win, 2, width - 1, ACS_RTEE);
+      // Wyœwietl opcje menu
+      for(i = 0; i < liczba_opcji; i++) {
+         if(i == wybor) {
+            printf(" -> %s\n", opcje[i]);
+         }
+         else {
+            printf("    %s\n", opcje[i]);
+         }
+      }
 
-  print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
+      // Odczytaj naciœniêty klawisz
+      int klawisz = getch();
+
+      if(klawisz == 224) {
+         klawisz = getch();
+         if(klawisz == 72 && wybor > 0) { // Strza³ka w górê
+            wybor--;
+         }
+         else if(klawisz == 80 && wybor < liczba_opcji - 1) { // Strza³ka w dó³
+            wybor++;
+         }
+      }
+      else if(klawisz == 13) { // ENTER
+         switch(wybor) {
+            case 0:
+               printf("Wybrales opcje: listCars\n");
+               break;
+            case 1:
+               printf("Wybrales opcje: searchCars\n");
+               break;
+            case 2:
+               printf("Wybrales opcje: addCars\n");
+               break;
+            case 3:
+               printf("Wybrales opcje: removeCars\n");
+               break;
+            case 4:
+               printf("Wybrales opcje: editCars\n");
+               break;
+            case 5:
+               break;
+         }
+
+         // Zakoñcz program, jeœli u¿ytkownik wybra³ opcjê "Wyjœcie"
+         if(wybor == liczba_opcji - 1) {
+            break;
+         }
+
+         // Poczekaj na naciœniêcie dowolnego klawisza, aby wróciæ do menu
+         printf("Naciœnij dowolny klawisz, aby kontynuowaæ...");
+         getch();
+      }
+   } while(1);
 }
 
-void print_in_middle(WINDOW *win, int starty, int startx, int width,
-                     char *string, chtype color) {
-  int length, x, y;
-  float temp;
+void clientsMenu() {
+       int wybor = 0;
+   char *opcje[] = {"listClients", "addClients", "removeClients", "editClients", "returnToMainMenu"};
+   int liczba_opcji = sizeof(opcje)/sizeof(opcje[0]);
+   int i;
 
-  if (win == NULL)
-    win = stdscr;
-  getyx(win, y, x);
-  if (startx != 0)
-    x = startx;
-  if (starty != 0)
-    y = starty;
-  if (width == 0)
-    width = 80;
+   do {
+      system("cls");
+      printf("Clients Menu:\n");
 
-  length = strlen(string);
-  temp = (width - length) / 2;
-  x = startx + (int)temp;
-  wattron(win, color);
-  mvwprintw(win, y, x, "%s", string);
-  wattroff(win, color);
-  refresh();
+      // Wyœwietl opcje menu
+      for(i = 0; i < liczba_opcji; i++) {
+         if(i == wybor) {
+            printf(" -> %s\n", opcje[i]);
+         }
+         else {
+            printf("    %s\n", opcje[i]);
+         }
+      }
+
+      // Odczytaj naciœniêty klawisz
+      int klawisz = getch();
+
+      if(klawisz == 224) {
+         klawisz = getch();
+         if(klawisz == 72 && wybor > 0) { // Strza³ka w górê
+            wybor--;
+         }
+         else if(klawisz == 80 && wybor < liczba_opcji - 1) { // Strza³ka w dó³
+            wybor++;
+         }
+      }
+      else if(klawisz == 13) { // ENTER
+         switch(wybor) {
+            case 0:
+               printf("Wybrales opcje: listClients\n");
+               break;
+            case 1:
+               printf("Wybrales opcje: addClients\n");
+               break;
+            case 2:
+               printf("Wybrales opcje: removeClients\n");
+               break;
+            case 3:
+               printf("Wybrales opcje: editClients\n");
+               break;
+            case 4:
+               break;
+         }
+
+         // Zakoñcz program, jeœli u¿ytkownik wybra³ opcjê "Wyjœcie"
+         if(wybor == liczba_opcji - 1) {
+            break;
+         }
+
+         // Poczekaj na naciœniêcie dowolnego klawisza, aby wróciæ do menu
+         printf("Naciœnij dowolny klawisz, aby kontynuowaæ...");
+         getch();
+      }
+   } while(1);
+}
+
+void rentalsMenu() {
+       int wybor = 0;
+   char *opcje[] = {"listRents", "addRent", "returnRent", "returnToMainMenu"};
+   int liczba_opcji = sizeof(opcje)/sizeof(opcje[0]);
+   int i;
+
+   do {
+      system("cls");
+      printf("Rents Menu:\n");
+
+      // Wyœwietl opcje menu
+      for(i = 0; i < liczba_opcji; i++) {
+         if(i == wybor) {
+            printf(" -> %s\n", opcje[i]);
+         }
+         else {
+            printf("    %s\n", opcje[i]);
+         }
+      }
+
+      // Odczytaj naciœniêty klawisz
+      int klawisz = getch();
+
+      if(klawisz == 224) {
+         klawisz = getch();
+         if(klawisz == 72 && wybor > 0) { // Strza³ka w górê
+            wybor--;
+         }
+         else if(klawisz == 80 && wybor < liczba_opcji - 1) { // Strza³ka w dó³
+            wybor++;
+         }
+      }
+      else if(klawisz == 13) { // ENTER
+         switch(wybor) {
+            case 0:
+               printf("Wybrales opcje: listRents\n");
+               break;
+            case 1:
+               printf("Wybrales opcje: addRent\n");
+               break;
+            case 2:
+               printf("Wybrales opcje: returnRent\n");
+               break;
+            case 3:
+               break;
+         }
+
+         // Zakoñcz program, jeœli u¿ytkownik wybra³ opcjê "Wyjœcie"
+         if(wybor == liczba_opcji - 1) {
+            break;
+         }
+
+         // Poczekaj na naciœniêcie dowolnego klawisza, aby wróciæ do menu
+         printf("Naciœnij dowolny klawisz, aby kontynuowaæ...");
+         getch();
+      }
+   } while(1);
 }
