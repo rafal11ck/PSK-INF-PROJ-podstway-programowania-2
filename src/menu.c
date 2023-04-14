@@ -131,7 +131,7 @@ void carsMenu() {
          }
 
          // Poczekaj na nacisniecie dowolnego klawisza, aby wrocic do menu
-         printf("Naciúnij dowolny klawisz, aby kontynuowaÊ...");
+         printf("Naci≈ìnij dowolny klawisz, aby kontynuowa√¶...");
          getch();
       }
    } while(1);
@@ -193,7 +193,7 @@ void clientsMenu() {
          }
 
           // Zakoncz menu, jesli uzytkownik wybral opcje "returnToMainMenu"
-         printf("Naciúnij dowolny klawisz, aby kontynuowaÊ...");
+         printf("Naci≈ìnij dowolny klawisz, aby kontynuowa√¶...");
          getch();
       }
    } while(1);
@@ -252,7 +252,7 @@ void rentalsMenu() {
          }
 
          // Poczekaj na nacisniecie dowolnego klawisza, aby wrocic do menu
-         printf("Naciúnij dowolny klawisz, aby kontynuowaÊ...");
+         printf("Naci≈ìnij dowolny klawisz, aby kontynuowa√¶...");
          getch();
       }
    } while(1);
