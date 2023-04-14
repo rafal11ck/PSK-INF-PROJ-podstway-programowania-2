@@ -1,2 +1,0 @@
-Większośc przepisana z książki
-https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/intro.html

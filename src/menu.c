@@ -1,53 +1,74 @@
+#include "menu.h"
 #include <ncurses.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-void mainMenu();
+/**
+ *@file
+ *@brief Menu implementation.
+ **/
+
+/**
+ * @brief Handles main menu.
+ */
+void mainMenuSelection();
+
+/**
+ * @brief Handles cars menu.
+ * */
 void carsMenu();
+
+/**
+ * @brief Handles clients menu.
+ * */
 void clientsMenu();
+
+/**
+ * @brief Handles rentals menu.
+ * */
 void rentalsMenu();
 
-int main() {
-  initscr();            // Inicjalizacja ekranu ncurses
-  cbreak();             // Wylaczenie buforowania linii
-  noecho();             // Wylaczenie wyswietlania wczytywanych znakow
-  keypad(stdscr, TRUE); // Wlaczenie obslugi klawiatury
-
-  mainMenu();
-
-  endwin(); // Zakonczenie trybu ncurses
-  return 0;
+void mainMenu() {
+  initscr();
+  noecho();
+  cbreak();
+  keypad(stdscr, TRUE);
+  mainMenuSelection();
+  endwin();
 }
 
-void mainMenu() {
-  int wybor = 0;
+void mainMenuSelection() {
   char *opcje[] = {"Cars", "Clients", "Rentals", "Exit"};
-  int liczba_opcji = sizeof(opcje) / sizeof(opcje[0]);
-  int i;
+  const int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
 
-  do {
-    clear(); // Wyczyszczenie ekranu
+  int currentChoice = 0;
+  int choice;
+  while (true) {
+    clear();
+    mvprintw(0, 0, "Main Menu:\n");
 
-    // Wyswietl opcje menu
-    printw("Main Menu:\n");
-    for (i = 0; i < liczba_opcji; i++) {
-      if (i == wybor) {
+    for (int i = 0; i < liczbaOpcji; i++) {
+      // print arrow for current option
+      if (i == currentChoice)
         printw(" -> ");
-      } else {
+      else
         printw("    ");
-      }
       printw("%s\n", opcje[i]);
     }
 
-    // Odczytaj nacisniety klawisz
-    int klawisz = getch();
-
-    if (klawisz == KEY_UP && wybor > 0) {
-      wybor--; // Strzalka w gore
-    } else if (klawisz == KEY_DOWN && wybor < liczba_opcji - 1) {
-      wybor++;                  // Strzalka w dol
-    } else if (klawisz == 10) { // ENTER
-      switch (wybor) {
+    refresh();
+    switch (choice = getch()) {
+    case KEY_UP:
+      if (currentChoice > 0)
+        --currentChoice;
+      break;
+    case KEY_DOWN:
+      if (currentChoice < liczbaOpcji - 1)
+        ++currentChoice;
+      break;
+    case 10:
+      switch (currentChoice) {
       case 0:
         carsMenu();
         break;
@@ -58,52 +79,46 @@ void mainMenu() {
         rentalsMenu();
         break;
       case 3:
-        printw("Do widzenia!\n");
-        break;
+        return;
       }
-
-      // Zakoncz program, jesli uzytkownik wybral opcje "Wyjscie"
-      if (wybor == liczba_opcji - 1) {
-        break;
-      }
-
-      // Poczekaj na nacisniecie dowolnego klawisza, aby wrocic do menu
-      printw("Nacisnij dowolny klawisz, aby kontynuowac...");
-      getch();
     }
-  } while (1);
+  }
 }
 
 void carsMenu() {
-  int wybor = 0;
   char *opcje[] = {"listCars",   "searchCars", "addCars",
                    "removeCars", "editCars",   "returnToMainMenu"};
-  int liczba_opcji = sizeof(opcje) / sizeof(opcje[0]);
-  int i;
+  const int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
 
-  do {
-    clear(); // Wyczyszczenie ekranu
+  int currentChoice = 0;
 
-    // Wyswietl opcje menu
+  int choice;
+  while (true) {
+    clear();
+    refresh();
     printw("Cars Menu:\n");
-    for (i = 0; i < liczba_opcji; i++) {
-      if (i == wybor) {
+
+    // wyswietl opcje
+    for (int i = 0; i < liczbaOpcji; i++) {
+      // print arrow for current option
+      if (i == currentChoice)
         printw(" -> ");
-      } else {
+      else
         printw("    ");
-      }
       printw("%s\n", opcje[i]);
     }
 
-    // Odczytaj nacisniety klawisz
-    int klawisz = getch();
-
-    if (klawisz == KEY_UP && wybor > 0) {
-      wybor--; // Strzalka w gore
-    } else if (klawisz == KEY_DOWN && wybor < liczba_opcji - 1) {
-      wybor++;                  // Strzalka w dol
-    } else if (klawisz == 10) { // ENTER
-      switch (wybor) {
+    switch (choice = getch()) {
+    case KEY_UP:
+      if (currentChoice > 0)
+        --currentChoice;
+      break;
+    case KEY_DOWN:
+      if (currentChoice < liczbaOpcji - 1)
+        ++currentChoice;
+      break;
+    case 10:
+      switch (currentChoice) {
       case 0:
         printw("Wybrales opcje: listCars\n");
         break;
@@ -120,51 +135,48 @@ void carsMenu() {
         printw("Wybrales opcje: editCars\n");
         break;
       case 5:
-        break;
+        return;
       }
-
-      // Zakoncz program, jesli uzytkownik wybral opcje "Wyjscie"
-      if (wybor == liczba_opcji - 1) {
-        break;
-      }
-
-      // Poczekaj na nacisniecie dowolnego klawisza, aby wrocic do menu
-      printw("Nacisnij dowolny klawisz, aby kontynuowac...");
+      refresh();
       getch();
     }
-  } while (1);
+  }
 }
 
 void clientsMenu() {
-  int wybor = 0;
   char *opcje[] = {"listClients", "addClients", "removeClients", "editClients",
                    "returnToMainMenu"};
-  int liczba_opcji = sizeof(opcje) / sizeof(opcje[0]);
-  int i;
+  int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
 
-  do {
-    clear(); // Wyczyszczenie ekranu
-
-    // Wyswietl opcje menu
+  int currentChoice = 0;
+  while (true) {
+    clear();
+    refresh();
     printw("Clients Menu:\n");
-    for (i = 0; i < liczba_opcji; i++) {
-      if (i == wybor) {
+
+    for (int i = 0; i < liczbaOpcji; i++) {
+      // print arrow for current option
+      if (i == currentChoice)
         printw(" -> ");
-      } else {
+      else
         printw("    ");
-      }
       printw("%s\n", opcje[i]);
     }
 
-    // Odczytaj nacisniety klawisz
-    int klawisz = getch();
+    refresh();
 
-    if (klawisz == KEY_UP && wybor > 0) {
-      wybor--; // Strzalka w gore
-    } else if (klawisz == KEY_DOWN && wybor < liczba_opcji - 1) {
-      wybor++;                  // Strzalka w dol
-    } else if (klawisz == 10) { // ENTER
-      switch (wybor) {
+    int choice;
+    switch (choice = getch()) {
+    case KEY_UP:
+      if (currentChoice > 0)
+        --currentChoice;
+      break;
+    case KEY_DOWN:
+      if (currentChoice < liczbaOpcji - 1)
+        ++currentChoice;
+      break;
+    case 10:
+      switch (currentChoice) {
       case 0:
         printw("Wybrales opcje: listClients\n");
         break;
@@ -178,50 +190,44 @@ void clientsMenu() {
         printw("Wybrales opcje: editClients\n");
         break;
       case 4:
-        break;
+        return;
       }
-
-      // Zakoncz program, jesli uzytkownik wybral opcje "Wyjscie"
-      if (wybor == liczba_opcji - 1) {
-        break;
-      }
-
-      // Poczekaj na nacisniecie dowolnego klawisza, aby wrocic do menu
-      printw("Nacisnij dowolny klawisz, aby kontynuowac...");
-      getch();
     }
-  } while (1);
+  }
 }
 
 void rentalsMenu() {
-  int wybor = 0;
   char *opcje[] = {"listRents", "addRent", "returnRent", "returnToMainMenu"};
-  int liczba_opcji = sizeof(opcje) / sizeof(opcje[0]);
-  int i;
+  int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
 
-  do {
-    clear(); // Wyczyszczenie ekranu
+  int currentChoice = 0;
+  while (true) {
+    clear();
+    refresh();
+    printw("Rents Menu:\n");
 
-    // Wyswietl opcje menu
-    printw("Rentals Menu:\n");
-    for (i = 0; i < liczba_opcji; i++) {
-      if (i == wybor) {
+    for (int i = 0; i < liczbaOpcji; i++) {
+      // print arrow for current option
+      if (i == currentChoice)
         printw(" -> ");
-      } else {
+      else
         printw("    ");
-      }
       printw("%s\n", opcje[i]);
     }
 
-    // Odczytaj nacisniety klawisz
-    int klawisz = getch();
-
-    if (klawisz == KEY_UP && wybor > 0) {
-      wybor--; // Strzalka w gore
-    } else if (klawisz == KEY_DOWN && wybor < liczba_opcji - 1) {
-      wybor++;                  // Strzalka w dol
-    } else if (klawisz == 10) { // ENTER
-      switch (wybor) {
+    refresh();
+    int choice;
+    switch (choice = getch()) {
+    case KEY_UP:
+      if (currentChoice > 0)
+        --currentChoice;
+      break;
+    case KEY_DOWN:
+      if (currentChoice < liczbaOpcji - 1)
+        ++currentChoice;
+      break;
+    case 10:
+      switch (currentChoice) {
       case 0:
         printw("Wybrales opcje: listRents\n");
         break;
@@ -232,17 +238,8 @@ void rentalsMenu() {
         printw("Wybrales opcje: returnRent\n");
         break;
       case 3:
-        break;
+        return;
       }
-
-      // Zakoncz program, jesli uzytkownik wybral opcje "Wyjscie"
-      if (wybor == liczba_opcji - 1) {
-        break;
-      }
-
-      // Poczekaj na nacisniecie dowolnego klawisza, aby wrocic do menu
-      printw("Nacisnij dowolny klawisz, aby kontynuowac...");
-      getch();
     }
-  } while (1);
+  }
 }

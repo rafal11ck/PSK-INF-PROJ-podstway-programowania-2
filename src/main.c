@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "menu.h"
 
 /**
  *@file
@@ -7,4 +7,4 @@
 /**
  * @brief main.
  * */
-int main() { puts("Placeholer"); }
+int main() { mainMenu(); }
