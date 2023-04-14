@@ -177,37 +177,37 @@ void clientsMenu() {
 }
 
 void rentalsMenu() {
-  int wybor = 0;
   char *opcje[] = {"listRents", "addRent", "returnRent", "returnToMainMenu"};
-  int liczba_opcji = sizeof(opcje) / sizeof(opcje[0]);
-  int i;
+  int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
 
-  do {
+  int currentChoice = 0;
+  while (true) {
     clear();
     refresh();
     printw("Rents Menu:\n");
 
-    // Wyswietl opcje menu
-    for (i = 0; i < liczba_opcji; i++) {
-      if (i == wybor) {
-        printw(" -> %s\n", opcje[i]);
-      } else {
-        printw("    %s\n", opcje[i]);
-      }
+    for (int i = 0; i < liczbaOpcji; i++) {
+      // print arrow for current option
+      if (i == currentChoice)
+        printw(" -> ");
+      else
+        printw("    ");
+      printw("%s\n", opcje[i]);
     }
 
-    // Odczytaj nacisniety klawisz
-    int klawisz = getch();
-
-    if (klawisz == 224) {
-      klawisz = getch();
-      if (klawisz == 72 && wybor > 0) { // Strzalka w gore
-        wybor--;
-      } else if (klawisz == 80 && wybor < liczba_opcji - 1) { // Strzalka w dol
-        wybor++;
-      }
-    } else if (klawisz == 13) { // ENTER
-      switch (wybor) {
+    refresh();
+    int choice;
+    switch (choice = getch()) {
+    case KEY_UP:
+      if (currentChoice > 0)
+        --currentChoice;
+      break;
+    case KEY_DOWN:
+      if (currentChoice < liczbaOpcji - 1)
+        ++currentChoice;
+      break;
+    case 10:
+      switch (currentChoice) {
       case 0:
         printw("Wybrales opcje: listRents\n");
         break;
@@ -218,17 +218,8 @@ void rentalsMenu() {
         printw("Wybrales opcje: returnRent\n");
         break;
       case 3:
-        break;
+        return;
       }
-
-      // Zakoncz menu, jesli uzytkownik wybral opcje "returnToMainMenu"
-      if (wybor == liczba_opcji - 1) {
-        break;
-      }
-
-      // Poczekaj na nacisniecie dowolnego klawisza, aby wrocic do menu
-      printw("Naciœnij dowolny klawisz, aby kontynuowaæ...");
-      getch();
     }
-  } while (1);
+  }
 }
