@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "dbhandle.h"
 #include <ncurses.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -30,12 +31,16 @@ void clientsMenu();
 void rentalsMenu();
 
 void mainMenu() {
-  initscr();
-  noecho();
-  cbreak();
-  keypad(stdscr, TRUE);
-  mainMenuSelection();
-  endwin();
+  if (dbHandleOpenDB())
+    fprintf(stderr, "Database error exiting.\n");
+  else {
+    initscr();
+    noecho();
+    cbreak();
+    keypad(stdscr, TRUE);
+    mainMenuSelection();
+    endwin();
+  }
 }
 
 void mainMenuSelection() {
