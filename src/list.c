@@ -29,7 +29,7 @@ bool listInsertBefore(struct List *list, struct ListNode *node, void *data);
  * @brief Dealocates data poined by ListNode::m_data and ListNode.
  * @param node for dealocation.
  */
-inline bool listDealocateListNode(struct ListNode *node) {
+bool listDealocateListNode(struct ListNode *node) {
   assert(node != NULL);
   free(node->m_data);
   free(node);
