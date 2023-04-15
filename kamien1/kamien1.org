@@ -23,7 +23,7 @@ Jest.
 Mogło być lepiej ale damy radę.
 ** Wstępna implementacja interfejsu użytkownia.
 Jest.
-** Testowanie poprawności działąnia menu.
+** Testowanie poprawności działania menu.
 Działa.
 ** Przygotowanie sprawozdania z postępów prac nad projektem.
 Jest.
