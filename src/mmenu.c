@@ -2,12 +2,14 @@
 #include "dbhandle.h"
 #include <menu.h>
 #include <ncurses.h>
+#include <panel.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #define MENUMARK (" * ")
+//#define _NDEBUG
 
 /**
  *@file
@@ -78,6 +80,8 @@ void mainMenuSelection() {
       newwin(windowRows, windowCols, (LINES - windowRows) / 2,
              (COLS - windowCols) / 2);
 
+  PANEL *panel = new_panel(mainMenuWindow);
+
   MENU *mainMenu = new_menu(mainMenuItems);
   set_menu_win(mainMenu, mainMenuWindow);
   keypad(mainMenuWindow, TRUE);
@@ -97,14 +101,30 @@ void mainMenuSelection() {
   set_menu_items(mainMenu, mainMenuItems);
   menu_opts_off(mainMenu, O_SHOWDESC);
 
-  // temp box
-  box(stdscr, 0, 0);
-  refresh();
-
   post_menu(mainMenu);
-  wrefresh(mainMenuWindow);
 
-  getch();
+  int input;
+  while (true) {
+    update_panels();
+    doupdate();
+    input = getch();
+    switch (input) {
+    case KEY_UP:
+      menu_driver(mainMenu, REQ_UP_ITEM);
+      break;
+    case KEY_DOWN:
+      menu_driver(mainMenu, REQ_DOWN_ITEM);
+      break;
+    case 10:;
+      ITEM *curitem = current_item(mainMenu);
+      const char *const name = item_name(curitem);
+#ifndef _NDEBUG
+      move(1, 1);
+      clrtoeol();
+      mvprintw(1, 1, "MAIN MENU SELECTED: %s", name);
+#endif
+    }
+  }
   unpost_menu(mainMenu);
   free_menu(mainMenu);
   for (int i = 0; i < liczbaOpcji; ++i)
