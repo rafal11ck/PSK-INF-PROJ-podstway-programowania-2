@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26.2)
+cmake_minimum_required(VERSION 3.22.1)
 project(Podstway_Programowania_2)
 
 add_library(car car.h car.c)
