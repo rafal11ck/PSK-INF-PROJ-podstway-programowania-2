@@ -1,5 +1,5 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef MMENU_H
+#define MMENU_H
 
 /**
  *@file
@@ -11,4 +11,4 @@
  * */
 void mainMenu();
 
-#endif // MENU_H
+#endif // MMENU_H

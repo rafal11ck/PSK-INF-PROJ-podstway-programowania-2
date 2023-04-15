@@ -1,9 +1,13 @@
-#include "menu.h"
+#include "mmenu.h"
 #include "dbhandle.h"
+#include <menu.h>
 #include <ncurses.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#define MENUMARK (" * ")
 
 /**
  *@file
@@ -44,50 +48,69 @@ void mainMenu() {
 }
 
 void mainMenuSelection() {
+  char *title = "Main menu";
   char *opcje[] = {"Cars", "Clients", "Rentals", "Exit"};
   const int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
 
-  int currentChoice = 0;
-  int choice;
-  while (true) {
-    clear();
-    mvprintw(0, 0, "Main Menu:\n");
+  ITEM **mainMenuItems = calloc(liczbaOpcji + 1, sizeof(ITEM *));
+  for (int i = 0; i < liczbaOpcji; ++i)
+    mainMenuItems[i] = new_item(opcje[i], opcje[i]);
+  mainMenuItems[liczbaOpcji] = NULL;
 
-    for (int i = 0; i < liczbaOpcji; i++) {
-      // print arrow for current option
-      if (i == currentChoice)
-        printw(" -> ");
-      else
-        printw("    ");
-      printw("%s\n", opcje[i]);
-    }
+  // boarders + title + options
+  const int windowRows = liczbaOpcji + 4;
 
-    refresh();
-    switch (choice = getch()) {
-    case KEY_UP:
-      if (currentChoice > 0)
-        --currentChoice;
-      break;
-    case KEY_DOWN:
-      if (currentChoice < liczbaOpcji - 1)
-        ++currentChoice;
-      break;
-    case 10:
-      switch (currentChoice) {
-      case 0:
-        carsMenu();
-        break;
-      case 1:
-        clientsMenu();
-        break;
-      case 2:
-        rentalsMenu();
-        break;
-      case 3:
-        return;
-      }
-    }
+  // assume title is longest (don't count mark)
+  long unsigned longestChoice = strlen(title) - strlen(MENUMARK);
+  for (int i = 0; i < liczbaOpcji; ++i) {
+    const int temp = strlen(opcje[i]);
+    if (temp > longestChoice)
+      longestChoice = temp;
   }
+
+  // +2 for boarders, +2 because menu leaves 2 empty columns
+  int windowCols = strlen(MENUMARK) + longestChoice + 2 + 2;
+  // make title centered
+  if ((windowCols ^ strlen(title) & 1))
+    ++windowCols;
+
+  WINDOW *mainMenuWindow =
+      newwin(windowRows, windowCols, (LINES - windowRows) / 2,
+             (COLS - windowCols) / 2);
+
+  MENU *mainMenu = new_menu(mainMenuItems);
+  set_menu_win(mainMenu, mainMenuWindow);
+  keypad(mainMenuWindow, TRUE);
+  // substract boarders and title
+  set_menu_sub(mainMenu,
+               derwin(mainMenuWindow, liczbaOpcji, windowCols - 4, 3, 1));
+
+  set_menu_mark(mainMenu, MENUMARK);
+  box(mainMenuWindow, 0, 0);
+
+  mvwprintw(mainMenuWindow, 1, (getmaxx(mainMenuWindow) - (strlen(title))) / 2,
+            "%s", title);
+  mvwaddch(mainMenuWindow, 2, 0, ACS_LTEE);
+  mvwhline(mainMenuWindow, 2, 1, ACS_HLINE, getmaxx(mainMenuWindow) - 2);
+  mvwaddch(mainMenuWindow, 2, getmaxx(mainMenuWindow) - 1, ACS_RTEE);
+
+  set_menu_items(mainMenu, mainMenuItems);
+  menu_opts_off(mainMenu, O_SHOWDESC);
+
+  // temp box
+  box(stdscr, 0, 0);
+  refresh();
+
+  post_menu(mainMenu);
+  wrefresh(mainMenuWindow);
+
+  getch();
+  unpost_menu(mainMenu);
+  free_menu(mainMenu);
+  for (int i = 0; i < liczbaOpcji; ++i)
+    free_item(mainMenuItems[i]);
+
+  getch();
 }
 
 void carsMenu() {
