@@ -8,35 +8,35 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MENUMARK (" * ")
-//#define _NDEBUG
-
 /**
  *@file
  *@brief Menu implementation.
  **/
 
+#define MENUMARK (" * ")
+// #define _NDEBUG
+
 /**
  * @brief Handles main menu.
  */
-void mainMenuSelection();
+void mainMenuSelection(void);
 
 /**
  * @brief Handles cars menu.
  * */
-void carsMenu();
+void carsMenu(void);
 
 /**
  * @brief Handles clients menu.
  * */
-void clientsMenu();
+void clientsMenu(void);
 
 /**
  * @brief Handles rentals menu.
  * */
-void rentalsMenu();
+void rentalsMenu(void);
 
-void mainMenu() {
+void mainMenu(void) {
   if (dbHandleOpenDB())
     fprintf(stderr, "Database error exiting.\n");
   else {
@@ -49,14 +49,21 @@ void mainMenu() {
   }
 }
 
-void mainMenuSelection() {
+void mainMenuSelection(void) {
   char *title = "Main menu";
   char *opcje[] = {"Cars", "Clients", "Rentals", "Exit"};
   const int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
+  void (*menuFun[liczbaOpcji])(void);
+  menuFun[0] = carsMenu;
+  menuFun[1] = clientsMenu;
+  menuFun[2] = rentalsMenu;
+  menuFun[3] = NULL;
 
   ITEM **mainMenuItems = calloc(liczbaOpcji + 1, sizeof(ITEM *));
-  for (int i = 0; i < liczbaOpcji; ++i)
+  for (int i = 0; i < liczbaOpcji; ++i) {
     mainMenuItems[i] = new_item(opcje[i], opcje[i]);
+    set_item_userptr(mainMenuItems[i], menuFun[i]);
+  }
   mainMenuItems[liczbaOpcji] = NULL;
 
   // boarders + title + options
@@ -104,7 +111,8 @@ void mainMenuSelection() {
   post_menu(mainMenu);
 
   int input;
-  while (true) {
+  bool doExit = FALSE;
+  while (!doExit) {
     update_panels();
     doupdate();
     input = getch();
@@ -118,19 +126,25 @@ void mainMenuSelection() {
     case 10:;
       ITEM *curitem = current_item(mainMenu);
       const char *const name = item_name(curitem);
+      hide_panel(panel);
 #ifndef _NDEBUG
       move(1, 1);
       clrtoeol();
       mvprintw(1, 1, "MAIN MENU SELECTED: %s", name);
 #endif
+      // EXIT has nullpointer, break the swich and loop
+      if (item_userptr(curitem) == NULL) {
+        doExit = TRUE;
+        break;
+      }
+      ((void (*)(void))(item_userptr(curitem)))();
+      show_panel(panel);
     }
   }
   unpost_menu(mainMenu);
   free_menu(mainMenu);
   for (int i = 0; i < liczbaOpcji; ++i)
     free_item(mainMenuItems[i]);
-
-  getch();
 }
 
 void carsMenu() {
