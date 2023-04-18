@@ -81,44 +81,7 @@ void printMenuInWindow(WINDOW *window, const char *const title) {
   mvwaddch(window, 2, getmaxx(window) - 1, ACS_RTEE);
 }
 
-void mainMenuSelection(void) {
-  const char *const title = "Main menu";
-  const char *const choices[] = {"Cars", "Clients", "Rentals", "Exit"};
-  const int choicesCount = sizeof(choices) / sizeof(choices[0]);
-  void (*menuFun[])(void) = {carsMenu, clientsMenu, rentalsMenu, NULL};
-
-  // Instantiate items for menu
-  ITEM **mainMenuItems = calloc(choicesCount + 1, sizeof(ITEM *));
-  for (int i = 0; i < choicesCount; ++i) {
-    mainMenuItems[i] = new_item(choices[i], choices[i]);
-    set_item_userptr(mainMenuItems[i], menuFun[i]);
-  }
-  mainMenuItems[choicesCount] = NULL;
-
-  const int windowCols = computeMenuWidth(title, choices, choicesCount);
-  // boarders(3) + title(1) + choices count
-  const int windowRows = choicesCount + 4;
-
-  WINDOW *mainMenuWindow =
-      newwin(windowRows, windowCols, (LINES - windowRows) / 2,
-             (COLS - windowCols) / 2);
-  keypad(mainMenuWindow, TRUE);
-  PANEL *panel = new_panel(mainMenuWindow);
-
-  MENU *mainMenu = new_menu(mainMenuItems);
-  set_menu_win(mainMenu, mainMenuWindow);
-  // -4 for boarders and title, start leave 3 lines for
-  // boarders and title , and leave left boarder alone.
-  set_menu_sub(mainMenu,
-               derwin(mainMenuWindow, choicesCount, windowCols - 4, 3, 1));
-  set_menu_mark(mainMenu, MENUMARK);
-  set_menu_items(mainMenu, mainMenuItems);
-  menu_opts_off(mainMenu, O_SHOWDESC);
-
-  printMenuInWindow(mainMenuWindow, title);
-
-  post_menu(mainMenu);
-
+void handleMenuIteraction(MENU *menu, PANEL *panel) {
   int input;
   bool doExit = FALSE;
   while (!doExit) {
@@ -127,13 +90,13 @@ void mainMenuSelection(void) {
     input = getch();
     switch (input) {
     case KEY_UP:
-      menu_driver(mainMenu, REQ_UP_ITEM);
+      menu_driver(menu, REQ_UP_ITEM);
       break;
     case KEY_DOWN:
-      menu_driver(mainMenu, REQ_DOWN_ITEM);
+      menu_driver(menu, REQ_DOWN_ITEM);
       break;
     case 10:;
-      ITEM *curitem = current_item(mainMenu);
+      ITEM *curitem = current_item(menu);
       const char *const name = item_name(curitem);
 #ifndef _NDEBUG
       // printing choices on stdscr for testing.
@@ -152,7 +115,43 @@ void mainMenuSelection(void) {
       show_panel(panel);
     }
   }
+}
 
+void invokeMenu(const char *const title, const char *const choices[],
+                const int choicesCount, void (*menuFun[])(void)) {
+  // Instantiate items for menu
+  ITEM **mainMenuItems = calloc(choicesCount + 1, sizeof(ITEM *));
+  for (int i = 0; i < choicesCount; ++i) {
+    mainMenuItems[i] = new_item(choices[i], choices[i]);
+    set_item_userptr(mainMenuItems[i], menuFun[i]);
+  }
+  mainMenuItems[choicesCount] = NULL;
+
+  const int windowCols = computeMenuWidth(title, choices, choicesCount);
+  // boarders(3) + title(1) + choices count
+  const int windowRows = choicesCount + 4;
+  WINDOW *mainMenuWindow =
+      newwin(windowRows, windowCols, (LINES - windowRows) / 2,
+             (COLS - windowCols) / 2);
+  keypad(mainMenuWindow, TRUE);
+  PANEL *panel = new_panel(mainMenuWindow);
+  MENU *mainMenu = new_menu(mainMenuItems);
+  set_menu_win(mainMenu, mainMenuWindow);
+  // -4 for boarders and title, start leave 3 lines for
+  // boarders and title , and leave left boarder alone.
+  set_menu_sub(mainMenu,
+               derwin(mainMenuWindow, choicesCount, windowCols - 4, 3, 1));
+  set_menu_mark(mainMenu, MENUMARK);
+  set_menu_items(mainMenu, mainMenuItems);
+  menu_opts_off(mainMenu, O_SHOWDESC);
+
+  printMenuInWindow(mainMenuWindow, title);
+
+  post_menu(mainMenu);
+
+  handleMenuIteraction(mainMenu, panel);
+
+  // Deallocation
   unpost_menu(mainMenu);
   del_panel(panel);
   delwin(menu_sub(mainMenu));
@@ -161,6 +160,14 @@ void mainMenuSelection(void) {
   for (int i = 0; i < choicesCount; ++i)
     free_item(mainMenuItems[i]);
   free(mainMenuItems);
+}
+
+void mainMenuSelection(void) {
+  const char *const title = "Main menu";
+  const char *const choices[] = {"Cars", "Clients", "Rentals", "Exit"};
+  const int choicesCount = sizeof(choices) / sizeof(choices[0]);
+  void (*menuFun[])(void) = {carsMenu, clientsMenu, rentalsMenu, NULL};
+  invokeMenu(title, choices, choicesCount, menuFun);
 }
 
 void carsMenu() {
