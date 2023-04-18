@@ -38,6 +38,9 @@ void clientsMenu(void);
  * */
 void rentalsMenu(void);
 
+/**
+ * @brief Starts ncurses
+ **/
 void mainMenu(void) {
   if (dbHandleOpenDB())
     fprintf(stderr, "Database error exiting.\n");
