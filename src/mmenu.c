@@ -171,61 +171,9 @@ void mainMenuSelection(void) {
 }
 
 void carsMenu() {
-  char *opcje[] = {"listCars",   "searchCars", "addCars",
-                   "removeCars", "editCars",   "returnToMainMenu"};
+  char *opcje[] = {"listCars", "searchCars",       "addCars", "removeCars",
+                   "editCars", "returnToMainMenu", "Exjt"};
   const int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
-
-  int currentChoice = 0;
-
-  int choice;
-  while (true) {
-    clear();
-    refresh();
-    printw("Cars Menu:\n");
-
-    // wyswietl opcje
-    for (int i = 0; i < liczbaOpcji; i++) {
-      // print arrow for current option
-      if (i == currentChoice)
-        printw(" -> ");
-      else
-        printw("    ");
-      printw("%s\n", opcje[i]);
-    }
-
-    switch (choice = getch()) {
-    case KEY_UP:
-      if (currentChoice > 0)
-        --currentChoice;
-      break;
-    case KEY_DOWN:
-      if (currentChoice < liczbaOpcji - 1)
-        ++currentChoice;
-      break;
-    case 10:
-      switch (currentChoice) {
-      case 0:
-        printw("Wybrales opcje: listCars\n");
-        break;
-      case 1:
-        printw("Wybrales opcje: searchCars\n");
-        break;
-      case 2:
-        printw("Wybrales opcje: addCars\n");
-        break;
-      case 3:
-        printw("Wybrales opcje: removeCars\n");
-        break;
-      case 4:
-        printw("Wybrales opcje: editCars\n");
-        break;
-      case 5:
-        return;
-      }
-      refresh();
-      getch();
-    }
-  }
 }
 
 void clientsMenu() {
