@@ -1,5 +1,6 @@
 #include "mmenu.h"
 #include "dbhandle.h"
+#include <assert.h>
 #include <menu.h>
 #include <ncurses.h>
 #include <panel.h>
@@ -49,15 +50,32 @@ void mainMenu(void) {
   }
 }
 
+int computeMenuWidth(const char *const title, const char *const choices[],
+                     const int optionsCount) {
+  assert(choices != NULL);
+  assert(choices[0] != NULL);
+  // assume title is longest (don't count mark)
+  long unsigned longestChoiceLength = strlen(title) - strlen(MENUMARK);
+  for (int i = 0; i < optionsCount; ++i) {
+    const int temp = strlen(choices[i]);
+    if (temp > longestChoiceLength)
+      longestChoiceLength = temp;
+  }
+
+  // +2 for boarders, +2 because menu leaves 2 empty columns
+  int windowCols = strlen(MENUMARK) + longestChoiceLength + 2 + 2;
+  // make title centered
+  if ((windowCols ^ strlen(title) & 1))
+    ++windowCols;
+
+  return windowCols;
+}
+
 void mainMenuSelection(void) {
-  char *title = "Main menu";
-  char *opcje[] = {"Cars", "Clients", "Rentals", "Exit"};
+  const char *const title = "Main menu";
+  const char *const opcje[] = {"Cars", "Clients", "Rentals", "Exit"};
   const int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
-  void (*menuFun[liczbaOpcji])(void);
-  menuFun[0] = carsMenu;
-  menuFun[1] = clientsMenu;
-  menuFun[2] = rentalsMenu;
-  menuFun[3] = NULL;
+  void (*menuFun[])(void) = {carsMenu, clientsMenu, rentalsMenu, NULL};
 
   ITEM **mainMenuItems = calloc(liczbaOpcji + 1, sizeof(ITEM *));
   for (int i = 0; i < liczbaOpcji; ++i) {
@@ -66,22 +84,10 @@ void mainMenuSelection(void) {
   }
   mainMenuItems[liczbaOpcji] = NULL;
 
-  // boarders + title + options
+  const int windowCols = computeMenuWidth(title, opcje, liczbaOpcji);
+
+  // boarders(3) + title(1) + optionsCunt
   const int windowRows = liczbaOpcji + 4;
-
-  // assume title is longest (don't count mark)
-  long unsigned longestChoice = strlen(title) - strlen(MENUMARK);
-  for (int i = 0; i < liczbaOpcji; ++i) {
-    const int temp = strlen(opcje[i]);
-    if (temp > longestChoice)
-      longestChoice = temp;
-  }
-
-  // +2 for boarders, +2 because menu leaves 2 empty columns
-  int windowCols = strlen(MENUMARK) + longestChoice + 2 + 2;
-  // make title centered
-  if ((windowCols ^ strlen(title) & 1))
-    ++windowCols;
 
   WINDOW *mainMenuWindow =
       newwin(windowRows, windowCols, (LINES - windowRows) / 2,
@@ -92,7 +98,8 @@ void mainMenuSelection(void) {
   MENU *mainMenu = new_menu(mainMenuItems);
   set_menu_win(mainMenu, mainMenuWindow);
   keypad(mainMenuWindow, TRUE);
-  // substract boarders and title
+  // -4 for boarders and title, start leave 3 lines for
+  // boarders and title , and leave left boarder alone.
   set_menu_sub(mainMenu,
                derwin(mainMenuWindow, liczbaOpcji, windowCols - 4, 3, 1));
 
@@ -128,11 +135,13 @@ void mainMenuSelection(void) {
       const char *const name = item_name(curitem);
       hide_panel(panel);
 #ifndef _NDEBUG
-      move(1, 1);
+      // printing choices on stdscr for testing.
+      move(LINES - 2, 0);
       clrtoeol();
-      mvprintw(1, 1, "MAIN MENU SELECTED: %s", name);
+      printw("MAIN MENU SELECTED: %s", name);
+      getch();
 #endif
-      // EXIT has nullpointer, break the swich and loop
+      // EXIT has null pointer, break the switch and loop
       if (item_userptr(curitem) == NULL) {
         doExit = TRUE;
         break;
