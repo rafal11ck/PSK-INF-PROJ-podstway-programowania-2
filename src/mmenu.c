@@ -14,8 +14,9 @@
  *@brief Menu implementation.
  **/
 
+//#define _NDEBUG
+
 #define MENUMARK (" * ")
-// #define _NDEBUG
 
 /**
  * @brief Handles main menu.
@@ -71,49 +72,50 @@ int computeMenuWidth(const char *const title, const char *const choices[],
   return windowCols;
 }
 
+void printMenuInWindow(WINDOW *window, const char *const title) {
+  box(window, 0, 0);
+
+  mvwprintw(window, 1, (getmaxx(window) - (strlen(title))) / 2, "%s", title);
+  mvwaddch(window, 2, 0, ACS_LTEE);
+  mvwhline(window, 2, 1, ACS_HLINE, getmaxx(window) - 2);
+  mvwaddch(window, 2, getmaxx(window) - 1, ACS_RTEE);
+}
+
 void mainMenuSelection(void) {
   const char *const title = "Main menu";
-  const char *const opcje[] = {"Cars", "Clients", "Rentals", "Exit"};
-  const int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
+  const char *const choices[] = {"Cars", "Clients", "Rentals", "Exit"};
+  const int choicesCount = sizeof(choices) / sizeof(choices[0]);
   void (*menuFun[])(void) = {carsMenu, clientsMenu, rentalsMenu, NULL};
 
-  ITEM **mainMenuItems = calloc(liczbaOpcji + 1, sizeof(ITEM *));
-  for (int i = 0; i < liczbaOpcji; ++i) {
-    mainMenuItems[i] = new_item(opcje[i], opcje[i]);
+  // Instantiate items for menu
+  ITEM **mainMenuItems = calloc(choicesCount + 1, sizeof(ITEM *));
+  for (int i = 0; i < choicesCount; ++i) {
+    mainMenuItems[i] = new_item(choices[i], choices[i]);
     set_item_userptr(mainMenuItems[i], menuFun[i]);
   }
-  mainMenuItems[liczbaOpcji] = NULL;
+  mainMenuItems[choicesCount] = NULL;
 
-  const int windowCols = computeMenuWidth(title, opcje, liczbaOpcji);
-
-  // boarders(3) + title(1) + optionsCunt
-  const int windowRows = liczbaOpcji + 4;
+  const int windowCols = computeMenuWidth(title, choices, choicesCount);
+  // boarders(3) + title(1) + choices count
+  const int windowRows = choicesCount + 4;
 
   WINDOW *mainMenuWindow =
       newwin(windowRows, windowCols, (LINES - windowRows) / 2,
              (COLS - windowCols) / 2);
-
+  keypad(mainMenuWindow, TRUE);
   PANEL *panel = new_panel(mainMenuWindow);
 
   MENU *mainMenu = new_menu(mainMenuItems);
   set_menu_win(mainMenu, mainMenuWindow);
-  keypad(mainMenuWindow, TRUE);
   // -4 for boarders and title, start leave 3 lines for
   // boarders and title , and leave left boarder alone.
   set_menu_sub(mainMenu,
-               derwin(mainMenuWindow, liczbaOpcji, windowCols - 4, 3, 1));
-
+               derwin(mainMenuWindow, choicesCount, windowCols - 4, 3, 1));
   set_menu_mark(mainMenu, MENUMARK);
-  box(mainMenuWindow, 0, 0);
-
-  mvwprintw(mainMenuWindow, 1, (getmaxx(mainMenuWindow) - (strlen(title))) / 2,
-            "%s", title);
-  mvwaddch(mainMenuWindow, 2, 0, ACS_LTEE);
-  mvwhline(mainMenuWindow, 2, 1, ACS_HLINE, getmaxx(mainMenuWindow) - 2);
-  mvwaddch(mainMenuWindow, 2, getmaxx(mainMenuWindow) - 1, ACS_RTEE);
-
   set_menu_items(mainMenu, mainMenuItems);
   menu_opts_off(mainMenu, O_SHOWDESC);
+
+  printMenuInWindow(mainMenuWindow, title);
 
   post_menu(mainMenu);
 
@@ -133,7 +135,6 @@ void mainMenuSelection(void) {
     case 10:;
       ITEM *curitem = current_item(mainMenu);
       const char *const name = item_name(curitem);
-      hide_panel(panel);
 #ifndef _NDEBUG
       // printing choices on stdscr for testing.
       move(LINES - 2, 0);
@@ -146,14 +147,20 @@ void mainMenuSelection(void) {
         doExit = TRUE;
         break;
       }
+      hide_panel(panel);
       ((void (*)(void))(item_userptr(curitem)))();
       show_panel(panel);
     }
   }
+
   unpost_menu(mainMenu);
+  del_panel(panel);
+  delwin(menu_sub(mainMenu));
+  delwin(menu_win(mainMenu));
   free_menu(mainMenu);
-  for (int i = 0; i < liczbaOpcji; ++i)
+  for (int i = 0; i < choicesCount; ++i)
     free_item(mainMenuItems[i]);
+  free(mainMenuItems);
 }
 
 void carsMenu() {
