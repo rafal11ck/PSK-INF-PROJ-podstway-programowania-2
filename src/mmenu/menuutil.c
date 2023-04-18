@@ -1,5 +1,4 @@
-#include "mmenu.h"
-#include "dbhandle.h"
+#include "menuutil.h"
 #include <assert.h>
 #include <menu.h>
 #include <ncurses.h>
@@ -9,50 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-/**
- *@file
- *@brief Menu implementation.
- **/
-
+// for testing
 //#define _NDEBUG
-
-#define MENUMARK (" * ")
-
-/**
- * @brief Handles main menu.
- */
-void mainMenuSelection(void);
-
-/**
- * @brief Handles cars menu.
- * */
-void carsMenu(void);
-
-/**
- * @brief Handles clients menu.
- * */
-void clientsMenu(void);
-
-/**
- * @brief Handles rentals menu.
- * */
-void rentalsMenu(void);
-
-/**
- * @brief Starts ncurses
- **/
-void mainMenu(void) {
-  if (dbHandleOpenDB())
-    fprintf(stderr, "Database error exiting.\n");
-  else {
-    initscr();
-    noecho();
-    cbreak();
-    keypad(stdscr, TRUE);
-    mainMenuSelection();
-    endwin();
-  }
-}
 
 int computeMenuWidth(const char *const title, const char *const choices[],
                      const int optionsCount) {
@@ -163,119 +120,4 @@ void invokeMenu(const char *const title, const char *const choices[],
   for (int i = 0; i < choicesCount; ++i)
     free_item(mainMenuItems[i]);
   free(mainMenuItems);
-}
-
-void mainMenuSelection(void) {
-  const char *const title = "Main menu";
-  const char *const choices[] = {"Cars", "Clients", "Rentals", "Exit"};
-  const int choicesCount = sizeof(choices) / sizeof(choices[0]);
-  void (*menuFun[])(void) = {carsMenu, clientsMenu, rentalsMenu, NULL};
-  invokeMenu(title, choices, choicesCount, menuFun);
-}
-
-void carsMenu() {
-  char *opcje[] = {"listCars", "searchCars",       "addCars", "removeCars",
-                   "editCars", "returnToMainMenu", "Exjt"};
-  const int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
-}
-
-void clientsMenu() {
-  char *opcje[] = {"listClients", "addClients", "removeClients", "editClients",
-                   "returnToMainMenu"};
-  int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
-
-  int currentChoice = 0;
-  while (true) {
-    clear();
-    refresh();
-    printw("Clients Menu:\n");
-
-    for (int i = 0; i < liczbaOpcji; i++) {
-      // print arrow for current option
-      if (i == currentChoice)
-        printw(" -> ");
-      else
-        printw("    ");
-      printw("%s\n", opcje[i]);
-    }
-
-    refresh();
-
-    int choice;
-    switch (choice = getch()) {
-    case KEY_UP:
-      if (currentChoice > 0)
-        --currentChoice;
-      break;
-    case KEY_DOWN:
-      if (currentChoice < liczbaOpcji - 1)
-        ++currentChoice;
-      break;
-    case 10:
-      switch (currentChoice) {
-      case 0:
-        printw("Wybrales opcje: listClients\n");
-        break;
-      case 1:
-        printw("Wybrales opcje: addClients\n");
-        break;
-      case 2:
-        printw("Wybrales opcje: removeClients\n");
-        break;
-      case 3:
-        printw("Wybrales opcje: editClients\n");
-        break;
-      case 4:
-        return;
-      }
-    }
-  }
-}
-
-void rentalsMenu() {
-  char *opcje[] = {"listRents", "addRent", "returnRent", "returnToMainMenu"};
-  int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
-
-  int currentChoice = 0;
-  while (true) {
-    clear();
-    refresh();
-    printw("Rents Menu:\n");
-
-    for (int i = 0; i < liczbaOpcji; i++) {
-      // print arrow for current option
-      if (i == currentChoice)
-        printw(" -> ");
-      else
-        printw("    ");
-      printw("%s\n", opcje[i]);
-    }
-
-    refresh();
-    int choice;
-    switch (choice = getch()) {
-    case KEY_UP:
-      if (currentChoice > 0)
-        --currentChoice;
-      break;
-    case KEY_DOWN:
-      if (currentChoice < liczbaOpcji - 1)
-        ++currentChoice;
-      break;
-    case 10:
-      switch (currentChoice) {
-      case 0:
-        printw("Wybrales opcje: listRents\n");
-        break;
-      case 1:
-        printw("Wybrales opcje: addRent\n");
-        break;
-      case 2:
-        printw("Wybrales opcje: returnRent\n");
-        break;
-      case 3:
-        return;
-      }
-    }
-  }
 }

@@ -1,4 +1,5 @@
-#include "mmenu.h"
+#include "dbhandle.h"
+#include "mmenu/mmenu.h"
 
 /**
  *@file
@@ -7,4 +8,7 @@
 /**
  * @brief main.
  * */
-int main() { mainMenu(); }
+int main() {
+  if (!dbHandleOpenDB())
+    mainMenu();
+}
