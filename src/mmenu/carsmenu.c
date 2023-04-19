@@ -9,7 +9,7 @@ void carsMenu(void) {
       "removeCars", "editCars",   "returnToMainMenu",
   };
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
-  // TODO
+  //! @todo impelemnt submenus
   void (*menuFun[])(void) = {NULL, NULL, NULL, NULL, NULL, NULL};
   invokeMenu(title, choices, choicesCount, menuFun);
 }
