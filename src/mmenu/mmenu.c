@@ -1,7 +1,6 @@
 #include "mmenu.h"
 #include "carsmenu.h"
 #include "clientsmenu.h"
-#include "dbhandle.h"
 #include "menuutil.h"
 #include "rentalsmenu.h"
 #include <ncurses.h>
