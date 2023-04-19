@@ -1,6 +1,13 @@
 #include "rentalsmenu.h"
+#include "menuutil.h"
+#include <stdlib.h>
 
 void rentalsMenu(void) {
-  char *opcje[] = {"listRents", "addRent", "returnRent", "returnToMainMenu"};
-  int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
+  const char *const title = "Rentals";
+  const char *const choices[] = {"listRents", "addRent", "returnRent",
+                                 "returnToMainMenu"};
+  const int choicesCount = sizeof(choices) / sizeof(choices[0]);
+  // TODO
+  void (*menuFun[])(void) = {NULL, NULL, NULL, NULL};
+  invokeMenu(title, choices, choicesCount, menuFun);
 }

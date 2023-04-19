@@ -4,6 +4,7 @@
 #include "menuutil.h"
 #include "rentalsmenu.h"
 #include <ncurses.h>
+#include <stdlib.h>
 
 /**
  *@file

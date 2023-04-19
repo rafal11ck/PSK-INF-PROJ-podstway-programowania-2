@@ -1,6 +1,6 @@
 #ifndef CARSMENU_H
 #define CARSMENU_H
 
-void carsMenu();
+void carsMenu(void);
 
 #endif // CARSMENU_H

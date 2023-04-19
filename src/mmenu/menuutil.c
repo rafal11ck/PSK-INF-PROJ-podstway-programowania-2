@@ -9,7 +9,7 @@
 #include <string.h>
 
 // for testing
-//#define _NDEBUG
+// #define _NDEBUG
 
 int computeMenuWidth(const char *const title, const char *const choices[],
                      const int optionsCount) {

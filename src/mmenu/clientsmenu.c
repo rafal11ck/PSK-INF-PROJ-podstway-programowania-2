@@ -1,7 +1,14 @@
 #include "clientsmenu.h"
+#include "menuutil.h"
+#include <stdlib.h>
 
 void clientsMenu(void) {
-  char *opcje[] = {"listClients", "addClients", "removeClients", "editClients",
-                   "returnToMainMenu"};
-  int liczbaOpcji = sizeof(opcje) / sizeof(opcje[0]);
+
+  const char *const title = "Clients";
+  const char *const choices[] = {"listClients", "addClients", "removeClients",
+                                 "editClients", "Return to main menu"};
+  const int choicesCount = sizeof(choices) / sizeof(choices[0]);
+  // TODO
+  void (*menuFun[])(void) = {NULL, NULL, NULL, NULL, NULL};
+  invokeMenu(title, choices, choicesCount, menuFun);
 }
