@@ -3,7 +3,7 @@
 
 /**
  *@file
- *@brief Clients menu header
+ *@brief Clients menu interface.
  **/
 
 void clientsMenu(void);
