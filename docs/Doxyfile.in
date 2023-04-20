@@ -2735,4 +2735,4 @@ GENERATE_LEGEND        = YES
 
 DOT_CLEANUP            = YES
 
-EXCLUDE = ./testlist.c
+EXCLUDE = @CMAKE_CURRENT_SOURCE_DIR@/../src/testlist.c
