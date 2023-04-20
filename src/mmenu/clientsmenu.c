@@ -24,6 +24,6 @@ void clientsMenu(void) {
 /**
  *\todo Implement
  *
- *@biref FORM for editing client;
+ *@brief FORM for editing client;
  **/
 void editClient() {}
