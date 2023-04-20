@@ -10,14 +10,19 @@
 
 /**
  *@file
- *@biref Menu displaying utilities.
+ *@brief Menu displaying utilities.
+ *
+ *Wraps ncurses liblary.
  **/
 
-//! for testing
-// #define _NDEBUG
+/**
+ *@brief String to indicate current selected choice in menus.
+ **/
+#define MENUMARK (" * ")
 
-int computeMenuWidth(const char *const title, const char *const choices[],
-                     const int optionsCount) {
+static int computeMenuWidth(const char *const title,
+                            const char *const choices[],
+                            const int optionsCount) {
   assert(choices != NULL);
   assert(choices[0] != NULL);
   // assume title is longest (don't count mark)
@@ -37,7 +42,7 @@ int computeMenuWidth(const char *const title, const char *const choices[],
   return windowCols;
 }
 
-void printMenuInWindow(WINDOW *window, const char *const title) {
+static void printMenuInWindow(WINDOW *window, const char *const title) {
   box(window, 0, 0);
 
   mvwprintw(window, 1, (getmaxx(window) - (strlen(title))) / 2, "%s", title);
@@ -46,7 +51,7 @@ void printMenuInWindow(WINDOW *window, const char *const title) {
   mvwaddch(window, 2, getmaxx(window) - 1, ACS_RTEE);
 }
 
-void handleMenuIteraction(MENU *menu, PANEL *panel) {
+static void handleMenuIteraction(MENU *menu, PANEL *panel) {
   int input;
   bool doExit = FALSE;
   while (!doExit) {

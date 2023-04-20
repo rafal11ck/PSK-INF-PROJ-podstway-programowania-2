@@ -1,8 +1,8 @@
 /**
- * @brief Structure contaiong information about car.
+ * @brief Structure containing information about car.
  */
 struct Car {
-  //! registraction number.
+  //! registration number.
   char *m_regNum;
   //! Make/brand of the car.
   char *m_brand;
