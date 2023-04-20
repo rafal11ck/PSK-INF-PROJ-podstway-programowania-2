@@ -108,7 +108,7 @@ static void handleMenuIteraction(MENU *menu, PANEL *panel) {
  *@brief Handle all operation and functions for menu
  *@param title Char pointer to title of menu
  *@param choices Char pointer to table of choices
- *@param optionsCount Number of elements in table of choices
+ *@param choicesCount Number of elements in table of choices
  *@param menuFun Table of pointers on functions
  **/
 void invokeMenu(const char *const title, const char *const choices[],
