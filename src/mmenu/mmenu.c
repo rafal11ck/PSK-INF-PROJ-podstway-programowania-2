@@ -16,10 +16,6 @@
  */
 void mainMenuSelection(void);
 
-/**
- * @brief Starts ncurses
- **/
-
 void mainMenuSelection(void) {
   const char *const title = "Main menu";
   const char *const choices[] = {"Cars", "Clients", "Rentals", "Exit"};
