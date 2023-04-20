@@ -3,7 +3,7 @@
 
 /**
  *@file
- *@brief Cars menu header
+ *@brief Cars menu interface
  *
  **/
 
