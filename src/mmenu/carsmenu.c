@@ -2,6 +2,11 @@
 #include "menuutil.h"
 #include <stdlib.h>
 
+/**
+ *@file
+ *@brief Cars menu implementation
+ **/
+
 void carsMenu(void) {
   const char *const title = "Cars";
   const char *const choices[] = {
