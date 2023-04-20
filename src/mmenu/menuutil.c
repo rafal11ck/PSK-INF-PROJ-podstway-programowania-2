@@ -20,6 +20,13 @@
  **/
 #define MENUMARK (" * ")
 
+/**
+ *@brief Calculate menu width
+ *@param title Char pointer to title of menu
+ *@param choices Char pointer to table of choices
+ *@param optionsCount Number of elements in table of choices
+ *@return Number of columns for menu
+ **/
 static int computeMenuWidth(const char *const title,
                             const char *const choices[],
                             const int optionsCount) {
@@ -42,6 +49,11 @@ static int computeMenuWidth(const char *const title,
   return windowCols;
 }
 
+/**
+ *@brief Print menu in window
+ *@param window WINDOW pointer
+ *@param title Char pointer to title of menu
+ **/
 static void printMenuInWindow(WINDOW *window, const char *const title) {
   box(window, 0, 0);
 
@@ -51,6 +63,11 @@ static void printMenuInWindow(WINDOW *window, const char *const title) {
   mvwaddch(window, 2, getmaxx(window) - 1, ACS_RTEE);
 }
 
+/**
+ *@brief Control menu navigation and invoke option that we chose
+ *@param menu MENU pointer
+ *@param panel PANEL pointer
+ **/
 static void handleMenuIteraction(MENU *menu, PANEL *panel) {
   int input;
   bool doExit = FALSE;
@@ -87,6 +104,13 @@ static void handleMenuIteraction(MENU *menu, PANEL *panel) {
   }
 }
 
+/**
+ *@brief Handle all operation and functions for menu
+ *@param title Char pointer to title of menu
+ *@param choices Char pointer to table of choices
+ *@param optionsCount Number of elements in table of choices
+ *@param menuFun Table of pointers on functions
+ **/
 void invokeMenu(const char *const title, const char *const choices[],
                 const int choicesCount, void (*menuFun[])(void)) {
   // Instantiate items for menu
