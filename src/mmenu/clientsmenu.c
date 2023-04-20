@@ -20,3 +20,10 @@ void clientsMenu(void) {
   void (*menuFun[])(void) = {NULL, NULL, NULL, NULL, NULL};
   invokeMenu(title, choices, choicesCount, menuFun);
 }
+
+/**
+ *\todo Implement
+ *
+ *@biref FORM for editing client;
+ **/
+void editClient() {}
