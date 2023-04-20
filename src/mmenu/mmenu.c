@@ -1,10 +1,10 @@
 #include "mmenu.h"
-#include "carsmenu.h"
-#include "clientsmenu.h"
-#include "menuutil.h"
-#include "rentalsmenu.h"
-#include <ncurses.h>
-#include <stdlib.h>
+#include "carsmenu.h"    //For submenu.
+#include "clientsmenu.h" //For submenu.
+#include "menuutil.h"    //For displaying
+#include "rentalsmenu.h" //For submenu.
+#include <ncurses.h>     //For displaying.
+#include <stdlib.h>      //For NULL.
 
 /**
  *@file
