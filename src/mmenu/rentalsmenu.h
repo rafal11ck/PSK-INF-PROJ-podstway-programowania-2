@@ -2,7 +2,7 @@
 #define RENTALSMENU_H
 
 /**@file
- * @brief Rentals menu interface.
+ * @brief Rentals menu interface
  * */
 
 /**
