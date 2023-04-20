@@ -26,8 +26,9 @@ struct ListNode *listCreateNode(void *data);
 bool listInsertBefore(struct List *list, struct ListNode *node, void *data);
 
 /**
- * @brief Dealocates data poined by ListNode::m_data and ListNode.
- * @param node for dealocation.
+ * @brief Free memory pointed by ListNode::m_data and ListNode.
+ * @param node For removal.
+ * @return False if succeed.
  */
 bool listDealocateListNode(struct ListNode *node) {
   assert(node != NULL);
