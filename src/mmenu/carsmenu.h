@@ -3,13 +3,13 @@
 
 /**
  *@file
- *@brief Cars menu
+ *@brief Cars menu header
  *
  **/
 
 /**
- *@brief Core function handiling cars menu.
- * */
+ *@brief Core function handling cars menu.
+ **/
 void carsMenu(void);
 
 #endif // CARSMENU_H
