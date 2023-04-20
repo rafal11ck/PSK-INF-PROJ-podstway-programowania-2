@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 /**
+ *@file
  *@brief Clients menu implementation.
  */
 
