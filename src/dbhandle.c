@@ -4,51 +4,56 @@
 #include <stdlib.h>
 
 /**
- *@breif Database path.
+ *@file
+ *@brief Database handling
+ **/
+
+/**
+ *@brief Database path.
  * */
-const char *DBFILENAME = "database.db";
+static const char *DBFILENAME = "database.db";
 
 /**
  *@brief SQL query ensuring tables needed for program to run exist.
  **/
-char *ENUSREDBTABLESQUERY = "CREATE TABLE IF NOT EXISTS cars("
-                            "	ID	INTEGER NOT NULL,"
-                            "	regNum	TEXT,"
-                            "	brand	TEXT,"
-                            "	model	TEXT,"
-                            "	yearOfProduction	TEXT,"
-                            "	color	TEXT,"
-                            "	mileage	INTEGER,"
-                            "   PRIMARY KEY(ID AUTOINCREMENT));"
-                            "CREATE TABLE IF NOT EXISTS 'clients' ("
-                            "   'ID'	INTEGER NOT NULL UNIQUE,"
-                            "   'cardID'	INTEGER,"
-                            "   'name'	TEXT,"
-                            "   'surname'	TEXT,"
-                            "   'phoneNumber'	INTEGER,"
-                            "   PRIMARY KEY('ID' AUTOINCREMENT)"
-                            "   );"
-                            "CREATE TABLE IF NOT EXISTS 'rentals' ("
-                            "   'ID'	INTEGER NOT NULL,"
-                            "   'clientID'	TEXT NOT NULL,"
-                            "   'carID'	TEXT NOT NULL,"
-                            "   'since'	TEXT,"
-                            "   'until'	TEXT,"
-                            "   PRIMARY KEY('ID' AUTOINCREMENT)"
-                            "   );";
+static char *ENUSREDBTABLESQUERY = "CREATE TABLE IF NOT EXISTS cars("
+                                   "	ID	INTEGER NOT NULL,"
+                                   "	regNum	TEXT,"
+                                   "	brand	TEXT,"
+                                   "	model	TEXT,"
+                                   "	yearOfProduction	TEXT,"
+                                   "	color	TEXT,"
+                                   "	mileage	INTEGER,"
+                                   "   PRIMARY KEY(ID AUTOINCREMENT));"
+                                   "CREATE TABLE IF NOT EXISTS 'clients' ("
+                                   "   'ID'	INTEGER NOT NULL UNIQUE,"
+                                   "   'cardID'	INTEGER,"
+                                   "   'name'	TEXT,"
+                                   "   'surname'	TEXT,"
+                                   "   'phoneNumber'	INTEGER,"
+                                   "   PRIMARY KEY('ID' AUTOINCREMENT)"
+                                   "   );"
+                                   "CREATE TABLE IF NOT EXISTS 'rentals' ("
+                                   "   'ID'	INTEGER NOT NULL,"
+                                   "   'clientID'	TEXT NOT NULL,"
+                                   "   'carID'	TEXT NOT NULL,"
+                                   "   'since'	TEXT,"
+                                   "   'until'	TEXT,"
+                                   "   PRIMARY KEY('ID' AUTOINCREMENT)"
+                                   "   );";
 
 /**
  *@brief Database connection;
  * */
-sqlite3 *DB;
+static sqlite3 *DB;
 
 /**
  * @brief Compiled statement for sqlite.
  * */
-sqlite3 *STMT;
+static sqlite3 *STMT;
 
 bool dbHandleOpenDB() {
-  sqlite3_open(DBFILENAME, &DB); // oen database
+  sqlite3_open(DBFILENAME, &DB); // open database
   char *err;
   int rc = sqlite3_exec(DB, ENUSREDBTABLESQUERY, NULL, NULL, &err);
   // if failed return true

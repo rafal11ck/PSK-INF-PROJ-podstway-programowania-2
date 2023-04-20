@@ -8,7 +8,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-// for testing
+/**
+ *@file
+ *@biref Menu displaying utilities.
+ **/
+
+//! for testing
 // #define _NDEBUG
 
 int computeMenuWidth(const char *const title, const char *const choices[],
@@ -58,7 +63,7 @@ void handleMenuIteraction(MENU *menu, PANEL *panel) {
     case 10:;
       ITEM *curitem = current_item(menu);
       const char *const name = item_name(curitem);
-#ifndef _NDEBUG
+#ifndef NDEBUG
       // printing choices on stdscr for testing.
       move(LINES - 2, 0);
       clrtoeol();
