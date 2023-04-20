@@ -3,7 +3,7 @@
 
 /**
  *@file
- *
+ *@brief Header file for menu operations
  **/
 
 void invokeMenu(const char *const title, const char *const choices[],
