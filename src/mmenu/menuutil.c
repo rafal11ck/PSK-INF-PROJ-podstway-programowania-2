@@ -49,12 +49,7 @@ static int computeMenuWidth(const char *const title,
   return windowCols;
 }
 
-/**
- *@brief Print menu in window
- *@param window WINDOW pointer
- *@param title Char pointer to title of menu
- **/
-static void printMenuInWindow(WINDOW *window, const char *const title) {
+void printWindowBoarders(WINDOW *window, const char *const title) {
   box(window, 0, 0);
 
   mvwprintw(window, 1, (getmaxx(window) - (strlen(title))) / 2, "%s", title);
@@ -89,8 +84,8 @@ static void handleMenuIteraction(MENU *menu, PANEL *panel) {
       // printing choices on stdscr for testing.
       move(LINES - 2, 0);
       clrtoeol();
-      printw("MAIN MENU SELECTED: %s", name);
-      getch();
+      printw("SELECTED: %s", name);
+      // getch();
 #endif
       // EXIT has null pointer, break the switch and loop
       if (item_userptr(curitem) == NULL) {
@@ -139,7 +134,7 @@ void invokeMenu(const char *const title, const char *const choices[],
   set_menu_items(mainMenu, mainMenuItems);
   menu_opts_off(mainMenu, O_SHOWDESC);
 
-  printMenuInWindow(mainMenuWindow, title);
+  printWindowBoarders(mainMenuWindow, title);
 
   post_menu(mainMenu);
 

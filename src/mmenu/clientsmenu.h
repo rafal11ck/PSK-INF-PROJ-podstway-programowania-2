@@ -7,5 +7,6 @@
  **/
 
 void clientsMenu(void);
+void addClient();
 
 #endif // CLEINTSMENU_H
