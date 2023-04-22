@@ -1,5 +1,6 @@
 #include "menuutil.h"
 #include <assert.h>
+#include <form.h>
 #include <menu.h>
 #include <ncurses.h>
 #include <panel.h>
@@ -21,15 +22,14 @@
 #define MENUMARK (" * ")
 
 /**
- *@brief Calculate menu width
+ *@brief Calculate minimum window width
  *@param title Char pointer to title of menu
  *@param choices Char pointer to table of choices
  *@param optionsCount Number of elements in table of choices
- *@return Number of columns for menu
+ *@return Minumum number of columns needed
  **/
-static int computeMenuWidth(const char *const title,
-                            const char *const choices[],
-                            const int optionsCount) {
+int computeWidth(const char *const title, const char *const choices[],
+                 const int optionsCount) {
   assert(choices != NULL);
   assert(choices[0] != NULL);
   // assume title is longest (don't count mark)
@@ -116,7 +116,7 @@ void invokeMenu(const char *const title, const char *const choices[],
   }
   mainMenuItems[choicesCount] = NULL;
 
-  const int windowCols = computeMenuWidth(title, choices, choicesCount);
+  const int windowCols = computeWidth(title, choices, choicesCount);
   // boarders(3) + title(1) + choices count
   const int windowRows = choicesCount + 4;
   WINDOW *mainMenuWindow =
@@ -149,4 +149,72 @@ void invokeMenu(const char *const title, const char *const choices[],
   for (int i = 0; i < choicesCount; ++i)
     free_item(mainMenuItems[i]);
   free(mainMenuItems);
+}
+
+void invokeForm(const char *title, const char *const fieldNames[],
+                const int fieldCount) {
+  // Allocate Stuff
+  FIELD *fields[fieldCount + 1]; // 1+ for NULL delimiter.
+  for (int i = 0; i < fieldCount; ++i) {
+    // i*2 so there is empty line
+    fields[i] = new_field(1, 30, 1 + i * 2, 1, 0, 0);
+    set_field_back(fields[i], A_UNDERLINE);
+  }
+  fields[fieldCount] = NULL; // set delimiter
+
+  // Allocate Form
+  FORM *form = new_form(fields);
+
+  // Get minimum size needed for fields.
+  int minRows = 0;
+  int minCols = 0;
+  scale_form(form, &minRows, &minCols);
+  // Compute space needed for field names.
+  const int colsNeeded = computeWidth(title, fieldNames, fieldCount);
+  // winRows = minimum rows needed for fields + rows for boarders
+  const int winRows = minRows + 4;
+  // columns for fields + boarders and space + columns needed for field names.
+  const int winCols = minCols + 4 + colsNeeded;
+
+  WINDOW *formWin =
+      newwin(winRows, winCols, (LINES - winRows) / 2, (COLS - winCols) / 2);
+  keypad(formWin, TRUE);
+  set_form_win(form, formWin);
+  // 3 = boarder + title + boarder; 1 + colsNeeded is offest so that field
+  // names and boarder fits.
+  set_form_sub(form, derwin(formWin, minRows, minCols, 3, 1 + colsNeeded));
+
+  // Drawing form
+  PANEL *formPanel = new_panel(formWin);
+  printWindowBoarders(form_win(form), title);
+  for (int i = 0; i < fieldCount; ++i) {
+    mvwprintw(form_win(form), 1 + 3 + i * 2, 2, "%s", fieldNames[i]);
+  }
+  post_form(form);
+  // input handling in form
+  bool doExit = FALSE;
+  while (!doExit) {
+    update_panels();
+    doupdate();
+    int input = getch();
+    switch (input) {
+    case KEY_UP:
+      form_driver(form, REQ_UP_FIELD);
+      break;
+    case KEY_DOWN:
+      form_driver(form, REQ_DOWN_FIELD);
+      break;
+    default:
+      form_driver(form, input);
+      break;
+    }
+  }
+  // free memory
+  unpost_form(form);
+  delwin(form_sub(form));
+  delwin(form_win(form));
+  free_form(form);
+  for (int i = 0; i < fieldCount; ++i) {
+    free_field(fields[i]);
+  }
 }
