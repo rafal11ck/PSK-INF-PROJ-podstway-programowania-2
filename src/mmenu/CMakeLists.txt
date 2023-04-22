@@ -12,4 +12,5 @@ add_library(mmenu
 )
 
 
-target_link_libraries(mmenu ncurses dbhandle panel menu form)
+target_link_libraries(mmenu ncurses dbhandle panel menu form client)
+include_directories(../)

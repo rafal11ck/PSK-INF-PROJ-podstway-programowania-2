@@ -6,10 +6,20 @@
  *@brief Header file for menu operations
  **/
 
+#include <form.h>
+
+/**
+ *@brief amount of columns of the form field.
+ **/
+#define FORMFIELDLENGTH 40
+
 void invokeMenu(const char *const title, const char *const choices[],
                 const int choicesCount, void (*menuFun[])(void));
 
-void invokeForm(const char *title, const char *const fieldNames[],
-                const int fieldCount);
+int getLongestStringLength(const char *const stringArr[],
+                           const int stringsCount);
+
+void invokeForm(FORM *form, const char *const title,
+                const char *const formFieldNames[]);
 
 #endif // MENUUTIL_H

@@ -1,6 +1,8 @@
 #ifndef CLIENT_H_
 #define CLIENT_H_
 
+#define INVALIDCLIENTID -1
+
 /**
  * @brief Structure hodling client single data
  */
@@ -13,7 +15,7 @@ struct Client {
   char *m_name;
   //! String holding second name.
   char *m_surname;
-  //! Adress.
+  //! Address.
   char *m_adress;
   //! Phone number.
   int m_phoneNum;
