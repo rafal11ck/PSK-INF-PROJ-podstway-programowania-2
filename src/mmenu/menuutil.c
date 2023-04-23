@@ -22,6 +22,9 @@
  **/
 #define MENUMARK (" * ")
 
+/**
+ *@brief How many columns should form field have.
+ **/
 #define FORMFIELDLENGTH 40
 
 /**
@@ -95,7 +98,7 @@ void printWindowBoarders(WINDOW *window, const char *const title) {
 static void menuHandleIteraction(MENU *menu, PANEL *panel) {
   int input;
   bool doExit = FALSE;
-  while (!doExit) {
+  do {
     update_panels();
     doupdate();
     input = getch();
@@ -125,7 +128,7 @@ static void menuHandleIteraction(MENU *menu, PANEL *panel) {
       ((void (*)(void))(item_userptr(curitem)))();
       show_panel(panel);
     }
-  }
+  } while (!doExit);
 }
 
 /**
@@ -184,19 +187,65 @@ void menuInvoke(const char *const title, const char *const choices[],
 }
 
 /**
- *@brief Put form on screen in nice looking menu.
+ *@brief Manages input in the form
+ *@param form form that input will go into .
+ **/
+static void formHandleIteraction(FORM *form) {
+  bool doExit = false;
+
+  do {
+    update_panels();
+    doupdate();
+    int input = getch();
+    switch (input) {
+    case 10:
+      doExit = true;
+      break;
+    case KEY_DOWN:
+      form_driver(form, REQ_DOWN_FIELD);
+      form_driver(form, REQ_END_LINE);
+      break;
+    case KEY_UP:
+      form_driver(form, REQ_UP_FIELD);
+      form_driver(form, REQ_END_LINE);
+      break;
+    case KEY_LEFT:
+      form_driver(form, REQ_PREV_CHAR);
+      break;
+    case KEY_RIGHT:
+      form_driver(form, REQ_NEXT_CHAR);
+      break;
+    // Delete the char before cursor
+    case KEY_BACKSPACE:
+    case 127:
+      form_driver(form, REQ_DEL_PREV);
+      break;
+    // Delete the char under the cursor
+    case KEY_DC:
+      form_driver(form, REQ_DEL_CHAR);
+      break;
+    default:
+      form_driver(form, input);
+      break;
+    }
+  } while (!doExit);
+}
+
+/**
+ *@brief Put form on screen in nice looking form.
  *@param form Form that will be put on scree.
+ *@param formFieldNames array of field names.
  *@param title Title of window(form)
  *
  **/
-void formHandle(FORM *form, const char *const formFieldNames[],
-                const char *const title) {
+static void formHandle(FORM *form, const char *const formFieldNames[],
+                       const char *const title) {
   assert(form);
   assert(title);
   assert(formFieldNames);
-  // form subwindow rows
+  // form sub window rows
   int subRows;
-  // form subwindow cols
+  // form sub window cols
   int subCols;
   scale_form(form, &subRows, &subCols);
 
@@ -212,6 +261,7 @@ void formHandle(FORM *form, const char *const formFieldNames[],
 
   WINDOW *formWin = newwin(formWinRows, formWinCols, (LINES - formWinRows) / 2,
                            (COLS - formWinCols) / 2);
+  keypad(formWin, true);
   set_form_win(form, formWin);
   // start at 3 (2 boarders + title row)
   // +1 space for nice looking
@@ -226,8 +276,7 @@ void formHandle(FORM *form, const char *const formFieldNames[],
   }
   post_form(form);
 
-  update_panels();
-  doupdate();
+  formHandleIteraction(form);
 
   del_panel(panel);
   delwin(form_sub(form));
@@ -235,6 +284,11 @@ void formHandle(FORM *form, const char *const formFieldNames[],
   unpost_form(form);
 }
 
+/**
+ *@brief Initialize FORM.
+ *@param fieldCount How many fields will be in the field.
+ *@return initialized FORM pointer.
+ **/
 FORM *formInit(const int fieldCount) {
   // allocate
   FIELD **field = calloc(sizeof(FIELD *), fieldCount + 1);
@@ -243,12 +297,17 @@ FORM *formInit(const int fieldCount) {
     field[i] = new_field(1, FORMFIELDLENGTH, 2 * i, 1, 0, 0);
     assert(field[i]);
     set_field_back(field[i], A_UNDERLINE);
+    field_opts_off(field[i], O_AUTOSKIP);
   }
   FORM *form = new_form(field);
 
   return form;
 }
 
+/**
+ *@brief Frees memory used for form, and it's fields.
+ *@param form Form to be free.
+ **/
 void formFree(FORM *form) {
   unpost_form(form);
   FIELD **fields = form_fields(form);
