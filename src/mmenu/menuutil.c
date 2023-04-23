@@ -188,7 +188,6 @@ void menuInvoke(const char *const title, const char *const choices[],
  *@param form Form that will be put on scree.
  *@param title Title of window(form)
  *
- *@todo implement
  **/
 void formHandle(FORM *form, const char *const formFieldNames[],
                 const char *const title) {
@@ -206,12 +205,13 @@ void formHandle(FORM *form, const char *const formFieldNames[],
   const int fieldNamesColsNeeded =
       getLongestStringLength(formFieldNames, field_count(form));
   const int formWinCols = max(titleLenght, fieldNamesColsNeeded);
-
   // Rows will be rows needed for fields + 3 for boarders + 1 row for title
   const int formWinRows = subRows + 3 + 1;
 
   getch();
   // WINDOW formWin = newwin();
+
+  //! @todo implement
 }
 
 FORM *formInit(const int fieldCount) {
