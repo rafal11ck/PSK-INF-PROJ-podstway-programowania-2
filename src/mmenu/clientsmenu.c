@@ -15,51 +15,6 @@
  */
 
 /**
- *@brief Allocates form
- *@param formFieldNames Array of field names.
- *@param fieldCount size of array.
- *@return form.
- *with fieldCount fields, based of field names array
- *
- *@todo Support for validation options.
- * */
-FORM *makeForm(const int fieldCount) {
-  assert(fieldCount > 0);
-  // One more as last one is sentinel.
-  FIELD *field[fieldCount + 1];
-  field[fieldCount] = NULL;
-  // -1 as last is sentinel
-  for (int i = 0; i < fieldCount - 1; ++i) {
-    // 3 rows from top, 2 boarders and title;
-    // columns offset is boarder + field names
-    //! @todo offesets
-    field[i] = new_field(1, FORMFIELDLENGTH, 1, 1, 0, 0);
-    set_field_back(field[i], A_UNDERLINE);
-  }
-  FORM *form = new_form(field);
-
-  //! @todo THIS MIGHT BE CAUSING PROBLEMS BUT RESOLVED MEMORY LEAK.
-  //!  so needs to be checked.
-  for (int i = 0; i < fieldCount - 1; ++i) {
-    free_field(field[i]);
-  }
-  return form;
-}
-
-/**
- *@brief Deallocate form.
- **/
-void freeForm(FORM *form) {
-
-  int fieldCount = field_count(form);
-  assert(fieldCount == ERR || fieldCount <= 0);
-  unpost_form(form);
-  for (int i = 0; i < fieldCount; ++i)
-    free_field(form_fields(form)[i]);
-  free_form(form);
-}
-
-/**
  * @brief function for editing client.
  * @return NULL if client was not edited, pointer to client if was edited.
  *
@@ -68,13 +23,31 @@ void freeForm(FORM *form) {
 struct Client *editClientForm() {
   const char *const formFieldNames[] = {"Card id", "Name", "Surname", "Address",
                                         "Phone Number"};
-  int fieldCount = sizeof(formFieldNames) / sizeof(formFieldNames[0]);
+  int fieldCount = sizeof(formFieldNames) / sizeof(*formFieldNames);
 
-  FORM *form = makeForm(fieldCount);
-  //! @todo post it on screen for input.
-  invokeForm(form, "Client", formFieldNames);
-  //! @todo free memory.
-  freeForm(form);
+  // allocate
+  FIELD *field[fieldCount + 1];
+  field[fieldCount - 1] = NULL;
+  for (int i = 0; i < fieldCount - 1; ++i) {
+    field[i] = new_field(1, 10, 2 * i, 1, 0, 0);
+    assert(field[i]);
+    set_field_back(field[i], A_UNDERLINE);
+  }
+
+  // make form go on screen
+  FORM *form = new_form(field);
+  post_form(form);
+
+  //! @todo parse form
+
+  // free memory
+  unpost_form(form);
+  free_form(form);
+  for (int i = 0; i < fieldCount - 1; ++i) {
+    free_field(field[i]);
+  }
+
+  return NULL;
 }
 
 /**
