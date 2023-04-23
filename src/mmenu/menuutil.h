@@ -11,7 +11,6 @@
 /**
  *@brief amount of columns of the form field.
  **/
-#define FORMFIELDLENGTH 40
 
 void invokeMenu(const char *const title, const char *const choices[],
                 const int choicesCount, void (*menuFun[])(void));
@@ -19,7 +18,7 @@ void invokeMenu(const char *const title, const char *const choices[],
 int getLongestStringLength(const char *const stringArr[],
                            const int stringsCount);
 
-void invokeForm(FORM *form, const char *const title,
-                const char *const formFieldNames[]);
+void formInvoke(const char *const formFieldNames[], const int fieldCount,
+                const char *const title);
 
 #endif // MENUUTIL_H

@@ -22,6 +22,8 @@
  **/
 #define MENUMARK (" * ")
 
+#define FORMFIELDLENGTH 40
+
 /**
  *@brief Add basic functionality to the shitty language which C is.
  *@param a First value to compare.
@@ -132,6 +134,9 @@ static void handleMenuIteraction(MENU *menu, PANEL *panel) {
  *@param choices Char pointer to table of choices
  *@param choicesCount Number of elements in table of choices
  *@param menuFun Table of pointers on functions
+ *
+ *@todo Split into functions, make allocation and dallcation seperate functions,
+ *make it allocate on heap instead of stack.
  **/
 void invokeMenu(const char *const title, const char *const choices[],
                 const int choicesCount, void (*menuFun[])(void)) {
@@ -185,8 +190,8 @@ void invokeMenu(const char *const title, const char *const choices[],
  *
  *@todo implement
  **/
-void invokeForm(FORM *form, const char *const title,
-                const char *const formFieldNames[]) {
+void formHandle(FORM *form, const char *const formFieldNames[],
+                const char *const title) {
   assert(form);
   assert(title);
   assert(formFieldNames);
@@ -197,7 +202,7 @@ void invokeForm(FORM *form, const char *const title,
   scale_form(form, &subRows, &subCols);
 
   const int titleLenght = strlen(title);
-  // How many collumns are needed for field names.
+  // How many columns are needed for field names.
   const int fieldNamesColsNeeded =
       getLongestStringLength(formFieldNames, field_count(form));
   const int formWinCols = max(titleLenght, fieldNamesColsNeeded);
@@ -205,5 +210,46 @@ void invokeForm(FORM *form, const char *const title,
   // Rows will be rows needed for fields + 3 for boarders + 1 row for title
   const int formWinRows = subRows + 3 + 1;
 
+  getch();
   // WINDOW formWin = newwin();
+}
+
+FORM *makeForm(const int fieldCount) {
+  // allocate
+  FIELD **field = calloc(sizeof(FIELD *), fieldCount + 1);
+  field[fieldCount - 1] = NULL;
+  for (int i = 0; i < fieldCount - 1; ++i) {
+    field[i] = new_field(1, 30, 2 * i, 1, 0, 0);
+    assert(field[i]);
+    set_field_back(field[i], A_UNDERLINE);
+  }
+  FORM *form = new_form(field);
+  return form;
+}
+
+void freeForm(FORM *form) {
+
+  unpost_form(form);
+  free_form(form);
+  FIELD **fields = form_fields(form);
+  const int fieldCount = field_count(form);
+  for (int i = 0; i < fieldCount; ++i) {
+    free_field(fields[i]);
+  }
+}
+
+void formInvoke(const char *const formFieldNames[], const int fieldCount,
+                const char *const title) {
+  assert(formFieldNames);
+  assert(fieldCount > 0);
+  assert(title);
+
+  FORM *form = makeForm(fieldCount);
+  //! @todo make form go on screen
+  formHandle(form, formFieldNames, title);
+  //! @todo parse form
+
+  // free memory
+  freeForm(form);
+  return;
 }
