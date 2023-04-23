@@ -14,6 +14,43 @@
  *@brief Clients menu implementation.
  */
 
+FORM *makeForm(const int fieldCount) {
+  // allocate
+  FIELD **field = calloc(sizeof(FIELD *), fieldCount + 1);
+  field[fieldCount - 1] = NULL;
+  for (int i = 0; i < fieldCount - 1; ++i) {
+    field[i] = new_field(1, 30, 2 * i, 1, 0, 0);
+    assert(field[i]);
+    set_field_back(field[i], A_UNDERLINE);
+  }
+  FORM *form = new_form(field);
+  return form;
+}
+
+void freeForm(FORM *form) {
+
+  unpost_form(form);
+  free_form(form);
+  FIELD **fields = form_fields(form);
+  const int fieldCount = field_count(form);
+  for (int i = 0; i < fieldCount; ++i) {
+    free_field(fields[i]);
+  }
+}
+
+void invokeForm(const char *const formFieldNames[], const int fieldCount,
+                const char *const title) {
+
+  FORM *form = makeForm(fieldCount);
+  //! @todo make form go on screen
+
+  //! @todo parse form
+
+  // free memory
+  freeForm(form);
+  return;
+}
+
 /**
  * @brief function for editing client.
  * @return NULL if client was not edited, pointer to client if was edited.
@@ -24,28 +61,6 @@ struct Client *editClientForm() {
   const char *const formFieldNames[] = {"Card id", "Name", "Surname", "Address",
                                         "Phone Number"};
   int fieldCount = sizeof(formFieldNames) / sizeof(*formFieldNames);
-
-  // allocate
-  FIELD *field[fieldCount + 1];
-  field[fieldCount - 1] = NULL;
-  for (int i = 0; i < fieldCount - 1; ++i) {
-    field[i] = new_field(1, 10, 2 * i, 1, 0, 0);
-    assert(field[i]);
-    set_field_back(field[i], A_UNDERLINE);
-  }
-
-  // make form go on screen
-  FORM *form = new_form(field);
-  post_form(form);
-
-  //! @todo parse form
-
-  // free memory
-  unpost_form(form);
-  free_form(form);
-  for (int i = 0; i < fieldCount - 1; ++i) {
-    free_field(field[i]);
-  }
 
   return NULL;
 }
