@@ -116,8 +116,9 @@ static void menuHandleIteraction(MENU *menu, PANEL *panel) {
       // printing choices on stdscr for testing.
       move(LINES - 2, 0);
       clrtoeol();
+      attron(COLOR_PAIR(1));
       printw("SELECTED: %s", name);
-      // getch();
+      attroff(COLOR_PAIR(1));
 #endif
       // EXIT has null pointer, break the switch and loop
       if (item_userptr(curitem) == NULL) {
@@ -200,6 +201,8 @@ static void formHandleIteraction(FORM *form) {
     switch (input) {
     case 10:
       doExit = true;
+      form_driver(form, REQ_DOWN_FIELD);
+      form_driver(form, REQ_END_LINE);
       break;
     case KEY_DOWN:
       form_driver(form, REQ_DOWN_FIELD);
@@ -282,6 +285,16 @@ static void formHandle(FORM *form, const char *const formFieldNames[],
   delwin(form_sub(form));
   delwin(form_win(form));
   unpost_form(form);
+#ifndef NDEBUG
+  // print content of form on screen.
+  attron(COLOR_PAIR(1));
+  mvprintw(1, 1, "%s", title);
+  for (int i = 0; i < field_count(form); ++i) {
+    mvprintw(2 + i, 1, "%s: %s", formFieldNames[i],
+             field_buffer(form_fields(form)[i], 0));
+  }
+  attroff(COLOR_PAIR(1));
+#endif
 }
 
 /**
