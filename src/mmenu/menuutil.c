@@ -224,15 +224,16 @@ FORM *formInit(const int fieldCount) {
     set_field_back(field[i], A_UNDERLINE);
   }
   FORM *form = new_form(field);
+
   return form;
 }
 
 void formFree(FORM *form) {
-
   unpost_form(form);
-  free_form(form);
   FIELD **fields = form_fields(form);
   const int fieldCount = field_count(form);
+  free_form(form);
+  free(fields);
   for (int i = 0; i < fieldCount; ++i) {
     free_field(fields[i]);
   }
