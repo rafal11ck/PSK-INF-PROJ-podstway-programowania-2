@@ -262,12 +262,14 @@ void formFree(FORM *form) {
 
 /**
  *@brief Form with given fields and title.
- *@param formFieldsNames Field names of the form.
- *@param fieldCount How many fields will be in the form, size of formFieldNames
- *array.
+ *@param formFieldNames Field names of the form.
+ *@param fieldCount How many fields will be in the form, size of
+ *formFieldNames array.
  *@param title Title of the form.
  *
  *@todo form result parsing with function pointer as parameter.
+ *
+ *@todo input validation
  * */
 void formInvoke(const char *const formFieldNames[], const int fieldCount,
                 const char *const title) {
@@ -276,7 +278,7 @@ void formInvoke(const char *const formFieldNames[], const int fieldCount,
   assert(title);
 
   FORM *form = formInit(fieldCount);
-  //! @todo make form go on screen
+  // make form go on screen.
   formHandle(form, formFieldNames, title);
   //! @todo parse form
 
