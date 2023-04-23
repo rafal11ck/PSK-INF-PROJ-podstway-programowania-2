@@ -277,7 +277,7 @@ void formInvoke(const char *const formFieldNames[], const int fieldCount,
 
   FORM *form = formInit(fieldCount);
   //! @todo make form go on screen
-  // formHandle(form, formFieldNames, title);
+  formHandle(form, formFieldNames, title);
   //! @todo parse form
 
   // free memory
