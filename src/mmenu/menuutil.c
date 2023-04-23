@@ -245,7 +245,6 @@ FORM *formInit(const int fieldCount) {
     set_field_back(field[i], A_UNDERLINE);
   }
   FORM *form = new_form(field);
-  set_form_userptr(form, field);
 
   return form;
 }
