@@ -21,7 +21,7 @@ void mainMenuSelection(void) {
   const char *const choices[] = {"Cars", "Clients", "Rentals", "Exit"};
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
   void (*menuFun[])(void) = {carsMenu, clientsMenu, rentalsMenu, NULL};
-  invokeMenu(title, choices, choicesCount, menuFun);
+  menuInvoke(title, choices, choicesCount, menuFun);
 }
 
 void mainMenu(void) {

@@ -51,5 +51,5 @@ void clientsMenu(void) {
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
   //! @todo implement submenus
   void (*menuFun[])(void) = {NULL, addClient, NULL, NULL, NULL};
-  invokeMenu(title, choices, choicesCount, menuFun);
+  menuInvoke(title, choices, choicesCount, menuFun);
 }

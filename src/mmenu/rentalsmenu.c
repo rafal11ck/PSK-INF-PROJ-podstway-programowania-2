@@ -14,5 +14,5 @@ void rentalsMenu(void) {
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
   //! \todo implemnet submenus
   void (*menuFun[])(void) = {NULL, NULL, NULL, NULL};
-  invokeMenu(title, choices, choicesCount, menuFun);
+  menuInvoke(title, choices, choicesCount, menuFun);
 }

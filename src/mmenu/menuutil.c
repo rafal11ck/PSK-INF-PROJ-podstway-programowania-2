@@ -92,7 +92,7 @@ void printWindowBoarders(WINDOW *window, const char *const title) {
  *@param menu MENU pointer
  *@param panel PANEL pointer
  **/
-static void handleMenuIteraction(MENU *menu, PANEL *panel) {
+static void menuHandleIteraction(MENU *menu, PANEL *panel) {
   int input;
   bool doExit = FALSE;
   while (!doExit) {
@@ -138,7 +138,7 @@ static void handleMenuIteraction(MENU *menu, PANEL *panel) {
  *@todo Split into functions, make allocation and dallcation seperate functions,
  *make it allocate on heap instead of stack.
  **/
-void invokeMenu(const char *const title, const char *const choices[],
+void menuInvoke(const char *const title, const char *const choices[],
                 const int choicesCount, void (*menuFun[])(void)) {
   // Instantiate items for menu
   ITEM **mainMenuItems = calloc(choicesCount + 1, sizeof(ITEM *));
@@ -170,7 +170,7 @@ void invokeMenu(const char *const title, const char *const choices[],
 
   post_menu(mainMenu);
 
-  handleMenuIteraction(mainMenu, panel);
+  menuHandleIteraction(mainMenu, panel);
 
   // Deallocation
   unpost_menu(mainMenu);
@@ -214,12 +214,12 @@ void formHandle(FORM *form, const char *const formFieldNames[],
   // WINDOW formWin = newwin();
 }
 
-FORM *makeForm(const int fieldCount) {
+FORM *formInit(const int fieldCount) {
   // allocate
   FIELD **field = calloc(sizeof(FIELD *), fieldCount + 1);
   field[fieldCount - 1] = NULL;
   for (int i = 0; i < fieldCount - 1; ++i) {
-    field[i] = new_field(1, 30, 2 * i, 1, 0, 0);
+    field[i] = new_field(1, FORMFIELDLENGTH, 2 * i, 1, 0, 0);
     assert(field[i]);
     set_field_back(field[i], A_UNDERLINE);
   }
@@ -227,7 +227,7 @@ FORM *makeForm(const int fieldCount) {
   return form;
 }
 
-void freeForm(FORM *form) {
+void formFree(FORM *form) {
 
   unpost_form(form);
   free_form(form);
@@ -238,18 +238,27 @@ void freeForm(FORM *form) {
   }
 }
 
+/**
+ *@brief Form with given fields and title.
+ *@param formFieldsNames Field names of the form.
+ *@param fieldCount How many fields will be in the form, size of formFieldNames
+ *array.
+ *@param title Title of the form.
+ *
+ *@todo form result parsing with function pointer as parameter.
+ * */
 void formInvoke(const char *const formFieldNames[], const int fieldCount,
                 const char *const title) {
   assert(formFieldNames);
   assert(fieldCount > 0);
   assert(title);
 
-  FORM *form = makeForm(fieldCount);
+  FORM *form = formInit(fieldCount);
   //! @todo make form go on screen
   formHandle(form, formFieldNames, title);
   //! @todo parse form
 
   // free memory
-  freeForm(form);
+  formFree(form);
   return;
 }

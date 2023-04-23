@@ -12,7 +12,7 @@
  *@brief amount of columns of the form field.
  **/
 
-void invokeMenu(const char *const title, const char *const choices[],
+void menuInvoke(const char *const title, const char *const choices[],
                 const int choicesCount, void (*menuFun[])(void));
 
 int getLongestStringLength(const char *const stringArr[],
