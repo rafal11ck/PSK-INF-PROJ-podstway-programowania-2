@@ -204,14 +204,35 @@ void formHandle(FORM *form, const char *const formFieldNames[],
   // How many columns are needed for field names.
   const int fieldNamesColsNeeded =
       getLongestStringLength(formFieldNames, field_count(form));
-  const int formWinCols = max(titleLenght, fieldNamesColsNeeded);
+  // +4 for boarders
+  const int formWinCols =
+      max(titleLenght, fieldNamesColsNeeded + FORMFIELDLENGTH) + 4;
   // Rows will be rows needed for fields + 3 for boarders + 1 row for title
   const int formWinRows = subRows + 3 + 1;
 
-  getch();
-  // WINDOW formWin = newwin();
+  WINDOW *formWin = newwin(formWinRows, formWinCols, (LINES - formWinRows) / 2,
+                           (COLS - formWinCols) / 2);
+  set_form_win(form, formWin);
+  // start at 3 (2 boarders + title row)
+  // +1 space for nice looking
+  set_form_sub(form, derwin(form_win(form), subRows, subCols, 3,
+                            fieldNamesColsNeeded + 1));
 
-  //! @todo implement
+  PANEL *panel = new_panel(formWin);
+
+  printWindowBoarders(form_win(form), title);
+  for (int i = 0; i < field_count(form); ++i) {
+    mvwprintw(form_win(form), 3 + i * 2, 1, "%s", formFieldNames[i]);
+  }
+  post_form(form);
+
+  update_panels();
+  doupdate();
+
+  del_panel(panel);
+  delwin(form_sub(form));
+  delwin(form_win(form));
+  unpost_form(form);
 }
 
 FORM *formInit(const int fieldCount) {
@@ -224,6 +245,7 @@ FORM *formInit(const int fieldCount) {
     set_field_back(field[i], A_UNDERLINE);
   }
   FORM *form = new_form(field);
+  set_form_userptr(form, field);
 
   return form;
 }
@@ -233,10 +255,10 @@ void formFree(FORM *form) {
   FIELD **fields = form_fields(form);
   const int fieldCount = field_count(form);
   free_form(form);
-  free(fields);
   for (int i = 0; i < fieldCount; ++i) {
     free_field(fields[i]);
   }
+  free(fields);
 }
 
 /**
@@ -256,7 +278,7 @@ void formInvoke(const char *const formFieldNames[], const int fieldCount,
 
   FORM *form = formInit(fieldCount);
   //! @todo make form go on screen
-  formHandle(form, formFieldNames, title);
+  // formHandle(form, formFieldNames, title);
   //! @todo parse form
 
   // free memory
