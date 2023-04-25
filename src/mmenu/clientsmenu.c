@@ -24,7 +24,11 @@ struct Client *editClientForm() {
   const char *const formFieldNames[] = {"Card id", "Name", "Surname", "Address",
                                         "Phone Number"};
   int fieldCount = sizeof(formFieldNames) / sizeof(*formFieldNames);
-  formInvoke(formFieldNames, fieldCount, "Client");
+
+  FORM *form = formInit(fieldCount);
+  set_field_type(form_fields(form)[0], TYPE_INTEGER, 0, 0, 0);
+  formInvoke(form, formFieldNames, "Client");
+  formFree(form);
   return NULL;
 }
 

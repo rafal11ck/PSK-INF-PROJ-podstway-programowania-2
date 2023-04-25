@@ -18,7 +18,11 @@ void menuInvoke(const char *const title, const char *const choices[],
 int getLongestStringLength(const char *const stringArr[],
                            const int stringsCount);
 
-void formInvoke(const char *const formFieldNames[], const int fieldCount,
+void formInvoke(FORM *form, const char *const formFieldNames[],
                 const char *const title);
+
+FORM *formInit(const int fieldCount);
+
+void formFree(FORM *form);
 
 #endif // MENUUTIL_H

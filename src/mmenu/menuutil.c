@@ -1,5 +1,6 @@
 #include "menuutil.h"
 #include <assert.h>
+#include <eti.h>
 #include <form.h>
 #include <math.h>
 #include <menu.h>
@@ -16,6 +17,9 @@
  *
  *Wraps ncurses liblary.
  **/
+
+//! @todo Display IMPORTANT it has to be list as menu items with usr pointers to
+//! nodes in the list, use pads for scrolling horizontally.
 
 /**
  *@brief String to indicate current selected choice in menus.
@@ -190,6 +194,7 @@ void menuInvoke(const char *const title, const char *const choices[],
 /**
  *@brief Manages input in the form
  *@param form form that input will go into .
+ *@todo Resign form form, change return type.
  **/
 static void formHandleIteraction(FORM *form) {
   bool doExit = false;
@@ -200,8 +205,17 @@ static void formHandleIteraction(FORM *form) {
     int input = getch();
     switch (input) {
     case 10:
+      int tmp = form_driver(form, REQ_DOWN_FIELD);
+#ifndef NDEBUG
+      attron(COLOR_PAIR(1));
+      mvprintw(LINES - 4, 0, "form_driver status code = %d", tmp);
+      attroff(COLOR_PAIR(1));
+#endif
+      if (tmp == E_INVALID_FIELD) {
+        break;
+        //! @todo Display information about invalid data in current field.
+      }
       doExit = true;
-      form_driver(form, REQ_DOWN_FIELD);
       form_driver(form, REQ_END_LINE);
       break;
     case KEY_DOWN:
@@ -241,8 +255,8 @@ static void formHandleIteraction(FORM *form) {
  *@param title Title of window(form)
  *
  **/
-static void formHandle(FORM *form, const char *const formFieldNames[],
-                       const char *const title) {
+void formInvoke(FORM *form, const char *const formFieldNames[],
+                const char *const title) {
   assert(form);
   assert(title);
   assert(formFieldNames);
@@ -330,31 +344,4 @@ void formFree(FORM *form) {
     free_field(fields[i]);
   }
   free(fields);
-}
-
-/**
- *@brief Form with given fields and title.
- *@param formFieldNames Field names of the form.
- *@param fieldCount How many fields will be in the form, size of
- *formFieldNames array.
- *@param title Title of the form.
- *
- *@todo form result parsing with function pointer as parameter.
- *
- *@todo input validation
- * */
-void formInvoke(const char *const formFieldNames[], const int fieldCount,
-                const char *const title) {
-  assert(formFieldNames);
-  assert(fieldCount > 0);
-  assert(title);
-
-  FORM *form = formInit(fieldCount);
-  // make form go on screen.
-  formHandle(form, formFieldNames, title);
-  //! @todo parse form
-
-  // free memory
-  formFree(form);
-  return;
 }
