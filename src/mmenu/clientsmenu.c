@@ -8,6 +8,7 @@
 #include <panel.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  *@file
@@ -15,19 +16,58 @@
  */
 
 /**
+ *@brief Parse form.
+ *@param result Where to save parsed result, if it's NULL allocates memory if
+ *any of fields were altered.
+ *@param form Filled already form containing client data.
+ *@result
+ *- True if any of fields was altered
+ *
+ * */
+
+bool clientFormParse(struct Client **result, FORM *form) {
+  bool isFormAltered = false;
+  struct Client *resultPtr = *result;
+
+  // for each changed field in form
+  for (int i = 0; i < field_count(form); ++i) {
+    FIELD *curField = form_fields(form)[i];
+    assert(curField);
+    char *curFieldBuffer = field_buffer(curField, 0);
+    assert(curFieldBuffer);
+    // if field was edited
+    if (field_status(curField) == true) {
+      switch (i) {
+      case 0:
+        resultPtr->m_cardID = atoi(curFieldBuffer);
+        break;
+      case 1:
+        strcpy(resultPtr->m_name, curFieldBuffer);
+      }
+    }
+  }
+  return isFormAltered;
+}
+
+/**
  * @brief function for editing client.
  * @return NULL if client was not edited, pointer to client if was edited.
  *
- * @todo given client pointer make form have initial values.
  */
-struct Client *editClientForm() {
+struct Client *ClientFormEdit() {
   const char *const formFieldNames[] = {"Card id", "Name", "Surname", "Address",
                                         "Phone Number"};
   int fieldCount = sizeof(formFieldNames) / sizeof(*formFieldNames);
 
   FORM *form = formInit(fieldCount);
   set_field_type(form_fields(form)[0], TYPE_INTEGER, 0, 0, 0);
+  //! @todo set fields initial values as in edit given Client structure.
   formInvoke(form, formFieldNames, "Client");
+  //! @todo parse form return structure with altered values. Function resturns
+  //! true if alertnations oddured and data has to be update in storage., False
+  //! if not.
+
+  clientsMenu();
   formFree(form);
   return NULL;
 }
@@ -41,7 +81,7 @@ void addClient(void) {
   const char *const fieldNames[] = {"cos1", "cos2", "cos3"};
   const int fieldCount = sizeof(fieldNames) / sizeof(*fieldNames);
 
-  struct Client *newClient = editClientForm();
+  struct Client *newClient = ClientFormEdit();
 }
 
 /**

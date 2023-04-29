@@ -304,7 +304,8 @@ void formInvoke(FORM *form, const char *const formFieldNames[],
   attron(COLOR_PAIR(1));
   mvprintw(1, 1, "%s", title);
   for (int i = 0; i < field_count(form); ++i) {
-    mvprintw(2 + i, 1, "%s: %s", formFieldNames[i],
+    mvprintw(2 + i, 1, "%s (changed: %s): %s", formFieldNames[i],
+             field_status(form_fields(form)[i]) ? "yes" : "no",
              field_buffer(form_fields(form)[i], 0));
   }
   attroff(COLOR_PAIR(1));
