@@ -1,10 +1,20 @@
 #ifndef CLIENT_H_
 #define CLIENT_H_
 
+/**
+ * @file
+ * @brief Interface for Client structure.
+ *
+ * @todo Document propose of this file.
+ **/
+
+/**
+ *@brief Indicates that Client::m_ID is not valid.
+ **/
 #define INVALIDCLIENTID -1
 
 /**
- * @brief Structure hodling client single data
+ * @brief Structure holding client single data
  */
 struct Client {
   //! %Client ID.

@@ -17,17 +17,19 @@
 
 /**
  *@brief Parse form.
- *@param result Where to save parsed result, if it's NULL allocates memory if
- *any of fields were altered.
+ *@param result Client object where to save parsed result, Client::m_ID will be
+ *set to INVALIDCLIENTID. Does not allocate object.
  *@param form Filled already form containing client data.
  *@result
- *- True if any of fields was altered
+ * - True if any of fields has been altered
+ * - False if none of fields has been altered.
  *
  * */
-
 bool clientFormParse(struct Client **result, FORM *form) {
+  assert(result && "Can not be null pointer.");
   bool isFormAltered = false;
   struct Client *resultPtr = *result;
+  resultPtr->m_ID = INVALIDCLIENTID;
 
   // for each changed field in form
   for (int i = 0; i < field_count(form); ++i) {
@@ -37,12 +39,23 @@ bool clientFormParse(struct Client **result, FORM *form) {
     assert(curFieldBuffer);
     // if field was edited
     if (field_status(curField) == true) {
+      // corresponding field indices in  client structure.
       switch (i) {
       case 0:
         resultPtr->m_cardID = atoi(curFieldBuffer);
         break;
       case 1:
         strcpy(resultPtr->m_name, curFieldBuffer);
+        break;
+      case 2:
+        strcpy(resultPtr->m_surname, curFieldBuffer);
+        break;
+      case 3:
+        strcpy(resultPtr->m_adress, curFieldBuffer);
+        break;
+      case 4:
+        resultPtr->m_phoneNum = atoi(curFieldBuffer);
+        break;
       }
     }
   }
@@ -66,6 +79,11 @@ struct Client *ClientFormEdit() {
   //! @todo parse form return structure with altered values. Function resturns
   //! true if alertnations oddured and data has to be update in storage., False
   //! if not.
+
+  struct Client *formResult =
+      calloc(sizeof(struct Client), 1); // NEEDS TO BE FREED
+
+  clientFormParse(&formResult, form);
 
   clientsMenu();
   formFree(form);
