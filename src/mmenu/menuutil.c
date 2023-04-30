@@ -320,8 +320,8 @@ void formInvoke(FORM *form, const char *const formFieldNames[],
 FORM *formInit(const int fieldCount) {
   // allocate
   FIELD **field = calloc(sizeof(FIELD *), fieldCount + 1);
-  field[fieldCount - 1] = NULL;
-  for (int i = 0; i < fieldCount - 1; ++i) {
+  field[fieldCount] = NULL;
+  for (int i = 0; i < fieldCount; ++i) {
     field[i] = new_field(1, FORMFIELDLENGTH, 2 * i, 1, 0, 0);
     assert(field[i]);
     set_field_back(field[i], A_UNDERLINE);
