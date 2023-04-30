@@ -24,7 +24,7 @@
  * - True if any of fields has been altered
  * - False if none of fields has been altered.
  *
- * */
+ */
 bool clientFormParse(struct Client **result, FORM *form) {
   assert(result && "Can not be null pointer.");
   bool isFormAltered = false;
@@ -39,18 +39,22 @@ bool clientFormParse(struct Client **result, FORM *form) {
     assert(curFieldBuffer);
     // if field was edited
     if (field_status(curField) == true) {
+      isFormAltered = true;
       // corresponding field indices in  client structure.
       switch (i) {
       case 0:
         resultPtr->m_cardID = atoi(curFieldBuffer);
         break;
       case 1:
+        resultPtr->m_name = calloc(sizeof(char), strlen(curFieldBuffer) + 1);
         strcpy(resultPtr->m_name, curFieldBuffer);
         break;
       case 2:
+        resultPtr->m_surname = calloc(sizeof(char), strlen(curFieldBuffer) + 1);
         strcpy(resultPtr->m_surname, curFieldBuffer);
         break;
       case 3:
+        resultPtr->m_adress = calloc(sizeof(char), strlen(curFieldBuffer) + 1);
         strcpy(resultPtr->m_adress, curFieldBuffer);
         break;
       case 4:
@@ -63,11 +67,18 @@ bool clientFormParse(struct Client **result, FORM *form) {
 }
 
 /**
- * @brief function for editing client.
- * @return NULL if client was not edited, pointer to client if was edited.
+ * @brief Function for editing client.
+ * @param result Where to put results at.
+ * @param placeHolder Structure of placeholder values for form. If NULL
+ * placeholders are empty (usefull when instead of editing adding).
+ * @return Whenever changes should be propagated.
+ * - false = nothing to do.
  *
+ * @todo make placeHolder do shit.
  */
-struct Client *ClientFormEdit() {
+bool ClientFormEdit(struct Client **result,
+                    const struct Client *const placeHolder) {
+  assert(result);
   const char *const formFieldNames[] = {"Card id", "Name", "Surname", "Address",
                                         "Phone Number"};
   int fieldCount = sizeof(formFieldNames) / sizeof(*formFieldNames);
@@ -76,18 +87,12 @@ struct Client *ClientFormEdit() {
   set_field_type(form_fields(form)[0], TYPE_INTEGER, 0, 0, 0);
   //! @todo set fields initial values as in edit given Client structure.
   formInvoke(form, formFieldNames, "Client");
-  //! @todo parse form return structure with altered values. Function resturns
-  //! true if alertnations oddured and data has to be update in storage., False
-  //! if not.
 
-  struct Client *formResult =
-      calloc(sizeof(struct Client), 1); // NEEDS TO BE FREED
+  bool state = false;
+  state = clientFormParse(result, form);
 
-  clientFormParse(&formResult, form);
-
-  clientsMenu();
   formFree(form);
-  return NULL;
+  return state;
 }
 
 /**
@@ -95,11 +100,12 @@ struct Client *ClientFormEdit() {
  *@brief function for adding client;
  **/
 void addClient(void) {
-  const char *const title = "Add client";
-  const char *const fieldNames[] = {"cos1", "cos2", "cos3"};
-  const int fieldCount = sizeof(fieldNames) / sizeof(*fieldNames);
+  struct Client *newClient = clientNew();
+  if (ClientFormEdit(&newClient, 0) == TRUE) {
+    //! @todo propgate changes..
+  }
 
-  struct Client *newClient = ClientFormEdit();
+  clientFree(newClient);
 }
 
 /**
@@ -108,10 +114,10 @@ void addClient(void) {
 void clientsMenu(void) {
 
   const char *const title = "Clients";
-  const char *const choices[] = {"listClients", "Add client", "removeClients",
-                                 "editClients", "Return to main menu"};
+  const char *const choices[] = {"list client", "Add client", "remove client",
+                                 "edit client", "Return to main menu"};
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
-  //! @todo implement submenus
+  //! @todo implement submenus.
   void (*menuFun[])(void) = {NULL, addClient, NULL, NULL, NULL};
   menuInvoke(title, choices, choicesCount, menuFun);
 }

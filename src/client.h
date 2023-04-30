@@ -31,4 +31,7 @@ struct Client {
   int m_phoneNum;
 };
 
+struct Client *clientNew();
+void clientFree(struct Client *client);
+
 #endif // CLIENT_H_

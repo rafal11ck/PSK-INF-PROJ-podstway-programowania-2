@@ -7,6 +7,6 @@
  **/
 
 void clientsMenu(void);
-void addClient();
-
+struct Client *clientNew();
+void clientFree(struct Client *client);
 #endif // CLEINTSMENU_H

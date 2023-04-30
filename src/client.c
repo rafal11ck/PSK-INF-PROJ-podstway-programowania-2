@@ -20,8 +20,14 @@ struct Client *clientNew() {
 }
 
 /**
- *@breif Deallocates client.
+ *@brief
+ *Dealloactes client.
+ *@param client
+ *Client to be freed.
  **/
-void freeClient(struct Client *client) {
-  //! @todo bruh.
+void clientFree(struct Client *client) {
+  free(client->m_name);
+  free(client->m_surname);
+  free(client->m_adress);
+  free(client);
 }
