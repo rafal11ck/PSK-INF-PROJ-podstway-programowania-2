@@ -96,13 +96,12 @@ bool ClientFormEdit(struct Client **result,
 }
 
 /**
- *@todo Implement
  *@brief function for adding client;
  **/
 void addClient(void) {
   struct Client *newClient = clientNew();
   if (ClientFormEdit(&newClient, 0) == TRUE) {
-    //! @todo propgate changes..
+    //! @todo propgate changes...
   }
 
   clientFree(newClient);

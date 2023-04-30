@@ -1,4 +1,5 @@
 #include "menuutil.h"
+#include "../list.h" //! @todo remove .., LSP complaining.
 #include <assert.h>
 #include <eti.h>
 #include <form.h>
@@ -198,6 +199,7 @@ void menuInvoke(const char *const title, const char *const choices[],
  **/
 static void formHandleIteraction(FORM *form) {
   bool doExit = false;
+  int tmp; // < C98 moment
 
   do {
     update_panels();
@@ -205,7 +207,7 @@ static void formHandleIteraction(FORM *form) {
     int input = getch();
     switch (input) {
     case 10:
-      int tmp = form_driver(form, REQ_DOWN_FIELD);
+      tmp = form_driver(form, REQ_DOWN_FIELD);
 #ifndef NDEBUG
       attron(COLOR_PAIR(1));
       mvprintw(LINES - 4, 0, "form_driver status code = %d", tmp);
@@ -345,4 +347,22 @@ void formFree(FORM *form) {
     free_field(fields[i]);
   }
   free(fields);
+}
+
+/**
+ *@brief List Viewer for lists.
+ *@param listFuns array of functions that return sorted list.
+ *@param columNames array of column names strings.
+ *@param colNum How many columns are there.
+ *@param getItem create ITEM base on data from List::m_data.
+ *@param getIdf function returning ID of List::m_data from list that is returned
+ *by listFuns.
+ *
+ *@return ID of List::m_data item selected.
+ * @todo implement.
+ * */
+int *listViewInvoke(struct List *(*listFuns[])(),
+                    const char *const columnNames[], const int colNum,
+                    ITEM *(*getItem)(void *), int (*getIdf)(void *)) {
+  return NULL;
 }

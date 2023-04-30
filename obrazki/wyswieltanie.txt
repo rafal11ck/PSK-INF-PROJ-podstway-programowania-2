@@ -1,0 +1,9 @@
+digraph G
+{
+	rankdir="LR";
+
+    w [label="wyswietl(lista)"]
+    clm [label="createListMenu"];
+    w -> clm(lista);
+
+}
