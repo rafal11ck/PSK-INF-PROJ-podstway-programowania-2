@@ -47,6 +47,7 @@ struct List *listCreateList() {
   assert(list);
   list->m_front = NULL;
   list->m_back = NULL;
+  list->m_size = 0;
   return list;
 };
 
@@ -67,7 +68,7 @@ bool listPushFront(struct List *list, void *data) {
     node->m_next->m_prev = node;
   }
   list->m_front = node;
-  list->m_size++;
+  list->++m_size;
   return false;
 }
 
@@ -89,7 +90,7 @@ bool listPushBack(struct List *list, void *data) {
     node->m_prev->m_next = node;
   }
   list->m_back = node;
-  list->m_size++;
+  list->++m_size;
   return false;
 }
 
@@ -142,7 +143,7 @@ bool listInsertBefore(struct List *list, struct ListNode *node, void *data) {
   newNode->m_prev->m_next = newNode;
   // Make node after newNode point to newNode.
   node->m_prev = newNode;
-  list->m_size++;
+  list->++m_size;
   return false;
 }
 
@@ -193,7 +194,7 @@ bool listDeleteNode(struct List *list, struct ListNode *node) {
     else
       node->m_next->m_prev = node->m_prev;
   }
-  list->m_size--;
+  list->--m_size;
   listDealocateListNode(node);
   return false;
 }
