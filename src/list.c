@@ -201,7 +201,7 @@ bool listDeleteNode(struct List *list, struct ListNode *node) {
 
 /**
  * @brief How many elements are there in List.
+ * @param list List of which size is to be retrived.
  * @return Size of list.
- * @todo Implement in O(1) time complexity.
  * */
 int listSize(const struct List *const list) { return list->m_size; }

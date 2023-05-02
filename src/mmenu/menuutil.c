@@ -352,26 +352,36 @@ void formFree(FORM *form) {
 /**
  *@brief Allocates and fills MENU, based on List content.
  *@param list List based on which MENU will be created.
- *@param getItem Creates ITEM based on ListNode::m_data(it's passed as
- *praemeter).
+ *@param getItemString Function creating string based on ListNode::m_data(it's
+ *passed as praemeter). Should only set ITEM name and description.
+ *
+ *@return menu based on list.
+ *
+ *Every ITEM usr_pointer points to ListNode which it repersents.
  */
-static MENU *listViewMakeMenu(struct List *list, ITEM *(getItem)(void *)) {
+static MENU *listViewMakeMenu(struct List *list,
+                              char *(getItemString)(void *)) {
   // Allocate memory for MENU choices.
-  ITEM **menuItems = calloc(listSize(list), sizeof(ITEM *));
-  {
-    // Fill ITEMs with data from list.
-    int i = 0;
-    for (struct ListNode *it = listGetFront(list); it != NULL;
-         it = it->m_next, ++i) {
-      //! @warning Does not use weaper around ListNode to get
-      //! ListNode::m_data that is passsed to getItem function as parameter.
-      menuItems[i] = getItem(it->m_data);
-    }
-    // After loop i is one after last element where our sentinel should be.
-    menuItems[i] = NULL;
+  ITEM **menuItems = calloc(
+      listSize(list),
+      sizeof(ITEM *)); //! @warning might cause memory lieak if not freed.
+  // Fill ITEMs with data from list.
+  int i = 0;
+  for (struct ListNode *it = listGetFront(list); it != NULL;
+       it = it->m_next, ++i) {
+    //! @warning Does not use weaper around ListNode to get
+    //! ListNode::m_data that is passsed to getItem function as parameter.
+    char *itemAsString = getItemString(it->m_data);
+    menuItems[i] = new_item(itemAsString, itemAsString);
+    // Every menu item has pointer to ListNode which it represents.
+    set_item_userptr(menuItems[i], it);
   }
+  // After loop i is one after last element where our sentinel should be.
+  menuItems[i] = NULL;
+
   //! @todo implement
-  MENU *menu = NULL;
+  MENU *menu = new_menu(menuItems);
+  menu_opts_off(menu, O_SHOWDESC);
   return menu;
 }
 
@@ -384,8 +394,8 @@ static MENU *listViewMakeMenu(struct List *list, ITEM *(getItem)(void *)) {
  *@param listFuns array of functions that return sorted list.
  *@param columnNames array of column names strings.
  *@param colCount How many columns are there.
- *@param getItem Creates ITEM based on ListNode::m_data(it's passed as
- *praemeter).
+ *@param getItemString Function creating string based on ListNode::m_data(it's
+ *passed as praemeter). Should only set ITEM name and description.
  *@todo implement.
  */
 void listViewInvoke(void **out,
@@ -393,11 +403,11 @@ void listViewInvoke(void **out,
                                         const struct ListNode *const data),
                     struct List *(*listFuns[])(void),
                     const char *const columnNames[], const int colCount,
-                    ITEM *(*getItem)(void *)) {
+                    ITEM *(*getItemString)(void *)) {
   assert(out && "No result destnation given.");
   assert(extractData && "Can't extract data.");
   assert(listFuns && "No list functions passed");
-  assert(getItem && "Can't create list without that function.");
+  assert(getItemString && "Can't create list without that function.");
 
   // Load List
   struct List *list = listFuns[0]();
