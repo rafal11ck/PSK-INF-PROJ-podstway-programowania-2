@@ -351,8 +351,29 @@ void formFree(FORM *form) {
 
 /**
  *@brief Allocates and fills MENU, based on List content.
- * */
-static MENU *listViewMakeMenu(struct List *list, ITEM *(getItem)(void *)) {}
+ *@param list List based on which MENU will be created.
+ *@param getItem Creates ITEM based on ListNode::m_data(it's passed as
+ *praemeter).
+ */
+static MENU *listViewMakeMenu(struct List *list, ITEM *(getItem)(void *)) {
+  // Allocate memory for MENU choices.
+  ITEM **menuItems = calloc(listSize(list), sizeof(ITEM *));
+  {
+    // Fill ITEMs with data from list.
+    int i = 0;
+    for (struct ListNode *it = listGetFront(list); it != NULL;
+         it = it->m_next, ++i) {
+      //! @warning Does not use weaper around ListNode to get
+      //! ListNode::m_data that is passsed to getItem function as parameter.
+      menuItems[i] = getItem(it->m_data);
+    }
+    // After loop i is one after last element where our sentinel should be.
+    menuItems[i] = NULL;
+  }
+  //! @todo implement
+  MENU *menu = NULL;
+  return menu;
+}
 
 /**
  *@brief List Viewer for lists.
@@ -380,21 +401,6 @@ void listViewInvoke(void **out,
 
   // Load List
   struct List *list = listFuns[0]();
-
-  // Allocate memory for MENU choices.
-  ITEM **menuItems = calloc(listSize(list), sizeof(ITEM *));
-  {
-    // Fill ITEMs with data from list.
-    int i = 0;
-    for (struct ListNode *it = listGetFront(list); it != NULL;
-         it = it->m_next, ++i) {
-      //! @warning Does not use weaper around ListNode to get
-      //! ListNode::m_data that is passsed to getItem function as parameter.
-      menuItems[i] = getItem(it->m_data);
-    }
-    // After loop i is one after last element where our sentinel should be.
-    menuItems[i] = NULL;
-  }
 
   // 2. display list
 
