@@ -351,18 +351,39 @@ void formFree(FORM *form) {
 
 /**
  *@brief List Viewer for lists.
+ *@param out Where result will be saved.
+ *@param extractData Function taking two parameters first is pointer to the
+ *memory where result will be saved (out parameter will be passed internally),
+ *second is Listnode, from witch data will be extracted.
  *@param listFuns array of functions that return sorted list.
- *@param columNames array of column names strings.
- *@param colNum How many columns are there.
- *@param getItem create ITEM base on data from List::m_data.
- *@param getIdf function returning ID of List::m_data from list that is returned
- *by listFuns.
- *
- *@return ID of List::m_data item selected.
- * @todo implement.
- * */
-int *listViewInvoke(struct List *(*listFuns[])(),
-                    const char *const columnNames[], const int colNum,
-                    ITEM *(*getItem)(void *), int (*getIdf)(void *)) {
-  return NULL;
+ *@param columnNames array of column names strings.
+ *@param colCount How many columns are there.
+ *@param getItem Creates ITEM based on data from ListNode::m_data.
+ *@todo implement.
+ */
+void listViewInvoke(void **out,
+                    void (*extractData)(void **out,
+                                        const struct ListNode *const data),
+                    struct List *(*listFuns[])(),
+                    const char *const columnNames[], const int colCount,
+                    ITEM *(*getItem)(void *)) {
+  assert(out && "No result destnation given.");
+  assert(extractData && "Can't extract data.");
+  assert(listFuns && "No list functions passed");
+  assert(getItem && "Can't create list without that function.");
+
+  // Load List
+  struct List *list = listFuns[0]();
+
+  // Allocate memory for MENU choices.
+  ITEM **menuItems = calloc(listSize(list), sizeof(ITEM *));
+  for (int i = 0; i < listSize(list); ++i) {
+    menuItems[i] = getItem()
+  }
+
+  // 1.1 Create MENU ITEMS
+  // 2. display menu
+  // 3. given chosen menu item call extractData on it.
+  // 4. free memory.
+  // 5. return wanted data.
 }

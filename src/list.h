@@ -87,3 +87,10 @@ struct ListNode *listGetBack(struct List *list);
  * @return False if deleted successfully.
  */
 bool listDeleteNode(struct List *list, struct ListNode *node);
+
+/**
+ * @brief How many elements are there in List.
+ * @return Size of list.
+ * @todo Implement in O(1) time complexity.
+ * */
+int listSize(const struct List *const list);
