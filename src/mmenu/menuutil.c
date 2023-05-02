@@ -377,8 +377,12 @@ void listViewInvoke(void **out,
 
   // Allocate memory for MENU choices.
   ITEM **menuItems = calloc(listSize(list), sizeof(ITEM *));
-  for (int i = 0; i < listSize(list); ++i) {
-    menuItems[i] = getItem()
+  {
+    int i = 0;
+    for (struct ListNode *it = listGetFront(list); it != NULL;
+         it = it->m_next, ++i) {
+      menuItems[i] = getItem(it->m_data);
+    }
   }
 
   // 1.1 Create MENU ITEMS

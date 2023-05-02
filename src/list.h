@@ -1,5 +1,7 @@
 #include "stdbool.h"
 
+//! @todo move function documentation into .c file.
+
 /**
  * @file
  * @brief Doubly linked list interface.
