@@ -101,12 +101,11 @@ void printWindowBoarders(WINDOW *window, const char *const title) {
  *@param panel PANEL pointer
  **/
 static void menuHandleIteraction(MENU *menu, PANEL *panel) {
-  int input;
   bool doExit = FALSE;
   do {
     update_panels();
     doupdate();
-    input = getch();
+    int input = getch();
     switch (input) {
     case KEY_UP:
       menu_driver(menu, REQ_UP_ITEM);
@@ -116,8 +115,8 @@ static void menuHandleIteraction(MENU *menu, PANEL *panel) {
       break;
     case 10:;
       ITEM *curitem = current_item(menu);
-      const char *const name = item_name(curitem);
 #ifndef NDEBUG
+      const char *const name = item_name(curitem);
       // printing choices on stdscr for testing.
       move(LINES - 2, 0);
       clrtoeol();
@@ -131,6 +130,7 @@ static void menuHandleIteraction(MENU *menu, PANEL *panel) {
         break;
       }
       hide_panel(panel);
+      // cast to function
       ((void (*)(void))(item_userptr(curitem)))();
       show_panel(panel);
     }
@@ -358,19 +358,21 @@ void formFree(FORM *form) {
  *@return menu based on list.
  *
  *Every ITEM usr_pointer points to ListNode which it repersents.
+ *
+ *@warning might cause memory lieak if not freed.
+ *
+ *@warning Does not use weaper around ListNode to get ListNode::m_data that is
+ *passsed to getItem function as parameter.
  */
 static MENU *listViewMakeMenu(struct List *list,
-                              char *(getItemString)(void *)) {
+                              char *(*getItemString)(void *)) {
   // Allocate memory for MENU choices.
-  ITEM **menuItems = calloc(
-      listSize(list),
-      sizeof(ITEM *)); //! @warning might cause memory lieak if not freed.
+  ITEM **menuItems = calloc(listSize(list), sizeof(ITEM *));
+
   // Fill ITEMs with data from list.
   int i = 0;
   for (struct ListNode *it = listGetFront(list); it != NULL;
        it = it->m_next, ++i) {
-    //! @warning Does not use weaper around ListNode to get
-    //! ListNode::m_data that is passsed to getItem function as parameter.
     char *itemAsString = getItemString(it->m_data);
     menuItems[i] = new_item(itemAsString, itemAsString);
     // Every menu item has pointer to ListNode which it represents.
@@ -381,8 +383,81 @@ static MENU *listViewMakeMenu(struct List *list,
 
   //! @todo implement
   MENU *menu = new_menu(menuItems);
+  set_menu_mark(menu, MENUMARK);
+  set_menu_items(menu, menuItems);
+
+  // Last is null.
+  for (int j = 0; j < i - 1; ++j) {
+    //! @warning might cause segfault.
+    free_item(menuItems[j]);
+  }
+  free(menuItems);
   menu_opts_off(menu, O_SHOWDESC);
   return menu;
+}
+
+enum ListViewIteractionStateCode {
+  sortNext,
+  sortPrev,
+  sortInvert,
+  canceled,
+  chosen,
+  invalid,
+};
+
+/**
+ *@param result usr_ptr of chosen menu ITEM will be assigned to this.
+ *@param menu Menu to choose from.
+ *@return
+ *- True if chossen.
+ *- False if canceled.
+ *
+ *@todo implement
+ **/
+static enum ListViewIteractionStateCode
+listViewHandleIteraction(struct ListNode **result, MENU *menu) {
+  bool doExit = FALSE;
+  enum ListViewIteractionStateCode state = invalid;
+
+  do {
+    update_panels();
+    doupdate();
+    int input = getch();
+
+    switch (input) {
+    case KEY_UP:
+      menu_driver(menu, REQ_UP_ITEM);
+      break;
+    case KEY_DOWN:
+      menu_driver(menu, REQ_DOWN_ITEM);
+      break;
+    case 10:
+      *result = item_userptr(current_item(menu));
+      state = chosen;
+      doExit = true;
+      break;
+    case KEY_F(1):
+    case 'q':
+      state = canceled;
+      doExit = true;
+      break;
+    case KEY_RIGHT:
+      state = sortNext;
+      doExit = true;
+      break;
+    case KEY_LEFT:
+      state = sortPrev;
+      doExit = true;
+      break;
+    case 's':
+      state = sortInvert;
+      doExit = true;
+      break;
+    default:
+      break;
+    };
+  } while (!doExit);
+  return state;
 }
 
 /**
@@ -391,19 +466,29 @@ static MENU *listViewMakeMenu(struct List *list,
  *@param extractData Function taking two parameters first is pointer to the
  *memory where result will be saved (out parameter will be passed
  *internally), second is Listnode, from witch data will be extracted.
+ *@warning extractData parameter function receives pointer to internal
+ *listViewInvoke List ListNode that is deallocated after call returns so if
+ *result is to be preserved it has to do copy of data by itself.
  *@param listFuns array of functions that return sorted list.
  *@param columnNames array of column names strings.
  *@param colCount How many columns are there.
  *@param getItemString Function creating string based on ListNode::m_data(it's
  *passed as praemeter). Should only set ITEM name and description.
+ *
  *@todo implement.
+ *- chose function to load list
+ *- create menu
+ *- put menu
+ *- iteract with menu
+ *- parse menu state
+ *- deallocate memory
  */
 void listViewInvoke(void **out,
                     void (*extractData)(void **out,
                                         const struct ListNode *const data),
                     struct List *(*listFuns[])(void),
                     const char *const columnNames[], const int colCount,
-                    ITEM *(*getItemString)(void *)) {
+                    char *(*getItemString)(void *)) {
   assert(out && "No result destnation given.");
   assert(extractData && "Can't extract data.");
   assert(listFuns && "No list functions passed");
@@ -412,9 +497,39 @@ void listViewInvoke(void **out,
   // Load List
   struct List *list = listFuns[0]();
 
-  // 2. display list
+  MENU *menu = listViewMakeMenu(list, getItemString);
+  assert(menu);
+  // 2. display
+  const int listEntryCols = colCount * FORMFIELDLENGTH;
+  //! @todo check if screen has enough columns/lines.
+  WINDOW *menuWin = newwin(LINES, COLS, 0, (COLS - listEntryCols) / 2);
+  set_menu_win(menu, menuWin);
+  const int listStartCol = 1;
+  const int listStartRow = 2;
+  set_menu_sub(menu, derwin(menuWin, getmaxy(menuWin) - 6, getmaxx(menuWin) - 4,
+                            listStartRow, listStartCol));
+  keypad(menuWin, true);
+  PANEL *panel = new_panel(menuWin);
+
+  //! @todo replace temp.
+  printWindowBoarders(menu_win(menu), "TEMP");
+  post_menu(menu);
+
+  struct ListNode *choice = NULL;
+  //! @todo handle status codes.
+  enum ListViewIteractionStateCode choiceState =
+      listViewHandleIteraction(&choice, menu);
 
   // 3. given chosen menu item call extractData on it.
-  // 4. free memory.
-  // 5. return wanted data.
+  if (chosen) {
+    extractData(out, choice);
+  }
+
+  unpost_menu(menu);
+  del_panel(panel);
+  delwin(menu_sub(menu));
+  delwin(menu_win(menu));
+  free_menu(menu);
+
+  return;
 }
