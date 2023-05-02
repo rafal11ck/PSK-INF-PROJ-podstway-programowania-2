@@ -30,6 +30,9 @@ struct List {
 
   //! Pointer to last elemenet of the list.
   struct ListNode *m_back;
+
+  //! Number of elements in the list.
+  int m_size;
 };
 
 struct List *listCreateList();
@@ -47,9 +50,4 @@ struct ListNode *listGetBack(struct List *list);
 
 bool listDeleteNode(struct List *list, struct ListNode *node);
 
-/**
- * @brief How many elements are there in List.
- * @return Size of list.
- * @todo Implement in O(1) time complexity.
- * */
 int listSize(const struct List *const list);
