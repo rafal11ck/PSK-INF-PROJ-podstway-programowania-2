@@ -350,21 +350,27 @@ void formFree(FORM *form) {
 }
 
 /**
+ *@brief Allocates and fills MENU, based on List content.
+ * */
+static MENU *listViewMakeMenu(struct List *list, ITEM *(getItem)(void *)) {}
+
+/**
  *@brief List Viewer for lists.
  *@param out Where result will be saved.
  *@param extractData Function taking two parameters first is pointer to the
- *memory where result will be saved (out parameter will be passed internally),
- *second is Listnode, from witch data will be extracted.
+ *memory where result will be saved (out parameter will be passed
+ *internally), second is Listnode, from witch data will be extracted.
  *@param listFuns array of functions that return sorted list.
  *@param columnNames array of column names strings.
  *@param colCount How many columns are there.
- *@param getItem Creates ITEM based on data from ListNode::m_data.
+ *@param getItem Creates ITEM based on ListNode::m_data(it's passed as
+ *praemeter).
  *@todo implement.
  */
 void listViewInvoke(void **out,
                     void (*extractData)(void **out,
                                         const struct ListNode *const data),
-                    struct List *(*listFuns[])(),
+                    struct List *(*listFuns[])(void),
                     const char *const columnNames[], const int colCount,
                     ITEM *(*getItem)(void *)) {
   assert(out && "No result destnation given.");
@@ -378,15 +384,20 @@ void listViewInvoke(void **out,
   // Allocate memory for MENU choices.
   ITEM **menuItems = calloc(listSize(list), sizeof(ITEM *));
   {
+    // Fill ITEMs with data from list.
     int i = 0;
     for (struct ListNode *it = listGetFront(list); it != NULL;
          it = it->m_next, ++i) {
+      //! @warning Does not use weaper around ListNode to get
+      //! ListNode::m_data that is passsed to getItem function as parameter.
       menuItems[i] = getItem(it->m_data);
     }
+    // After loop i is one after last element where our sentinel should be.
+    menuItems[i] = NULL;
   }
 
-  // 1.1 Create MENU ITEMS
-  // 2. display menu
+  // 2. display list
+
   // 3. given chosen menu item call extractData on it.
   // 4. free memory.
   // 5. return wanted data.
