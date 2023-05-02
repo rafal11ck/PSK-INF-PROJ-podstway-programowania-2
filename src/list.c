@@ -37,6 +37,10 @@ bool listDealocateListNode(struct ListNode *node) {
   return false;
 }
 
+/**
+ * @brief Returns empty list
+ * @return Poitner to empty list.
+ */
 struct List *listCreateList() {
   struct List *list = malloc(sizeof(struct List));
   // ensure that memory was allocated
@@ -46,6 +50,12 @@ struct List *listCreateList() {
   return list;
 };
 
+/**
+ * @brief Adds item at the front of list.
+ * @param list List into which item is added.
+ * @param data Pointer to data that will be pushed.
+ * @return false if everything is fine.
+ * */
 bool listPushFront(struct List *list, void *data) {
   struct ListNode *node = listCreateNode(data);
   // if List is empty
@@ -60,6 +70,12 @@ bool listPushFront(struct List *list, void *data) {
   return false;
 }
 
+/**
+ * @brief Adds item at the end of list.
+ * @param list List into which item is added.
+ * @param data Pointer to data that will be pushed.
+ * @return false if everything is fine.
+ */
 bool listPushBack(struct List *list, void *data) {
 
   struct ListNode *node = listCreateNode(data);
@@ -75,6 +91,14 @@ bool listPushBack(struct List *list, void *data) {
   return false;
 }
 
+/**
+ * @brief Inserts data in list at appropriate positon so that list remains
+ * sorted.
+ * @param list List into which item is inserted.
+ * @param data Pointer to data that will be inserted.
+ * @param prevFun Pointer to function that compares two data instances.
+ * @return false if everything is fine.
+ */
 bool listInsert(struct List *list, void *data,
                 bool (*prevFun)(const void *, const void *)) {
   struct ListNode *it = list->m_front;
@@ -119,14 +143,33 @@ bool listInsertBefore(struct List *list, struct ListNode *node, void *data) {
   return false;
 }
 
+/**
+ * @brief Returns pointer to the first element of list.
+ * @param list List pointer of which first element is wanted.
+ * @return Pointer to the first element in the List.
+ * - Returns NULL if List is empty.
+ */
 struct ListNode *listGetFront(struct List *list) {
   return list->m_front;
 }
 
+/**
+ * @brief Returns pointer to the last element of list.
+ * @param list List pointer of which last element is wanted.
+ * @return Pointer to the last element in the List.
+ * - Returns NULL if List is empty.
+ */
 struct ListNode *listGetBack(struct List *list) {
   return list->m_back;
 }
 
+/**
+ * @brief Deallocates memory block pointed by  ListNode::m_data and removes
+ * ListNode from List.
+ * @param list List from which ListNode has to be deleted.
+ * @param node ListNode for removal.
+ * @return False if deleted successfully.
+ */
 bool listDeleteNode(struct List *list, struct ListNode *node) {
   assert(node != NULL);
   // If node for removal is first in the list
