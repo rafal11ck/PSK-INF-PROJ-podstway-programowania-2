@@ -365,7 +365,7 @@ void formFree(FORM *form) {
  *@warning Does not use weaper around ListNode to get ListNode::m_data that is
  *passsed to getItem function as parameter.
  */
-static MENU *listViewMakeMenu(struct List *list, char *(*getItemString)(void *),
+static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
                               const int colCount) {
   // Allocate memory for MENU choices.
   ITEM **menuItems = calloc(listSize(list), sizeof(ITEM *));
@@ -485,11 +485,15 @@ listViewHandleIteraction(struct ListNode **result, MENU *menu) {
  *@warning extractData parameter function receives pointer to internal
  *listViewInvoke List ListNode that is deallocated after call returns so if
  *result is to be preserved it has to do copy of data by itself.
- *@param listFuns array of functions that return sorted list.
+ *@param listFuns array of functions that return sorted list. Parameter
+ *descending of each functions should inform if sorting is ascending or
+ *descending.
  *@param columnNames array of column names strings.
  *@param colCount How many columns are there.
  *@param getItemString Function creating string based on ListNode::m_data(it's
  *passed as praemeter). Should do padding.
+ *@param dealloactor Function deallocating data from ListNode. for internal
+ *List.
  *
  *@todo implement.
  *- chose function to load list
@@ -498,28 +502,32 @@ listViewHandleIteraction(struct ListNode **result, MENU *menu) {
  *- iteract with menu
  *- parse menu state
  *- deallocate memory
+ *
+ * @todo change column color so that it shows which column it sorts by.
  */
 void listViewInvoke(void **out,
                     void (*extractData)(void **out,
                                         const struct ListNode *const data),
-                    struct List *(*listFuns[])(void),
+                    struct List *(*listFuns[])(bool descending),
                     const char *const columnNames[], const int colCount,
-                    char *(*getItemString)(void *)) {
+                    char *(*getItemString)(void *),
+                    void (*dealloactor)(void *)) {
   assert(out && "No result destnation given.");
   assert(extractData && "Can't extract data.");
   assert(listFuns && "No list functions passed");
   assert(getItemString && "Can't create list without that function.");
 
-  int currentSortType = 0;
   // Load List
-  struct List *list = listFuns[currentSortType]();
+  int currentSortType = 0;
   bool doExit = false;
+  bool sortDescending = false;
   do {
+    // get list
+    struct List *list = listFuns[currentSortType](sortDescending);
+
     // Make it go on screen.
-    MENU *menu = listViewMakeMenu(list, getItemString, colCount);
-    assert(menu);
+    MENU *menu = listViewInitMenu(list, getItemString, colCount);
     PANEL *panel = new_panel(menu_win(menu));
-    //! @todo replace temp.
     printWindowBoarders(menu_win(menu), "TEMP");
     post_menu(menu);
 
@@ -529,18 +537,39 @@ void listViewInvoke(void **out,
 
     //! @todo handle status codes.
     switch (choiceState) {
+    case chosen:
+      // if chosen choice is set already.
+      extractData(out, choice);
     case canceled:
       doExit = true;
       break;
+    case sortInvert:
+      sortDescending = !sortDescending;
+      break;
+    case sortNext:
+      // if current sorting is not last sorting type.
+      if (currentSortType < colCount - 1)
+        ++currentSortType;
+      break;
+    case sortPrev:
+      // if current sorting is not first sorting type.
+      if (currentSortType > 0)
+        --currentSortType;
+      break;
     case invalid:
-    default:
       assert(false && "Should never happen.");
     }
+
+    // free menu and list
     unpost_menu(menu);
     del_panel(panel);
     delwin(menu_sub(menu));
     delwin(menu_win(menu));
     free_menu(menu);
+    while (listSize(list) > 0) {
+      dealloactor(listGetFront(list));
+      listDeleteNode(list, listGetFront(list));
+    }
   } while (!doExit);
   return;
 }
