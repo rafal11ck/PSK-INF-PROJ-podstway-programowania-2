@@ -354,6 +354,7 @@ void formFree(FORM *form) {
  *@param list List based on which MENU will be created.
  *@param getItemString Function creating string based on ListNode::m_data(it's
  *passed as praemeter). Should only set ITEM name and description.
+ *@param colCount how many coulumns are to be dsiplayed.
  *
  *@return menu based on list.
  *
@@ -364,8 +365,8 @@ void formFree(FORM *form) {
  *@warning Does not use weaper around ListNode to get ListNode::m_data that is
  *passsed to getItem function as parameter.
  */
-static MENU *listViewMakeMenu(struct List *list,
-                              char *(*getItemString)(void *)) {
+static MENU *listViewMakeMenu(struct List *list, char *(*getItemString)(void *),
+                              const int colCount) {
   // Allocate memory for MENU choices.
   ITEM **menuItems = calloc(listSize(list), sizeof(ITEM *));
 
@@ -393,25 +394,40 @@ static MENU *listViewMakeMenu(struct List *list,
   }
   free(menuItems);
   menu_opts_off(menu, O_SHOWDESC);
+
+  const int listEntryCols = colCount * FORMFIELDLENGTH;
+  //! @todo check if screen has enough columns/lines.
+  WINDOW *menuWin = newwin(LINES, COLS, 0, (COLS - listEntryCols) / 2);
+  set_menu_win(menu, menuWin);
+  const int listStartCol = 1;
+  const int listStartRow = 2;
+  set_menu_sub(menu, derwin(menuWin, getmaxy(menuWin) - 6, getmaxx(menuWin) - 4,
+                            listStartRow, listStartCol));
+  keypad(menuWin, true);
   return menu;
 }
 
+/**
+ *@brief Status code returned by listViewHandleIteraction */
 enum ListViewIteractionStateCode {
+  //! Requestesed next sorting type.
   sortNext,
+  //! Requestesed previous soring type.
   sortPrev,
+  //! Requestesed invertion of sort ASC/DESC
   sortInvert,
+  //! Canceled, no MENU ITEM was chosen.
   canceled,
+  //! Chosen MENU ITEM.
   chosen,
+  //! Invalid state should never happen.
   invalid,
 };
 
 /**
  *@param result usr_ptr of chosen menu ITEM will be assigned to this.
  *@param menu Menu to choose from.
- *@return
- *- True if chossen.
- *- False if canceled.
- *
+ *@return @link ListViewIteractionStateCode @endlink
  *@todo implement
  **/
 static enum ListViewIteractionStateCode
@@ -473,7 +489,7 @@ listViewHandleIteraction(struct ListNode **result, MENU *menu) {
  *@param columnNames array of column names strings.
  *@param colCount How many columns are there.
  *@param getItemString Function creating string based on ListNode::m_data(it's
- *passed as praemeter). Should only set ITEM name and description.
+ *passed as praemeter). Should do padding.
  *
  *@todo implement.
  *- chose function to load list
@@ -494,42 +510,37 @@ void listViewInvoke(void **out,
   assert(listFuns && "No list functions passed");
   assert(getItemString && "Can't create list without that function.");
 
+  int currentSortType = 0;
   // Load List
-  struct List *list = listFuns[0]();
+  struct List *list = listFuns[currentSortType]();
+  bool doExit = false;
+  do {
+    // Make it go on screen.
+    MENU *menu = listViewMakeMenu(list, getItemString, colCount);
+    assert(menu);
+    PANEL *panel = new_panel(menu_win(menu));
+    //! @todo replace temp.
+    printWindowBoarders(menu_win(menu), "TEMP");
+    post_menu(menu);
 
-  MENU *menu = listViewMakeMenu(list, getItemString);
-  assert(menu);
-  // 2. display
-  const int listEntryCols = colCount * FORMFIELDLENGTH;
-  //! @todo check if screen has enough columns/lines.
-  WINDOW *menuWin = newwin(LINES, COLS, 0, (COLS - listEntryCols) / 2);
-  set_menu_win(menu, menuWin);
-  const int listStartCol = 1;
-  const int listStartRow = 2;
-  set_menu_sub(menu, derwin(menuWin, getmaxy(menuWin) - 6, getmaxx(menuWin) - 4,
-                            listStartRow, listStartCol));
-  keypad(menuWin, true);
-  PANEL *panel = new_panel(menuWin);
+    struct ListNode *choice = NULL;
+    enum ListViewIteractionStateCode choiceState = invalid;
+    choiceState = listViewHandleIteraction(&choice, menu);
 
-  //! @todo replace temp.
-  printWindowBoarders(menu_win(menu), "TEMP");
-  post_menu(menu);
-
-  struct ListNode *choice = NULL;
-  //! @todo handle status codes.
-  enum ListViewIteractionStateCode choiceState =
-      listViewHandleIteraction(&choice, menu);
-
-  // 3. given chosen menu item call extractData on it.
-  if (chosen) {
-    extractData(out, choice);
-  }
-
-  unpost_menu(menu);
-  del_panel(panel);
-  delwin(menu_sub(menu));
-  delwin(menu_win(menu));
-  free_menu(menu);
-
+    //! @todo handle status codes.
+    switch (choiceState) {
+    case canceled:
+      doExit = true;
+      break;
+    case invalid:
+    default:
+      assert(false && "Should never happen.");
+    }
+    unpost_menu(menu);
+    del_panel(panel);
+    delwin(menu_sub(menu));
+    delwin(menu_win(menu));
+    free_menu(menu);
+  } while (!doExit);
   return;
 }
