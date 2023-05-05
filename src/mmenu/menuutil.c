@@ -361,6 +361,8 @@ void formFree(FORM *form) {
  *passsed to getItem function as parameter.
  *
  *@todo make reverseOrder make MENU in reverse order (tranverse list from back).
+ *
+ *@warning CAUSES SEGFAULT
  */
 static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
                               const int colCount, bool reverseOrder) {
@@ -522,8 +524,6 @@ void listViewInvoke(void **out,
                     const char *const columnNames[], const int colCount,
                     char *(*getItemString)(void *),
                     void (*dealloactor)(void *)) {
-  assert(out && "No result destnation given.");
-  assert(extractData && "Can't extract data.");
   assert(listFuns && "No list functions passed");
   assert(getItemString && "Can't create list without that function.");
 
