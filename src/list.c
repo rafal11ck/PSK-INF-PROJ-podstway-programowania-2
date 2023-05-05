@@ -26,13 +26,13 @@ struct ListNode *listCreateNode(void *data);
 bool listInsertBefore(struct List *list, struct ListNode *node, void *data);
 
 /**
- * @brief Free memory pointed by ListNode::m_data and ListNode.
+ * @brief Free memory taken by ListNode.
  * @param node For removal.
  * @return False if succeed.
  */
 bool listDealocateListNode(struct ListNode *node) {
   assert(node != NULL);
-  free(node->m_data);
+  // free(node->m_data);
   free(node);
   return false;
 }
@@ -168,11 +168,12 @@ struct ListNode *listGetBack(struct List *list) {
 }
 
 /**
- * @brief Deallocates memory block pointed by  ListNode::m_data and removes
- * ListNode from List.
+ * @brief Removes ListNode from List.
  * @param list List from which ListNode has to be deleted.
  * @param node ListNode for removal.
  * @return False if deleted successfully.
+ *
+ * @warning Does not remove data allocated by user in ListNode::m_data.
  */
 bool listDeleteNode(struct List *list, struct ListNode *node) {
   assert(node != NULL);

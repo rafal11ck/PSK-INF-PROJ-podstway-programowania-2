@@ -44,5 +44,6 @@ int main() {
   // listViewInvoke(0, 0, listGetters, colNames, colCount, getIntString,
   // intDel);
   listViewInvoke(0, 0, listGetters, colNames, colCount, getIntString, intDel);
+  free(listGetters);
   endwin();
 }

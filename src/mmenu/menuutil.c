@@ -380,7 +380,6 @@ static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
   }
   // After loop i is one after last element where our sentinel should be.
   menuItems[i] = NULL;
-
   //! @todo implement
   MENU *menu = new_menu(menuItems);
   set_menu_mark(menu, MENUMARK);
@@ -391,18 +390,18 @@ static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
     //! @warning might cause segfault.
     free_item(menuItems[j]);
   }
-  free(menuItems);
   menu_opts_off(menu, O_SHOWDESC);
 
   const int listEntryCols = colCount * FORMFIELDLENGTH;
   //! @todo check if screen has enough columns/lines.
-  WINDOW *menuWin = newwin(LINES, COLS, 0, (COLS - listEntryCols) / 2);
+  WINDOW *menuWin = newwin(LINES, COLS, 0, 0);
   set_menu_win(menu, menuWin);
   const int listStartCol = 1;
-  const int listStartRow = 2;
+  const int listStartRow = 3;
   set_menu_sub(menu, derwin(menuWin, getmaxy(menuWin) - 6, getmaxx(menuWin) - 4,
                             listStartRow, listStartCol));
   keypad(menuWin, true);
+  // free(menuItems);
   return menu;
 }
 
