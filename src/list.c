@@ -42,7 +42,7 @@ bool listDealocateListNode(struct ListNode *node) {
  * @return Poitner to empty list.
  */
 struct List *listCreateList() {
-  struct List *list = malloc(sizeof(struct List));
+  struct List *list = calloc(sizeof(struct List), 1);
   // ensure that memory was allocated
   assert(list);
   list->m_front = NULL;
