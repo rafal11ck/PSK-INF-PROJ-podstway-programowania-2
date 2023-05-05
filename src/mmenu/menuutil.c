@@ -28,11 +28,6 @@
 #define MENUMARK (" * ")
 
 /**
- *@brief How many columns should form field have.
- **/
-#define FORMFIELDLENGTH 40
-
-/**
  *@brief Add basic functionality to the shitty language which C is.
  *@param a First value to compare.
  *@param b Second value to compare.
@@ -364,9 +359,11 @@ void formFree(FORM *form) {
  *
  *@warning Does not use weaper around ListNode to get ListNode::m_data that is
  *passsed to getItem function as parameter.
+ *
+ *@todo make reverseOrder make MENU in reverse order (tranverse list from back).
  */
 static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
-                              const int colCount) {
+                              const int colCount, bool reverseOrder) {
   // Allocate memory for MENU choices.
   ITEM **menuItems = calloc(listSize(list), sizeof(ITEM *));
 
@@ -476,6 +473,19 @@ listViewHandleIteraction(struct ListNode **result, MENU *menu) {
   return state;
 }
 
+static void listViewFreeMenu(MENU *menu) {
+  delwin(menu_sub(menu));
+  delwin(menu_win(menu));
+  free_menu(menu);
+}
+
+static void listViewFreeList(struct List *list, void (*dealloactor)(void *)) {
+  while (listSize(list) > 0) {
+    dealloactor(listGetFront(list)->m_data);
+    listDeleteNode(list, listGetFront(list));
+  }
+}
+
 /**
  *@brief List Viewer for lists.
  *@param out Where result will be saved.
@@ -492,8 +502,8 @@ listViewHandleIteraction(struct ListNode **result, MENU *menu) {
  *@param colCount How many columns are there.
  *@param getItemString Function creating string based on ListNode::m_data(it's
  *passed as praemeter). Should do padding.
- *@param dealloactor Function deallocating data from ListNode. for internal
- *List.
+ *@param dealloactor Function deallocating data that is held in ListNode, not
+ *ListNode itself. Required for internal List dealocation.
  *
  *@todo implement.
  *- chose function to load list
@@ -508,7 +518,7 @@ listViewHandleIteraction(struct ListNode **result, MENU *menu) {
 void listViewInvoke(void **out,
                     void (*extractData)(void **out,
                                         const struct ListNode *const data),
-                    struct List *(*listFuns[])(bool descending),
+                    struct List *(*listFuns[])(),
                     const char *const columnNames[], const int colCount,
                     char *(*getItemString)(void *),
                     void (*dealloactor)(void *)) {
@@ -521,12 +531,13 @@ void listViewInvoke(void **out,
   int currentSortType = 0;
   bool doExit = false;
   bool sortDescending = false;
+  struct List *list = listFuns[currentSortType]();
   do {
     // get list
-    struct List *list = listFuns[currentSortType](sortDescending);
 
     // Make it go on screen.
-    MENU *menu = listViewInitMenu(list, getItemString, colCount);
+    MENU *menu =
+        listViewInitMenu(list, getItemString, colCount, sortDescending);
     PANEL *panel = new_panel(menu_win(menu));
     printWindowBoarders(menu_win(menu), "TEMP");
     post_menu(menu);
@@ -535,11 +546,12 @@ void listViewInvoke(void **out,
     enum ListViewIteractionStateCode choiceState = invalid;
     choiceState = listViewHandleIteraction(&choice, menu);
 
-    //! @todo handle status codes.
+    //!@todo implement sort type changes.
     switch (choiceState) {
     case chosen:
       // if chosen choice is set already.
-      extractData(out, choice);
+      if (out != NULL && extractData != NULL)
+        extractData(out, choice);
     case canceled:
       doExit = true;
       break;
@@ -563,13 +575,8 @@ void listViewInvoke(void **out,
     // free menu and list
     unpost_menu(menu);
     del_panel(panel);
-    delwin(menu_sub(menu));
-    delwin(menu_win(menu));
-    free_menu(menu);
-    while (listSize(list) > 0) {
-      dealloactor(listGetFront(list));
-      listDeleteNode(list, listGetFront(list));
-    }
+    listViewFreeMenu(menu);
   } while (!doExit);
+  listViewFreeList(list, dealloactor);
   return;
 }

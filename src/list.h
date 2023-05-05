@@ -1,3 +1,6 @@
+#ifndef LIST_H
+#define LIST_H
+
 #include "stdbool.h"
 
 //! @todo move function documentation into .c file.
@@ -51,3 +54,5 @@ struct ListNode *listGetBack(struct List *list);
 bool listDeleteNode(struct List *list, struct ListNode *node);
 
 int listSize(const struct List *const list);
+
+#endif // LIST_H

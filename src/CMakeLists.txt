@@ -8,13 +8,17 @@ add_library(list list.h list.c)
 add_library(dbhandle dbhandle.h dbhandle.c)
 target_link_libraries(dbhandle sqlite3)
 
+include_directories(.)
+
 add_subdirectory(mmenu)
+add_executable(testlist testlist.c)
+target_link_libraries(testlist list)
+
+add_executable(testListView testListView.c)
+target_link_libraries(testListView list mmenu ncurses)
 
 add_executable(wypozyczalnia main.c)
 target_link_libraries(wypozyczalnia mmenu)
-
-add_executable(testlist testlist.c)
-target_link_libraries(testlist list)
 
 
 # first we can indicate the documentation build as an option and set it to ON by default
