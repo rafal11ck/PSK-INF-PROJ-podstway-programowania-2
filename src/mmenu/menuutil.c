@@ -483,6 +483,28 @@ void listViewFreeMenu(MENU *menu, const int itemCount) {
 }
 
 /**
+ *@brief Prints header row of table.
+ *@param win Window on which it will be printed.
+ *@param columnNames Column Names passed from @link listViewInvoke @endlink.
+ *@param colCount colCount from @link listViewInvoke @endlink
+ *@param current Which column should be highlighed.
+ *
+ *One header will be colored, indicated by current.
+ **/
+void printColumnNames(WINDOW *win, const char *const columnNames[],
+                      const int colCount, const int current) {
+  init_pair(2, COLOR_BLACK,
+            COLOR_MAGENTA); // smh it doesn't work when it's in other file
+  for (int i = 0; i < colCount; ++i) {
+    if (i == current)
+      wattron(win, COLOR_PAIR(2));
+    mvwprintw(win, 3, strlen(MENUMARK) + 1 + i * FORMFIELDLENGTH, "%*s",
+              FORMFIELDLENGTH, columnNames[i]);
+    wattroff(win, COLOR_PAIR(2));
+  }
+}
+
+/**
  *@brief List Viewer for lists.
  *@param out Where result will be saved.
  *@param extractData Function taking two parameters first is pointer to the
@@ -496,10 +518,10 @@ void listViewFreeMenu(MENU *menu, const int itemCount) {
  *descending.
  *@param columnNames array of column names strings.
  *@param colCount How many columns are there.
- *@param getItemString Function creating string based on ListNode::m_data(it's
- *passed as praemeter). Should do padding.
- *@param dealloactor Function deallocating data that is held in ListNode, not
- *ListNode itself. Required for internal List dealocation.
+ *@param getItemString Function creating string based on
+ *ListNode::m_data(it's passed as praemeter). Should do padding.
+ *@param dealloactor Function deallocating data that is held in ListNode,
+ *not ListNode itself. Required for internal List dealocation.
  *
  *@todo implement.
  *- chose function to load list
@@ -532,7 +554,8 @@ void listViewInvoke(void **out,
     // Make it go on screen.
     MENU *menu = listViewInitMenu(list, getItemString, colCount);
     PANEL *panel = new_panel(menu_win(menu));
-    printWindowBoarders(menu_win(menu), "FUCK c");
+    printWindowBoarders(menu_win(menu), "List viewer");
+    printColumnNames(menu_win(menu), columnNames, colCount, currentSortType);
     post_menu(menu);
     struct ListNode *choice = NULL;
     enum ListViewIteractionStateCode choiceState = invalid;
