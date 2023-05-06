@@ -350,6 +350,7 @@ void formFree(FORM *form) {
  *@param getItemString Function creating string based on ListNode::m_data(it's
  *passed as praemeter). Should only set ITEM name and description.
  *@param colCount how many coulumns are to be dsiplayed.
+ *@param reverseOrder self-explanatory.
  *
  *@return menu based on list.
  *
@@ -384,7 +385,7 @@ static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
   MENU *menu = new_menu(menuItems);
   set_menu_mark(menu, MENUMARK);
   set_menu_items(menu, menuItems);
-
+  set_menu_userptr(menu, menuItems);
   // Last is null.
   for (int j = 0; j < i - 1; ++j) {
     //! @warning might cause segfault.
@@ -474,17 +475,18 @@ listViewHandleIteraction(struct ListNode **result, MENU *menu) {
   return state;
 }
 
-static void listViewFreeMenu(MENU *menu) {
-  delwin(menu_sub(menu));
-  delwin(menu_win(menu));
-  free_menu(menu);
-}
-
+/**
+ *@brief frees internal List of listView.
+ *@param list Internal List of ListView.
+ *@param dealloactor Function deallocating data from the list.
+ *
+ **/
 static void listViewFreeList(struct List *list, void (*dealloactor)(void *)) {
   while (listSize(list) > 0) {
     dealloactor(listGetFront(list)->m_data);
     listDeleteNode(list, listGetFront(list));
   }
+  free(list);
 }
 
 /**
@@ -535,12 +537,31 @@ void listViewInvoke(void **out,
     // get list
 
     // Make it go on screen.
-    MENU *menu =
-        listViewInitMenu(list, getItemString, colCount, sortDescending);
-    PANEL *panel = new_panel(menu_win(menu));
-    printWindowBoarders(menu_win(menu), "TEMP");
-    post_menu(menu);
 
+    ITEM **items = calloc(listSize(list) + 1, sizeof(ITEM *));
+    struct ListNode *it = listGetFront(list);
+    for (int i = 0; i < listSize(list); ++i) {
+      char *itemAsStr = getItemString(it->m_data);
+      items[i] = new_item(itemAsStr, itemAsStr);
+      set_item_userptr(items[i], itemAsStr);
+      it = it->m_next;
+    }
+    items[listSize(list)] = NULL;
+    const int listViewWindowWidth = FORMFIELDLENGTH * colCount + 5;
+    WINDOW *menuWin =
+        newwin(LINES, listViewWindowWidth, 0, (COLS - listViewWindowWidth) / 2);
+    keypad(menuWin, true);
+    MENU *menu = new_menu(items);
+    set_menu_mark(menu, MENUMARK);
+    set_menu_win(menu, menuWin);
+    set_menu_sub(menu,
+                 derwin(menu_win(menu), LINES - 5, getmaxx(menuWin) - 2, 4, 1));
+    set_menu_items(menu, items);
+    menu_opts_off(menu, O_SHOWDESC);
+
+    PANEL *panel = new_panel(menu_win(menu));
+    printWindowBoarders(menu_win(menu), "FUCK c");
+    post_menu(menu);
     struct ListNode *choice = NULL;
     enum ListViewIteractionStateCode choiceState = invalid;
     choiceState = listViewHandleIteraction(&choice, menu);
@@ -574,7 +595,15 @@ void listViewInvoke(void **out,
     // free menu and list
     unpost_menu(menu);
     del_panel(panel);
-    listViewFreeMenu(menu);
+    delwin(menu_sub(menu));
+    delwin(menu_win(menu));
+    free_menu(menu);
+    for (int i = 0; i < listSize(list); ++i) {
+      free(item_userptr(items[i]));
+      free_item(items[i]);
+    }
+    free(items);
+
   } while (!doExit);
   listViewFreeList(list, dealloactor);
   return;
