@@ -29,7 +29,6 @@ void mainMenu(void) {
   noecho();
   cbreak();
   keypad(stdscr, TRUE);
-
   start_color();
   init_pair(1, COLOR_BLACK, COLOR_GREEN); // debugging color
   mainMenuSelection();
