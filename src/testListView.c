@@ -26,6 +26,12 @@ char *getIntString(void *x) {
   return result;
 }
 
+void extract(void **out, const struct ListNode *const data) {
+  int *result = calloc(1, sizeof(int));
+  *result = *(int *)data->m_data;
+  *out = result;
+}
+
 void intDel(void *data) { free(data); }
 
 int main() {
@@ -43,7 +49,11 @@ int main() {
   struct List *(**listGetters)() = calloc(sizeof(void *), colCount);
   listGetters[0] = getList;
   listGetters[1] = getList;
-  listViewInvoke(0, 0, listGetters, colNames, colCount, getIntString, intDel);
+  int *out = NULL;
+  listViewInvoke((void **)&out, extract, listGetters, colNames, colCount,
+                 getIntString, intDel);
   free(listGetters);
   endwin();
+  printf("Value of chosen element = %d", *out);
+  free(out);
 }
