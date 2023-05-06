@@ -345,68 +345,6 @@ void formFree(FORM *form) {
 }
 
 /**
- *@brief Allocates and fills MENU, based on List content.
- *@param list List based on which MENU will be created.
- *@param getItemString Function creating string based on ListNode::m_data(it's
- *passed as praemeter). Should only set ITEM name and description.
- *@param colCount how many coulumns are to be dsiplayed.
- *@param reverseOrder self-explanatory.
- *
- *@return menu based on list.
- *
- *Every ITEM usr_pointer points to ListNode which it repersents.
- *
- *@warning might cause memory lieak if not freed.
- *
- *@warning Does not use weaper around ListNode to get ListNode::m_data that is
- *passsed to getItem function as parameter.
- *
- *@todo make reverseOrder make MENU in reverse order (tranverse list from back).
- *
- *@warning CAUSES SEGFAULT
- */
-static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
-                              const int colCount, bool reverseOrder) {
-  // Allocate memory for MENU choices.
-  ITEM **menuItems = calloc(listSize(list), sizeof(ITEM *));
-
-  // Fill ITEMs with data from list.
-  int i = 0;
-  for (struct ListNode *it = listGetFront(list); it != NULL;
-       it = it->m_next, ++i) {
-    char *itemAsString = getItemString(it->m_data);
-    menuItems[i] = new_item(itemAsString, itemAsString);
-    // Every menu item has pointer to ListNode which it represents.
-    set_item_userptr(menuItems[i], it);
-  }
-  // After loop i is one after last element where our sentinel should be.
-  menuItems[i] = NULL;
-  //! @todo implement
-  MENU *menu = new_menu(menuItems);
-  set_menu_mark(menu, MENUMARK);
-  set_menu_items(menu, menuItems);
-  set_menu_userptr(menu, menuItems);
-  // Last is null.
-  for (int j = 0; j < i - 1; ++j) {
-    //! @warning might cause segfault.
-    free_item(menuItems[j]);
-  }
-  menu_opts_off(menu, O_SHOWDESC);
-
-  const int listEntryCols = colCount * FORMFIELDLENGTH;
-  //! @todo check if screen has enough columns/lines.
-  WINDOW *menuWin = newwin(LINES, COLS, 0, 0);
-  set_menu_win(menu, menuWin);
-  const int listStartCol = 1;
-  const int listStartRow = 3;
-  set_menu_sub(menu, derwin(menuWin, getmaxy(menuWin) - 6, getmaxx(menuWin) - 4,
-                            listStartRow, listStartCol));
-  keypad(menuWin, true);
-  // free(menuItems);
-  return menu;
-}
-
-/**
  *@brief Status code returned by listViewHandleIteraction */
 enum ListViewIteractionStateCode {
   //! Requestesed next sorting type.
@@ -490,6 +428,51 @@ static void listViewFreeList(struct List *list, void (*dealloactor)(void *)) {
 }
 
 /**
+ *@brief Allocates and fills MENU, based on List content.
+ *@param list List based on which MENU will be created.
+ *@param getItemString Function creating string based on ListNode::m_data(it's
+ *passed as praemeter). Should only set ITEM name and description.
+ *@param colCount how many coulumns are to be dsiplayed.
+ *@param reverseOrder self-explanatory.
+ *
+ *@return menu based on list.
+ *
+ *Every ITEM usr_pointer points to ListNode which it repersents.
+ *
+ *@warning Does not use weaper around ListNode to get ListNode::m_data that is
+ *passsed to getItem function as parameter.
+ *
+ *@todo make reverseOrder make MENU in reverse order (tranverse list from back).
+ */
+static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
+                              const int colCount) {
+  ITEM **items = calloc(listSize(list) + 1, sizeof(ITEM *));
+  struct ListNode *it = listGetFront(list);
+  for (int i = 0; i < listSize(list); ++i) {
+    char *itemAsStr = getItemString(it->m_data);
+    items[i] = new_item(itemAsStr, itemAsStr);
+    set_item_userptr(items[i], it);
+    it = it->m_next;
+  }
+  items[listSize(list)] = NULL;
+  const int listViewWindowWidth = FORMFIELDLENGTH * colCount + 5;
+  WINDOW *menuWin =
+      newwin(LINES, listViewWindowWidth, 0, (COLS - listViewWindowWidth) / 2);
+  keypad(menuWin, true);
+  MENU *menu = new_menu(items);
+  set_menu_userptr(menu, items);
+  set_menu_mark(menu, MENUMARK);
+  set_menu_win(menu, menuWin);
+  set_menu_sub(menu,
+               derwin(menu_win(menu), LINES - 5, getmaxx(menuWin) - 2, 4, 1));
+  set_menu_items(menu, items);
+  menu_opts_off(menu, O_SHOWDESC);
+  return menu;
+}
+
+void listViewFreeMenu(MENU *menu) {}
+
+/**
  *@brief List Viewer for lists.
  *@param out Where result will be saved.
  *@param extractData Function taking two parameters first is pointer to the
@@ -537,28 +520,7 @@ void listViewInvoke(void **out,
     // get list
 
     // Make it go on screen.
-
-    ITEM **items = calloc(listSize(list) + 1, sizeof(ITEM *));
-    struct ListNode *it = listGetFront(list);
-    for (int i = 0; i < listSize(list); ++i) {
-      char *itemAsStr = getItemString(it->m_data);
-      items[i] = new_item(itemAsStr, itemAsStr);
-      set_item_userptr(items[i], itemAsStr);
-      it = it->m_next;
-    }
-    items[listSize(list)] = NULL;
-    const int listViewWindowWidth = FORMFIELDLENGTH * colCount + 5;
-    WINDOW *menuWin =
-        newwin(LINES, listViewWindowWidth, 0, (COLS - listViewWindowWidth) / 2);
-    keypad(menuWin, true);
-    MENU *menu = new_menu(items);
-    set_menu_mark(menu, MENUMARK);
-    set_menu_win(menu, menuWin);
-    set_menu_sub(menu,
-                 derwin(menu_win(menu), LINES - 5, getmaxx(menuWin) - 2, 4, 1));
-    set_menu_items(menu, items);
-    menu_opts_off(menu, O_SHOWDESC);
-
+    MENU *menu = listViewInitMenu(list, getItemString, colCount);
     PANEL *panel = new_panel(menu_win(menu));
     printWindowBoarders(menu_win(menu), "FUCK c");
     post_menu(menu);
@@ -593,13 +555,14 @@ void listViewInvoke(void **out,
     }
 
     // free menu and list
+    ITEM **items = menu_userptr(menu);
     unpost_menu(menu);
     del_panel(panel);
     delwin(menu_sub(menu));
     delwin(menu_win(menu));
     free_menu(menu);
     for (int i = 0; i < listSize(list); ++i) {
-      free(item_userptr(items[i]));
+      free((void *)item_name(items[i]));
       free_item(items[i]);
     }
     free(items);
