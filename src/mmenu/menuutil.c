@@ -455,16 +455,23 @@ static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
     it = it->m_next;
   }
   items[listSize(list)] = NULL;
-  const int listViewWindowWidth = FORMFIELDLENGTH * colCount + 5;
-  WINDOW *menuWin =
-      newwin(LINES, listViewWindowWidth, 0, (COLS - listViewWindowWidth) / 2);
+  // boreader + size of menumark
+  const int utilityCols = 2 + strlen(MENUMARK);
+  // boreader + titles
+  const int utilityLines = 2 + 1 + 1;
+  const int listViewWindowWidth = FORMFIELDLENGTH * colCount + utilityCols;
+  const int listViewWidnowHight = 16 + 5;
+  WINDOW *menuWin = newwin(listViewWidnowHight, listViewWindowWidth,
+                           (LINES - listViewWidnowHight) / 2,
+                           (COLS - listViewWindowWidth) / 2);
   keypad(menuWin, true);
   MENU *menu = new_menu(items);
   set_menu_userptr(menu, items);
   set_menu_mark(menu, MENUMARK);
   set_menu_win(menu, menuWin);
   set_menu_sub(menu,
-               derwin(menu_win(menu), LINES - 5, getmaxx(menuWin) - 2, 4, 1));
+               derwin(menu_win(menu), getmaxy(menu_win(menu)) - utilityCols,
+                      getmaxx(menuWin) - 2, utilityLines, 1));
   set_menu_items(menu, items);
   menu_opts_off(menu, O_SHOWDESC);
   return menu;
