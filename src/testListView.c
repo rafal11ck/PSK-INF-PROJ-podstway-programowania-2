@@ -12,7 +12,7 @@ bool intLess(const void *a, const void *b) {
 struct List *getList(void) {
   // create list and insert elements.
   struct List *list = listCreateList();
-  for (int i = 0; i < 3; ++i) {
+  for (int i = 0; i < 100; ++i) {
     int *t = calloc(sizeof(int), 1);
     *t = i + 1;
     listInsert(list, t, intLess);
@@ -21,8 +21,8 @@ struct List *getList(void) {
 }
 
 char *getIntString(void *x) {
-  char *result = calloc(sizeof(char), FORMFIELDLENGTH + 1);
-  sprintf(result, "%*d", FORMFIELDLENGTH, *(int *)x);
+  char *result = calloc(sizeof(char), 2 * FORMFIELDLENGTH + 1);
+  sprintf(result, "%*d%*d", FORMFIELDLENGTH, *(int *)x, FORMFIELDLENGTH, 1);
   return result;
 }
 
@@ -33,14 +33,16 @@ int main() {
   noecho();
   cbreak();
   keypad(stdscr, TRUE);
+  curs_set(0);
 
   start_color();
   init_pair(1, COLOR_BLACK, COLOR_GREEN); // debugging color
 
-  const int colCount = 1;
+  const char *const colNames[] = {"Fuck C", "Lua is better"};
+  const int colCount = sizeof(colNames) / sizeof(*colNames);
   struct List *(**listGetters)() = calloc(sizeof(void *), colCount);
   listGetters[0] = getList;
-  const char *const colNames[] = {"Fuck C"};
+  listGetters[1] = getList;
   listViewInvoke(0, 0, listGetters, colNames, colCount, getIntString, intDel);
   free(listGetters);
   endwin();
