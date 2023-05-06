@@ -470,7 +470,17 @@ static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
   return menu;
 }
 
-void listViewFreeMenu(MENU *menu) {}
+void listViewFreeMenu(MENU *menu, const int itemCount) {
+  ITEM **items = menu_userptr(menu);
+  delwin(menu_sub(menu));
+  delwin(menu_win(menu));
+  free_menu(menu);
+  for (int i = 0; i < itemCount; ++i) {
+    free((void *)item_name(items[i]));
+    free_item(items[i]);
+  }
+  free(items);
+}
 
 /**
  *@brief List Viewer for lists.
@@ -555,18 +565,9 @@ void listViewInvoke(void **out,
     }
 
     // free menu and list
-    ITEM **items = menu_userptr(menu);
     unpost_menu(menu);
     del_panel(panel);
-    delwin(menu_sub(menu));
-    delwin(menu_win(menu));
-    free_menu(menu);
-    for (int i = 0; i < listSize(list); ++i) {
-      free((void *)item_name(items[i]));
-      free_item(items[i]);
-    }
-    free(items);
-
+    listViewFreeMenu(menu, listSize(list));
   } while (!doExit);
   listViewFreeList(list, dealloactor);
   return;
