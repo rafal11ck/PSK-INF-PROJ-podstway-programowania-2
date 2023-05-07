@@ -88,11 +88,11 @@ bool ClientFormEdit(struct Client **result,
   //! @todo set fields initial values as in edit given Client structure.
   formInvoke(form, formFieldNames, "Client");
 
-  bool state = false;
-  state = clientFormParse(result, form);
+  bool altered = false;
+  altered = clientFormParse(result, form);
 
   formFree(form);
-  return state;
+  return altered;
 }
 
 /**
