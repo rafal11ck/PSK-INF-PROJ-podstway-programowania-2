@@ -44,7 +44,7 @@ int main() {
   start_color();
   init_pair(1, COLOR_BLACK, COLOR_GREEN); // debugging color
 
-  const char *const colNames[] = {"Fuck C", "Lua is better"};
+  const char *const colNames[] = {"C is bad", "Lua is better"};
   const int colCount = sizeof(colNames) / sizeof(*colNames);
   struct List *(**listGetters)() = calloc(sizeof(void *), colCount);
   listGetters[0] = getList;
