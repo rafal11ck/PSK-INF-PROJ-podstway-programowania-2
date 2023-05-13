@@ -100,7 +100,7 @@ bool ClientFormEdit(struct Client **result,
  **/
 void addClient(void) {
   struct Client *newClient = clientNew();
-  if (ClientFormEdit(&newClient, 0) == TRUE) {
+  if (ClientFormEdit(&newClient, 0) && clientIsComplete(newClient)) {
     //! @todo propgate changes...
   }
 

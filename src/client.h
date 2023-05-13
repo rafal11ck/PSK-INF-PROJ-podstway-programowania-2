@@ -11,7 +11,16 @@
 /**
  *@brief Indicates that Client::m_ID is not valid.
  **/
+#include <stdbool.h>
 #define INVALIDCLIENTID -1
+/**
+ *@brief Indicates that Client::m_cardID is not valid.
+ **/
+#define INVALIDCLIENTCARDID -1
+/**
+ *@brief Indicates that Client::m_phoneNum is not valid.
+ **/
+#define INVALIDCLIENTPHONENUM -1
 
 /**
  * @brief Structure holding client single data
@@ -34,4 +43,5 @@ struct Client {
 struct Client *clientNew();
 void clientFree(struct Client *client);
 
+bool clientIsComplete(const struct Client *const client);
 #endif // CLIENT_H_

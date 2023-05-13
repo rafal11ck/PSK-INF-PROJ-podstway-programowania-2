@@ -91,6 +91,36 @@ void printWindowBoarders(WINDOW *window, const char *const title) {
 }
 
 /**
+ *@param Displays message box on the screen with title and message
+ *@param title Title of message box
+ *@param message Array of strings each representing line of text in the message,
+ *NULL terminated array*/
+void messagebox(const char *const title, const char *const message[]) {
+  int rowsNeeded = 0;
+  for (int i = 0; message[i] != NULL; ++i) {
+    ++rowsNeeded;
+  }
+  int messWinWidth =
+      2 + max(getLongestStringLength(message, rowsNeeded), strlen(title));
+  int messWinHeight = 4 + rowsNeeded;
+  WINDOW *messWin =
+      newwin(messWinHeight, messWinWidth, (LINES - messWinHeight) / 2,
+             (COLS - messWinWidth) / 2);
+  PANEL *panel = new_panel(messWin);
+  printWindowBoarders(messWin, title);
+  for (int i = 0; i < rowsNeeded; ++i) {
+    mvwprintw(messWin, 1, 3 + i, "%s", message[i]);
+  }
+  update_panels();
+  doupdate();
+  getch();
+  del_panel(panel);
+  delwin(messWin);
+  update_panels();
+  doupdate();
+}
+
+/**
  *@brief Control menu navigation and invoke option that we chose
  *@param menu MENU pointer
  *@param panel PANEL pointer

@@ -63,3 +63,9 @@ bool dbHandleOpenDB() {
   }
   return false;
 }
+
+bool dbHandleAddClient() {
+  sqlite3_open(DBFILENAME, &DB); // open database
+  char *err;
+  return true;
+}
