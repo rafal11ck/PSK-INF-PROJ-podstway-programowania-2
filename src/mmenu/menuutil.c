@@ -559,18 +559,11 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
  *ListNode::m_data(it's passed as praemeter). Should do padding.
  *@param dealloactor Function deallocating data that is held in ListNode,
  *not ListNode itself. Required for internal List dealocation.
- *
- *@todo implement.
- *- chose function to load list
- *- create menu
- *- put menu
- *- iteract with menu
- *- parse menu state
- *- deallocate memory
- *
- * @todo change column color so that it shows which column it sorts by.
+ *@return
+ *- true if chosen something.
+ *- false if canceled.
  */
-void listViewInvoke(void **out,
+bool listViewInvoke(void **out,
                     void (*extractData)(void **out,
                                         const struct ListNode *const data),
                     struct List *(*listFuns[])(),
@@ -582,8 +575,8 @@ void listViewInvoke(void **out,
 
   // Load List
   int currentSortType = 0;
-  bool doExit = false;
   bool sortDescending = false;
+  enum ListViewIteractionStateCode choiceState = invalid;
   struct List *list = listFuns[currentSortType]();
   do {
     // get list
@@ -595,7 +588,6 @@ void listViewInvoke(void **out,
     printColumnNames(menu_win(menu), columnNames, colCount, currentSortType);
     post_menu(menu);
     struct ListNode *choice = NULL;
-    enum ListViewIteractionStateCode choiceState = invalid;
     choiceState = listViewHandleIteraction(&choice, menu);
 
     //!@todo implement sort type changes.
@@ -605,7 +597,6 @@ void listViewInvoke(void **out,
       if (out != NULL && extractData != NULL)
         extractData(out, choice);
     case canceled:
-      doExit = true;
       break;
     case sortInvert:
       sortDescending = !sortDescending;
@@ -628,7 +619,7 @@ void listViewInvoke(void **out,
     unpost_menu(menu);
     del_panel(panel);
     listViewFreeMenu(menu, listSize(list));
-  } while (!doExit);
+  } while (choiceState != chosen && choiceState != canceled);
   listViewFreeList(list, dealloactor);
-  return;
+  return choiceState == chosen;
 }

@@ -34,6 +34,24 @@ void extract(void **out, const struct ListNode *const data) {
 
 void intDel(void *data) { free(data); }
 
+void randomListExample(void) {
+  const char *const colNames[] = {"C is bad", "Lua is better"};
+  const int colCount = sizeof(colNames) / sizeof(*colNames);
+  struct List *(*listGetters[])() = {getList, getList};
+  int *out = NULL;
+  // invoke choice
+  bool didChose = listViewInvoke((void **)&out, extract, listGetters, colNames,
+                                 colCount, getIntString, intDel);
+
+  if (didChose) {
+    printf("Value of chosen element = %d", *out);
+  } else {
+    printf("Canceled.");
+  }
+
+  free(out);
+}
+
 int main() {
   initscr();
   noecho();
@@ -43,17 +61,6 @@ int main() {
 
   start_color();
   init_pair(1, COLOR_BLACK, COLOR_GREEN); // debugging color
-
-  const char *const colNames[] = {"C is bad", "Lua is better"};
-  const int colCount = sizeof(colNames) / sizeof(*colNames);
-  struct List *(**listGetters)() = calloc(sizeof(void *), colCount);
-  listGetters[0] = getList;
-  listGetters[1] = getList;
-  int *out = NULL;
-  listViewInvoke((void **)&out, extract, listGetters, colNames, colCount,
-                 getIntString, intDel);
-  free(listGetters);
+  randomListExample();
   endwin();
-  printf("Value of chosen element = %d", *out);
-  free(out);
 }

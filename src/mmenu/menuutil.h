@@ -33,7 +33,7 @@ FORM *formInit(const int fieldCount);
 
 void formFree(FORM *form);
 
-void listViewInvoke(void **out,
+bool listViewInvoke(void **out,
                     void (*extractData)(void **out,
                                         const struct ListNode *const data),
                     struct List *(*listFuns[])(),
