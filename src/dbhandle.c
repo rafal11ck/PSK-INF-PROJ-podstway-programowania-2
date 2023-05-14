@@ -1,5 +1,6 @@
 #include "dbhandle.h"
 #include "clientsmenu.h"
+#include "list.h"
 #include <assert.h>
 #include <client.h>
 #include <menuutil.h>
@@ -112,8 +113,9 @@ static bool dbHandleGetClientInsertQuery(char **out,
  **/
 bool dbHandleClientInsert(const struct Client *client) {
   sqlite3_open(DBFILENAME, &DB); // open
-  char *err;
+  char *err = NULL;
   char *query = calloc(500, sizeof(char));
+  bool status = true;
   if (dbHandleGetClientInsertQuery(&query, client)) {
     int rc = sqlite3_exec(DB, query, NULL, NULL, &err);
     if (rc != SQLITE_OK) {
@@ -125,4 +127,26 @@ bool dbHandleClientInsert(const struct Client *client) {
   free(query);
   sqlite3_close(DB);
   return true;
+}
+
+/**
+ *@brief Given query and callback function create List based on the query.
+ *@param out Where result List is stored.
+ *@param callback Function insering ListNode into List based on data returned
+ *from sqlite. First parameter is pointer to List.
+ *@param query Query to run in order to recive data.
+ *@return
+ *- true if sucess.
+ *- false otherwise.
+ **/
+bool dbHandleGetResultAsList(struct List **out,
+                             int (*callback)(void *list, int argc, char **argv,
+                                             char **colNames),
+                             const char *query) {
+  sqlite3_open(DBFILENAME, &DB);
+  char *err = NULL;
+  bool status = true;
+  *out = listCreateList(); // create empty list
+  int rc = sqlite3_exec(DB, query, callback, out, &err);
+  return status;
 }
