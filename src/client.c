@@ -46,7 +46,8 @@ bool clientIsComplete(const struct Client *const client) {
   bool result = true;
   if (!client || client->m_adress == NULL ||
       client->m_cardID == INVALIDCLIENTCARDID || client->m_name == NULL ||
-      client->m_surname == NULL || client->m_adress == NULL)
+      client->m_surname == NULL || client->m_adress == NULL ||
+      client->m_phoneNum == INVALIDCLIENTPHONENUM)
     result = false;
   return result;
 }

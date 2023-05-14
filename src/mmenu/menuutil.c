@@ -91,7 +91,7 @@ void printWindowBoarders(WINDOW *window, const char *const title) {
 }
 
 /**
- *@param Displays message box on the screen with title and message
+ *@brief Displays message box on the screen with title and message
  *@param title Title of message box
  *@param message Array of strings each representing line of text in the message,
  *NULL terminated array*/
@@ -507,7 +507,13 @@ static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
   return menu;
 }
 
-void listViewFreeMenu(MENU *menu, const int itemCount) {
+/**
+ *@brief frees memory used by listView internal Menu
+ *@param menu Menu to be freed.
+ *@param itemCount Count of items in menu.
+ **/
+
+static void listViewFreeMenu(MENU *menu, const int itemCount) {
   ITEM **items = menu_userptr(menu);
   delwin(menu_sub(menu));
   delwin(menu_win(menu));

@@ -86,6 +86,7 @@ bool ClientFormEdit(struct Client **result,
 
   FORM *form = formInit(fieldCount);
   set_field_type(form_fields(form)[0], TYPE_INTEGER, 0, 0, 0);
+  set_field_type(form_fields(form)[4], TYPE_INTEGER, 0, 0, 0);
   //! @todo set fields initial values as in edit given Client structure.
   formInvoke(form, formFieldNames, "Client");
 

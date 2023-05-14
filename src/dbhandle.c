@@ -105,7 +105,7 @@ static bool dbHandleGetClientInsertQuery(char **out,
 
 /**
  *@brief Insert client into db.
- *@param client, client to insert into db.
+ *@param client Client to insert into db.
  *@return
  *- true if added client sucessfuly.
  *- false if failed.
