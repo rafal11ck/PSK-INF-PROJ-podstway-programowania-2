@@ -26,7 +26,7 @@
  * - False if none of fields has been altered.
  *
  */
-bool clientFormParse(struct Client **result, FORM *form) {
+static bool clientFormParse(struct Client **result, FORM *form) {
   assert(result && "Can not be null pointer.");
   bool isFormAltered = false;
   struct Client *resultPtr = *result;
@@ -77,8 +77,8 @@ bool clientFormParse(struct Client **result, FORM *form) {
  *
  * @todo make placeHolder do shit.
  */
-bool ClientFormEdit(struct Client **result,
-                    const struct Client *const placeHolder) {
+static bool clientFormEdit(struct Client **result,
+                           const struct Client *const placeHolder) {
   assert(result);
   const char *const formFieldNames[] = {"Card id", "Name", "Surname", "Address",
                                         "Phone Number"};
@@ -102,7 +102,7 @@ bool ClientFormEdit(struct Client **result,
  **/
 void addClient(void) {
   struct Client *newClient = clientNew();
-  if (ClientFormEdit(&newClient, 0) && clientIsComplete(newClient)) {
+  if (clientFormEdit(&newClient, 0) && clientIsComplete(newClient)) {
     if (!dbHandleClientInsert(newClient)) {
       const char *mess[] = {"Database error", NULL};
       menuUtilMessagebox("Adding client failed", (mess));
@@ -114,6 +114,19 @@ void addClient(void) {
   clientFree(newClient);
 }
 
+/**
+ *@breif Invokes ListView of clients
+ *@return
+ *-Chosen client ID or INVALIDCLIENTID if canceled.
+ *
+ *@todo I left here.
+ **/
+static int clientChoose() {
+  const char *colNames[] = {"cardId", "name", "surname", "adress",
+                            "phone number"};
+  const int colCount = sizeof(colNames) / sizeof(*colNames);
+  struct List *(*listGetters[])() = {NULL, NULL, NULL, NULL, NULL};
+}
 /**
  *@brief Handles displaying of clients menu.
  */
