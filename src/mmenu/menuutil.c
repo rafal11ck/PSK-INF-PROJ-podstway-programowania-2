@@ -556,8 +556,10 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
  *@warning extractData parameter function receives pointer to internal
  *listViewInvoke List ListNode that is deallocated after call returns so if
  *result is to be preserved it has to do copy of data by itself.
+ *@todo Refactor listFuns to be one function using Enum of sorting types and
+ *boolean whenever sorting is ascending /descending.
  *@param listFuns array of functions that return sorted list. Parameter
- *descending of each functions should inform if sorting is ascending or
+ *descending of each function should inform if sorting is ascending or
  *descending.
  *@param columnNames array of column names strings.
  *@param colCount How many columns are there.
@@ -572,7 +574,7 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
 bool listViewInvoke(void **out,
                     void (*extractData)(void **out,
                                         const struct ListNode *const data),
-                    struct List *(*listFuns[])(),
+                    struct List *(*listFuns[])(void),
                     const char *const columnNames[], const int colCount,
                     char *(*getItemString)(void *),
                     void (*dealloactor)(void *)) {

@@ -1,6 +1,7 @@
 #include "clientsmenu.h"
 #include "../client.h" //! @todo remove that dots but LSP is retarded and complains, despite cmake working...
 #include "dbhandle.h"
+#include "list.h"
 #include "menuutil.h"
 #include "mmenu.h"
 #include <assert.h>
@@ -114,6 +115,27 @@ void addClient(void) {
   clientFree(newClient);
 }
 
+static char *clientGetListViewString(struct Client *client) {
+  struct Client *clientPtr = (struct Client *)client;
+  // 5 is number of fields in resulting string
+  const int fieldCount = 5;
+  // +1 for null termintaor
+  char *result = calloc(fieldCount * FORMFIELDLENGTH + 1, sizeof(char));
+  sprintf(result, "%*d%*s%*s%*s%*d", FORMFIELDLENGTH, clientPtr->m_cardID,
+          FORMFIELDLENGTH, clientPtr->m_name, FORMFIELDLENGTH,
+          clientPtr->m_surname, FORMFIELDLENGTH, clientPtr->m_adress,
+          FORMFIELDLENGTH, clientPtr->m_phoneNum);
+
+  return result;
+}
+
+/**
+ *@todo extract function for clientChoose.
+ **/
+static void extractClient(struct Client **out, const struct ListNode *node) {
+  out = NULL;
+}
+
 /**
  *@breif Invokes ListView of clients
  *@return
@@ -121,11 +143,17 @@ void addClient(void) {
  *
  *@todo I left here.
  **/
-static int clientChoose() {
+static struct Client *clientChoose() {
   const char *colNames[] = {"cardId", "name", "surname", "adress",
                             "phone number"};
   const int colCount = sizeof(colNames) / sizeof(*colNames);
-  struct List *(*listGetters[])() = {NULL, NULL, NULL, NULL, NULL};
+  struct List *(*listGetters[])(void) = {NULL, NULL, NULL, NULL, NULL};
+  struct Client **out;
+  bool didChoose = listViewInvoke(
+      (void **)out, (void *)(const struct ListNode *)extractClient, listGetters,
+      colNames, colCount, (char *(*)(void *))clientGetListViewString,
+      (void *)(void *)clientFree);
+  return *out;
 }
 /**
  *@brief Handles displaying of clients menu.
@@ -133,8 +161,8 @@ static int clientChoose() {
 void clientsMenu(void) {
 
   const char *const title = "Clients";
-  const char *const choices[] = {"list client", "Add client", "remove client",
-                                 "edit client", "Return to main menu"};
+  const char *const choices[] = {"list clients", "Add client", "remove client",
+                                 "edit clients", "Return to main menu"};
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
   //! @todo implement submenus.
   void (*menuFun[])(void) = {NULL, addClient, NULL, NULL, NULL};
