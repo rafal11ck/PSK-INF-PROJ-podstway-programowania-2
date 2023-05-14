@@ -1,7 +1,7 @@
 #ifndef DBHANDLE_H
 #define DBHANDLE_H
+#include "client.h"
 #include <stdbool.h>
-
 /**
  *@file
  *@brief Database operations interface
@@ -13,5 +13,7 @@
  *Ensures that database exists and has required tables.
  **/
 bool dbHandleOpenDB();
+
+bool dbHandleClientInsert(const struct Client *client);
 
 #endif // DBHANDLE_H

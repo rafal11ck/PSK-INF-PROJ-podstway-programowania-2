@@ -95,7 +95,7 @@ void printWindowBoarders(WINDOW *window, const char *const title) {
  *@param title Title of message box
  *@param message Array of strings each representing line of text in the message,
  *NULL terminated array*/
-void messagebox(const char *const title, const char *const message[]) {
+void menuUtilMessagebox(const char *const title, const char *const message[]) {
   int rowsNeeded = 0;
   for (int i = 0; message[i] != NULL; ++i) {
     ++rowsNeeded;
@@ -109,7 +109,7 @@ void messagebox(const char *const title, const char *const message[]) {
   PANEL *panel = new_panel(messWin);
   printWindowBoarders(messWin, title);
   for (int i = 0; i < rowsNeeded; ++i) {
-    mvwprintw(messWin, 1, 3 + i, "%s", message[i]);
+    mvwprintw(messWin, 3 + i, 1, "%s", message[i]);
   }
   update_panels();
   doupdate();

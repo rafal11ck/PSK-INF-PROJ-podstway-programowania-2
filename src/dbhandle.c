@@ -1,6 +1,8 @@
 #include "dbhandle.h"
+#include "clientsmenu.h"
 #include <assert.h>
 #include <client.h>
+#include <menuutil.h>
 #include <sqlite3.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -34,7 +36,7 @@ static char *ENUSREDBTABLESQUERY = "CREATE TABLE IF NOT EXISTS cars("
                                    "   'cardID'	INTEGER,"
                                    "   'name'	TEXT,"
                                    "   'surname'	TEXT,"
-                                   "   'adress'   TEXT"
+                                   "   'adress'   TEXT,"
                                    "   'phoneNumber'	INTEGER,"
                                    "   PRIMARY KEY('ID' AUTOINCREMENT)"
                                    "   );"
@@ -58,8 +60,10 @@ static sqlite3 *DB;
 static sqlite3 *STMT;
 
 /**
- *@brief Opens connection to database
- */
+ *@brief Ensure that database exists.
+ *@return False if ok. True if failed.
+ *Ensures that database exists and has required tables.
+ **/
 bool dbHandleOpenDB() {
   sqlite3_open(DBFILENAME, &DB); // open database
   char *err;
@@ -70,6 +74,7 @@ bool dbHandleOpenDB() {
     sqlite3_free(err);
     return true;
   }
+  sqlite3_close(DB);
   return false;
 }
 
@@ -92,23 +97,32 @@ static bool dbHandleGetClientInsertQuery(char **out,
 
   sprintf(*out,
           "INSERT INTO clients (cardID, name, surname, adress, phoneNumber) "
-          "VALUES %d, '%s', '%s', '%s', %d);",
+          "VALUES (%d, '%s', '%s', '%s', %d);",
           client->m_cardID, client->m_name, client->m_surname, client->m_adress,
           client->m_phoneNum);
   return true;
 }
 
-bool ddbHandleClientInsert(const struct Client *client) {
-  // sqlite3_open(DBFILENAME, &DB); // open
+/**
+ *@brief Insert client into db.
+ *@param client, client to insert into db.
+ *@return
+ *- true if added client sucessfuly.
+ *- false if failed.
+ **/
+bool dbHandleClientInsert(const struct Client *client) {
+  sqlite3_open(DBFILENAME, &DB); // open
   char *err;
   char *query = calloc(500, sizeof(char));
   if (dbHandleGetClientInsertQuery(&query, client)) {
     int rc = sqlite3_exec(DB, query, NULL, NULL, &err);
     if (rc != SQLITE_OK) {
-      fprintf(stderr, "%s", err);
+      const char *msg[] = {err, NULL};
+      menuUtilMessagebox("dbHandleClientInsert failed", msg);
       sqlite3_free(err);
     }
   }
   free(query);
+  sqlite3_close(DB);
   return true;
 }

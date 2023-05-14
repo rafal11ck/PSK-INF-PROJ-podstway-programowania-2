@@ -41,4 +41,6 @@ bool listViewInvoke(void **out,
                     char *(*getItemString)(void *),
                     void (*dealloactor)(void *));
 
+void menuUtilMessagebox(const char *const title, const char *const message[]);
+
 #endif // MENUUTIL_H

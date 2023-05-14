@@ -1,5 +1,6 @@
 #include "clientsmenu.h"
 #include "../client.h" //! @todo remove that dots but LSP is retarded and complains, despite cmake working...
+#include "dbhandle.h"
 #include "menuutil.h"
 #include "mmenu.h"
 #include <assert.h>
@@ -101,9 +102,14 @@ bool ClientFormEdit(struct Client **result,
 void addClient(void) {
   struct Client *newClient = clientNew();
   if (ClientFormEdit(&newClient, 0) && clientIsComplete(newClient)) {
-    //! @todo propgate changes...
+    if (!dbHandleClientInsert(newClient)) {
+      const char *mess[] = {"Database error", NULL};
+      menuUtilMessagebox("Adding client failed", (mess));
+    }
+  } else {
+    const char *mess[] = {"Not all fields were set.", NULL};
+    menuUtilMessagebox("Adding client failed", (mess));
   }
-
   clientFree(newClient);
 }
 

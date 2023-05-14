@@ -7,6 +7,5 @@
  **/
 
 void clientsMenu(void);
-struct Client *clientNew();
-void clientFree(struct Client *client);
+void messagebox(const char *const title, const char *const message[]);
 #endif // CLEINTSMENU_H
