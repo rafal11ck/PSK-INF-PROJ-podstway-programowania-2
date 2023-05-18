@@ -137,7 +137,7 @@ static void extractClient(struct Client **out, const struct ListNode *node) {
 }
 
 /**
- *@breif Invokes ListView of clients
+ *@brief Invokes ListView of clients
  *@return
  *-Chosen client ID or INVALIDCLIENTID if canceled.
  *
@@ -155,6 +155,7 @@ static struct Client *clientChoose() {
       (void *)(void *)clientFree);
   return *out;
 }
+
 /**
  *@brief Handles displaying of clients menu.
  */

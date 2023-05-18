@@ -12,7 +12,7 @@ bool intLess(const void *a, const void *b) {
 struct List *getList(void) {
   // create list and insert elements.
   struct List *list = listCreateList();
-  for (int i = 0; i < 1; ++i) {
+  for (int i = 0; i < 100; ++i) {
     int *t = calloc(sizeof(int), 1);
     *t = i + 1;
     listInsert(list, t, intLess);
