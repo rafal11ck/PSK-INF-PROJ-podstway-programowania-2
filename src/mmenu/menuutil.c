@@ -1,5 +1,5 @@
 #include "menuutil.h"
-#include "../list.h" //! @todo remove .., LSP complaining.
+#include "list.h"
 #include <assert.h>
 #include <eti.h>
 #include <form.h>
@@ -463,7 +463,6 @@ static void listViewFreeList(struct List *list, void (*dealloactor)(void *)) {
  *@param getItemString Function creating string based on ListNode::m_data(it's
  *passed as praemeter). Should only set ITEM name and description.
  *@param colCount how many coulumns are to be dsiplayed.
- *@param reverseOrder self-explanatory.
  *
  *@return menu based on list.
  *
@@ -556,11 +555,11 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
  *@warning extractData parameter function receives pointer to internal
  *listViewInvoke List ListNode that is deallocated after call returns so if
  *result is to be preserved it has to do copy of data by itself.
- *@todo Refactor listFuns to be one function using Enum of sorting types and
- *boolean whenever sorting is ascending /descending.
- *@param listFuns array of functions that return sorted list. Parameter
- *descending of each function should inform if sorting is ascending or
- *descending.
+ *@param listFun Functions that returns sorted list. Parameter sortType says
+ *which sort type should be used it be handled by function. Parameter descending
+ *of informs if sorting is ascending or descending.
+ *@warning listFuns sortType paremeter should be handled in range from 0 to
+ *colCount-1.
  *@param columnNames array of column names strings.
  *@param colCount How many columns are there.
  *@param getItemString Function creating string based on
@@ -574,22 +573,20 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
 bool listViewInvoke(void **out,
                     void (*extractData)(void **out,
                                         const struct ListNode *const data),
-                    struct List *(*listFuns[])(void),
+                    struct List *(*listFun)(int sortType, bool descending),
                     const char *const columnNames[], const int colCount,
                     char *(*getItemString)(void *),
                     void (*dealloactor)(void *)) {
-  assert(listFuns && "No list functions passed");
+  assert(listFun && "No list functions passed");
   assert(getItemString && "Can't create list without that function.");
 
   // Load List
   int currentSortType = 0;
   bool sortDescending = false;
   enum ListViewIteractionStateCode choiceState = invalid;
-  struct List *list = listFuns[currentSortType]();
+  struct List *list = listFun(currentSortType, sortDescending);
   do {
-    // get list
-
-    // Make it go on screen.
+    // Make list on screen.
     MENU *menu = listViewInitMenu(list, getItemString, colCount);
     PANEL *panel = new_panel(menu_win(menu));
     printWindowBoarders(menu_win(menu), "List viewer");

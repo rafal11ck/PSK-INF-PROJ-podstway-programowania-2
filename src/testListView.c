@@ -20,6 +20,10 @@ struct List *getList(void) {
   return list;
 }
 
+struct List *listGetter(int sType, bool desc) {
+  return getList();
+}
+
 char *getIntString(void *x) {
   char *result = calloc(sizeof(char), 2 * FORMFIELDLENGTH + 1);
   sprintf(result, "%*d%*d", FORMFIELDLENGTH, *(int *)x, FORMFIELDLENGTH, 1);
@@ -37,10 +41,9 @@ void intDel(void *data) { free(data); }
 void randomListExample(void) {
   const char *const colNames[] = {"C is bad", "Lua is better"};
   const int colCount = sizeof(colNames) / sizeof(*colNames);
-  struct List *(*listGetters[])() = {getList, getList};
   int *out = NULL;
   // invoke choice
-  bool didChose = listViewInvoke((void **)&out, extract, listGetters, colNames,
+  bool didChose = listViewInvoke((void **)&out, extract, listGetter, colNames,
                                  colCount, getIntString, intDel);
 
   if (didChose) {
