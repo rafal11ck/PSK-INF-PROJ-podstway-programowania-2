@@ -636,7 +636,7 @@ bool listViewInvoke(void **out,
     unpost_menu(menu);
     del_panel(panel);
     listViewFreeMenu(menu, listSize(list));
+    listViewFreeList(&list, dealloactor);
   } while (choiceState != chosen && choiceState != canceled);
-  listViewFreeList(&list, dealloactor);
   return choiceState == chosen;
 }
