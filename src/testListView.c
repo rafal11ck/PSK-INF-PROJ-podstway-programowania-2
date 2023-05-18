@@ -12,7 +12,7 @@ bool intLess(const void *a, const void *b) {
 struct List *getList(void) {
   // create list and insert elements.
   struct List *list = listCreateList();
-  for (int i = 0; i < 100; ++i) {
+  for (int i = 0; i < 1; ++i) {
     int *t = calloc(sizeof(int), 1);
     *t = i + 1;
     listInsert(list, t, intLess);
@@ -36,15 +36,16 @@ void extract(void **out, const struct ListNode *const data) {
   *out = result;
 }
 
-void intDel(void *data) { free(data); }
+void intDel(int *data) { free(data); }
 
 void randomListExample(void) {
   const char *const colNames[] = {"C is bad", "Lua is better"};
   const int colCount = sizeof(colNames) / sizeof(*colNames);
   int *out = NULL;
   // invoke choice
-  bool didChose = listViewInvoke((void **)&out, extract, listGetter, colNames,
-                                 colCount, getIntString, intDel);
+  bool didChose =
+      listViewInvoke((void **)&out, extract, listGetter, colNames, colCount,
+                     getIntString, (void (*)(void *))intDel);
 
   if (didChose) {
     printf("Value of chosen element = %d", *out);

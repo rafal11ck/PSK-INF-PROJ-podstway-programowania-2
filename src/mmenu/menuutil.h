@@ -36,7 +36,7 @@ void formFree(FORM *form);
 bool listViewInvoke(void **out,
                     void (*extractData)(void **out,
                                         const struct ListNode *const data),
-                    struct List *(*listFuns)(int sortType, bool descending),
+                    struct List *(*listFun)(int sortType, bool descending),
                     const char *const columnNames[], const int colCount,
                     char *(*getItemString)(void *),
                     void (*dealloactor)(void *));

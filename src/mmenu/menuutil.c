@@ -449,12 +449,15 @@ listViewHandleIteraction(struct ListNode **result, MENU *menu) {
  *@param dealloactor Function deallocating data from the list.
  *
  **/
-static void listViewFreeList(struct List *list, void (*dealloactor)(void *)) {
-  while (listSize(list) > 0) {
-    dealloactor(listGetFront(list)->m_data);
-    listDeleteNode(list, listGetFront(list));
+static void listViewFreeList(struct List **list, void (*dealloactor)(void *)) {
+  while (listSize(*list) > 0) {
+    dealloactor(listGetFront(*list)->m_data);
+    listDeleteNode(*list, listGetFront(*list));
   }
-  free(list);
+  assert(listGetFront(*list) == 0);
+  assert(listGetBack(*list) == NULL);
+  free(*list);
+  list = NULL;
 }
 
 /**
@@ -569,6 +572,9 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
  *@return
  *- true if chosen something.
  *- false if canceled.
+ *
+ *@bug Possbilbe memory leak when sort type is switched without preiror moving
+ *up/down valgrind says memory is lost.
  */
 bool listViewInvoke(void **out,
                     void (*extractData)(void **out,
@@ -631,6 +637,6 @@ bool listViewInvoke(void **out,
     del_panel(panel);
     listViewFreeMenu(menu, listSize(list));
   } while (choiceState != chosen && choiceState != canceled);
-  listViewFreeList(list, dealloactor);
+  listViewFreeList(&list, dealloactor);
   return choiceState == chosen;
 }
