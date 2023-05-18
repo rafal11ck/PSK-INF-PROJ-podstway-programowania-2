@@ -584,8 +584,11 @@ bool listViewInvoke(void **out,
   int currentSortType = 0;
   bool sortDescending = false;
   enum ListViewIteractionStateCode choiceState = invalid;
-  struct List *list = listFun(currentSortType, sortDescending);
+  struct List *list = NULL;
   do {
+    // this could be refactored at cost of readabiiltiy, but could save time in
+    // reverse.
+    list = listFun(currentSortType, sortDescending);
     // Make list on screen.
     MENU *menu = listViewInitMenu(list, getItemString, colCount);
     PANEL *panel = new_panel(menu_win(menu));
@@ -593,6 +596,7 @@ bool listViewInvoke(void **out,
     printColumnNames(menu_win(menu), columnNames, colCount, currentSortType);
     post_menu(menu);
     struct ListNode *choice = NULL;
+
     choiceState = listViewHandleIteraction(&choice, menu);
 
     //!@todo implement sort type changes.
@@ -608,13 +612,15 @@ bool listViewInvoke(void **out,
       break;
     case sortNext:
       // if current sorting is not last sorting type.
-      if (currentSortType < colCount - 1)
+      if (currentSortType < colCount - 1) {
         ++currentSortType;
+      }
       break;
     case sortPrev:
       // if current sorting is not first sorting type.
-      if (currentSortType > 0)
+      if (currentSortType > 0) {
         --currentSortType;
+      }
       break;
     case invalid:
       assert(false && "Should never happen.");
