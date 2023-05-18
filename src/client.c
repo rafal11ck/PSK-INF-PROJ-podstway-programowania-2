@@ -1,6 +1,7 @@
 #include "client.h"
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  *@file
@@ -50,4 +51,15 @@ bool clientIsComplete(const struct Client *const client) {
       client->m_phoneNum == INVALIDCLIENTPHONENUM)
     result = false;
   return result;
+}
+
+/**
+ *@
+ **/
+struct List *clientGetList(int sType, bool desc) {
+  char *query = calloc(500, sizeof(char));
+  query = "SELECT ID, cardID, name, surname, adress, phoneNumber FROM cleints";
+
+  strcat(query, ";");
+  free(query);
 }

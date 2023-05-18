@@ -40,8 +40,29 @@ struct Client {
   int m_phoneNum;
 };
 
+/**
+ *@brief Client sort types.
+ **/
+enum ClientSort {
+  //! cardId
+  clientSort_cardId,
+  //! name
+  clientSort_name,
+  //! surname
+  clientSort_surname,
+  //! adress
+  clientSort_adress,
+  //! phoneNum
+  clientSort_phoneNum,
+  //! how many of ClientSort types exist
+  clinetSort_MAX
+};
+
 struct Client *clientNew();
 void clientFree(struct Client *client);
 
 bool clientIsComplete(const struct Client *const client);
+
+struct List *clientGetList(int sType, bool desc);
+
 #endif // CLIENT_H_

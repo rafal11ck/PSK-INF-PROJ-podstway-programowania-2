@@ -147,12 +147,11 @@ static struct Client *clientChoose() {
   const char *colNames[] = {"cardId", "name", "surname", "adress",
                             "phone number"};
   const int colCount = sizeof(colNames) / sizeof(*colNames);
-  struct List *(*listGetters[])(void) = {NULL, NULL, NULL, NULL, NULL};
   struct Client **out;
   bool didChoose = listViewInvoke(
-      (void **)out, (void *)(const struct ListNode *)extractClient, listGetters,
-      colNames, colCount, (char *(*)(void *))clientGetListViewString,
-      (void *)(void *)clientFree);
+      (void **)out, (void *)(const struct ListNode *)extractClient,
+      (struct List * (*)(int, bool)) clientGetList, colNames, colCount,
+      (char *(*)(void *))clientGetListViewString, (void *)(void *)clientFree);
   return *out;
 }
 
