@@ -1,4 +1,5 @@
 #include "client.h"
+#include <assert.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -58,8 +59,30 @@ bool clientIsComplete(const struct Client *const client) {
  **/
 struct List *clientGetList(int sType, bool desc) {
   char *query = calloc(500, sizeof(char));
-  query = "SELECT ID, cardID, name, surname, adress, phoneNumber FROM cleints";
-
+  query = "SELECT ID, cardID, name, surname, adress, phoneNumber FROM cleints "
+          "ORDER BY";
+  assert(sType > 0 && sType < clientSort_MAX);
+  char *orderStr = calloc(100, sizeof(char));
+  switch (sType) {
+  case clientSort_name:
+    orderStr = "name";
+    break;
+  case clientSort_cardId:
+    orderStr = "cardID";
+    break;
+  case clientSort_surname:
+    orderStr = "surname";
+    break;
+  case clientSort_adress:
+    orderStr = "";
+    break;
+  case clientSort_phoneNum:
+    orderStr = "cardID";
+    break;
+  };
+  free(orderStr);
+  if (desc)
+    strcat(query, "DESC");
   strcat(query, ";");
   free(query);
 }

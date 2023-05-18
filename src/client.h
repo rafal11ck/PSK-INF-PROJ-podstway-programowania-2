@@ -55,7 +55,7 @@ enum ClientSort {
   //! phoneNum
   clientSort_phoneNum,
   //! how many of ClientSort types exist
-  clinetSort_MAX
+  clientSort_MAX
 };
 
 struct Client *clientNew();
