@@ -1,6 +1,12 @@
 #include "client.h"
+#include "clientsmenu.h"
+#include "dbhandle.h"
+#include "list.h"
+#include "menuutil.h"
 #include <assert.h>
+#include <ncurses.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -13,7 +19,7 @@
  *@brief Allocates and returns client containing nothing.
  *@return Client object.
  *
- *C style strings are NULL.
+ *C style strings are NULL pointers.
  *Client::m_ID is INVALIDCLIENTID
  * */
 struct Client *clientNew() {
@@ -55,14 +61,46 @@ bool clientIsComplete(const struct Client *const client) {
 }
 
 /**
- *@
+ *@brief CallBack function for @link dbHandleGetResultAsList @endlink .
+ *Transforms row into Client.
+ **/
+static int clientGetListQueryCallback(struct List *list, int argc,
+                                      const char **argv,
+                                      const char **const colNames) {
+  assert(list && argv && argc && colNames);
+  printf("list Size is %d\n", listSize(list));
+  struct Client *cl = clientNew();
+  for (int i = 0; i < argc; ++i) {
+    const char *colName = colNames[i];
+    const char *val = argv[i];
+    if (!strcmp(colName, "ID")) {
+      cl->m_ID = atoi(val);
+    } else if (!strcmp(colName, "cardId")) {
+      cl->m_cardID = atoi(val);
+    } else if (!strcmp(colName, "name")) {
+      cl->m_name = calloc(FORMFIELDLENGTH + 1, sizeof(char));
+      strcpy(cl->m_name, val);
+    } else if (!strcmp(colName, "surname")) {
+      cl->m_surname = calloc(FORMFIELDLENGTH + 1, sizeof(char));
+      strcpy(cl->m_surname, val);
+    } else if (!strcmp(colName, "phoneNumber")) {
+      cl->m_phoneNum = atoi(val);
+    }
+    listPushBack(list, cl);
+  }
+  return 0;
+}
+
+/**
+ *@brief Get list of clients.
  **/
 struct List *clientGetList(int sType, bool desc) {
-  char *query = calloc(500, sizeof(char));
-  query = "SELECT ID, cardID, name, surname, adress, phoneNumber FROM cleints "
-          "ORDER BY";
-  assert(sType > 0 && sType < clientSort_MAX);
-  char *orderStr = calloc(100, sizeof(char));
+  char *query = calloc(1000, sizeof(char));
+  strcpy(query,
+         "SELECT ID, cardID, name, surname, adress, phoneNumber FROM clients "
+         "ORDER BY ");
+  assert(sType >= 0 && sType < clientSort_MAX);
+  char *orderStr = NULL;
   switch (sType) {
   case clientSort_name:
     orderStr = "name";
@@ -74,15 +112,20 @@ struct List *clientGetList(int sType, bool desc) {
     orderStr = "surname";
     break;
   case clientSort_adress:
-    orderStr = "";
+    orderStr = "adress";
     break;
   case clientSort_phoneNum:
     orderStr = "cardID";
     break;
   };
-  free(orderStr);
+  strcat(query, orderStr);
   if (desc)
     strcat(query, "DESC");
   strcat(query, ";");
-  free(query);
+  struct List *result = NULL;
+  dbHandleGetResultAsList(
+      &result,
+      (int (*)(void *, int, char **, char **))clientGetListQueryCallback,
+      query);
+  return result;
 }

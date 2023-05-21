@@ -115,7 +115,13 @@ void addClient(void) {
   clientFree(newClient);
 }
 
-static char *clientGetListViewString(struct Client *client) {
+/**
+ *@brief Given client generates string repesenting client string in listView
+ *friendly format. (whole row)
+ *@param client Client based on which generate string.
+ *@return string repersenting client
+ * */
+char *clientGetListViewString(struct Client *client) {
   struct Client *clientPtr = (struct Client *)client;
   // 5 is number of fields in resulting string
   const int fieldCount = 5;
@@ -125,7 +131,6 @@ static char *clientGetListViewString(struct Client *client) {
           FORMFIELDLENGTH, clientPtr->m_name, FORMFIELDLENGTH,
           clientPtr->m_surname, FORMFIELDLENGTH, clientPtr->m_adress,
           FORMFIELDLENGTH, clientPtr->m_phoneNum);
-
   return result;
 }
 
@@ -133,7 +138,7 @@ static char *clientGetListViewString(struct Client *client) {
  *@todo extract function for clientChoose.
  **/
 static void extractClient(struct Client **out, const struct ListNode *node) {
-  out = NULL;
+  out = 0;
 }
 
 /**
@@ -143,16 +148,21 @@ static void extractClient(struct Client **out, const struct ListNode *node) {
  *
  *@todo I left here.
  **/
-static struct Client *clientChoose() {
+static struct Client *clientChoose(void) {
   const char *colNames[] = {"cardId", "name", "surname", "adress",
                             "phone number"};
   const int colCount = sizeof(colNames) / sizeof(*colNames);
+
+  //(struct List * (*)(int, bool)) clientGetList
   struct Client **out;
+  //! @bug segfault by that call.
   bool didChoose = listViewInvoke(
       (void **)out, (void *)(const struct ListNode *)extractClient,
-      (struct List * (*)(int, bool)) clientGetList, colNames, colCount,
+      clientGetList, colNames, colCount,
       (char *(*)(void *))clientGetListViewString, (void *)(void *)clientFree);
-  return *out;
+
+  struct Client *result = (out ? *out : NULL);
+  return result;
 }
 
 /**
@@ -165,6 +175,9 @@ void clientsMenu(void) {
                                  "edit clients", "Return to main menu"};
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
   //! @todo implement submenus.
-  void (*menuFun[])(void) = {NULL, addClient, NULL, NULL, NULL};
+  void (*menuFun[])(void) = {(void (*)(void))clientChoose, addClient, NULL,
+                             NULL, NULL};
   menuInvoke(title, choices, choicesCount, menuFun);
 }
+
+char *clientGetListViewString(struct Client *client);

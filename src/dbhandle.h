@@ -16,4 +16,9 @@ bool dbHandleOpenDB();
 
 bool dbHandleClientInsert(const struct Client *client);
 
+bool dbHandleGetResultAsList(struct List **out,
+                             int (*callback)(void *list, int argc, char **argv,
+                                             char **colNames),
+                             const char *query);
+
 #endif // DBHANDLE_H

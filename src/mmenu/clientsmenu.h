@@ -6,6 +6,9 @@
  *@brief Clients menu interface.
  **/
 
+#include "client.h"
+
 void clientsMenu(void);
-void messagebox(const char *const title, const char *const message[]);
+
+char *clientGetListViewString(struct Client *client);
 #endif // CLEINTSMENU_H

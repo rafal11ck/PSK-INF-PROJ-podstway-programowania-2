@@ -42,7 +42,7 @@ bool listDealocateListNode(struct ListNode *node) {
  * @return Poitner to empty list.
  */
 struct List *listCreateList() {
-  struct List *list = calloc(sizeof(struct List), 1);
+  struct List *list = malloc(sizeof(struct List));
   // ensure that memory was allocated
   assert(list);
   list->m_front = NULL;
@@ -153,9 +153,7 @@ bool listInsertBefore(struct List *list, struct ListNode *node, void *data) {
  * @return Pointer to the first element in the List.
  * - Returns NULL if List is empty.
  */
-struct ListNode *listGetFront(struct List *list) {
-  return list->m_front;
-}
+struct ListNode *listGetFront(struct List *list) { return list->m_front; }
 
 /**
  * @brief Returns pointer to the last element of list.
@@ -163,9 +161,7 @@ struct ListNode *listGetFront(struct List *list) {
  * @return Pointer to the last element in the List.
  * - Returns NULL if List is empty.
  */
-struct ListNode *listGetBack(struct List *list) {
-  return list->m_back;
-}
+struct ListNode *listGetBack(struct List *list) { return list->m_back; }
 
 /**
  * @brief Removes ListNode from List.

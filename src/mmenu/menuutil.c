@@ -595,6 +595,7 @@ bool listViewInvoke(void **out,
     // this could be refactored at cost of readabiiltiy, but could save time in
     // reverse.
     list = listFun(currentSortType, sortDescending);
+    assert(list);
     // Make list on screen.
     MENU *menu = listViewInitMenu(list, getItemString, colCount);
     PANEL *panel = new_panel(menu_win(menu));

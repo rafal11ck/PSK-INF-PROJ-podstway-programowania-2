@@ -3,6 +3,7 @@
 #include "list.h"
 #include <assert.h>
 #include <client.h>
+#include <curses.h>
 #include <menuutil.h>
 #include <sqlite3.h>
 #include <stdbool.h>
@@ -143,10 +144,21 @@ bool dbHandleGetResultAsList(struct List **out,
                              int (*callback)(void *list, int argc, char **argv,
                                              char **colNames),
                              const char *query) {
-  sqlite3_open(DBFILENAME, &DB);
+  if (SQLITE_OK != sqlite3_open(DBFILENAME, &DB)) {
+    abort();
+  }
   char *err = NULL;
   bool status = true;
-  *out = listCreateList(); // create empty list
+  // if passed list is null ptr acllocate it.
+  if (out == NULL)
+    *out = listCreateList();
   int rc = sqlite3_exec(DB, query, callback, out, &err);
+  if (rc != SQLITE_OK) {
+    const char *msg[] = {err, NULL};
+    menuUtilMessagebox("dbHandleGetResultAsList", msg);
+    sqlite3_free(err);
+    status = 0;
+  }
+  sqlite3_close(DB);
   return status;
 }

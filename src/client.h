@@ -5,13 +5,14 @@
  * @file
  * @brief Interface for Client structure.
  *
- * @todo Document propose of this file.
  **/
+
+#include "list.h"
+#include <stdbool.h>
 
 /**
  *@brief Indicates that Client::m_ID is not valid.
  **/
-#include <stdbool.h>
 #define INVALIDCLIENTID -1
 /**
  *@brief Indicates that Client::m_cardID is not valid.
