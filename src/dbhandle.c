@@ -150,9 +150,9 @@ bool dbHandleGetResultAsList(struct List **out,
   char *err = NULL;
   bool status = true;
   // if passed list is null ptr acllocate it.
-  if (out == NULL)
+  if (*out == NULL)
     *out = listCreateList();
-  int rc = sqlite3_exec(DB, query, callback, out, &err);
+  int rc = sqlite3_exec(DB, query, callback, *out, &err);
   if (rc != SQLITE_OK) {
     const char *msg[] = {err, NULL};
     menuUtilMessagebox("dbHandleGetResultAsList", msg);

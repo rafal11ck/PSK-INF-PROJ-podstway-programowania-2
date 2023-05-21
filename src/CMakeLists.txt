@@ -17,6 +17,9 @@ include_directories(. mmenu)
 add_executable(testlist testlist.c)
 target_link_libraries(testlist list)
 
+add_executable(testDbHandle testDbHandle.c)
+target_link_libraries(testDbHandle list dbhandle mmenu)
+
 add_executable(testListView testListView.c)
 target_link_libraries(testListView list mmenu ncurses)
 

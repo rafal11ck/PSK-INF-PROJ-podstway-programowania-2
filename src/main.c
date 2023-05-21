@@ -9,7 +9,7 @@
 /**
  * @brief main.
  * @return 0;
- * */
+ */
 int main() {
   const char *test[] = {"test", NULL};
   menuUtilMessagebox("TEST in main", test);

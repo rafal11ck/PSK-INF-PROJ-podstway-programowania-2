@@ -1,6 +1,7 @@
 #include "list.h"
 #include <assert.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 /**
@@ -42,6 +43,7 @@ bool listDealocateListNode(struct ListNode *node) {
  * @return Poitner to empty list.
  */
 struct List *listCreateList() {
+  printf("creating list ...\n");
   struct List *list = malloc(sizeof(struct List));
   // ensure that memory was allocated
   assert(list);

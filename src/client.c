@@ -68,14 +68,14 @@ static int clientGetListQueryCallback(struct List *list, int argc,
                                       const char **argv,
                                       const char **const colNames) {
   assert(list && argv && argc && colNames);
-  printf("list Size is %d\n", listSize(list));
+  printf("list size before push is %d\n", listSize(list));
   struct Client *cl = clientNew();
   for (int i = 0; i < argc; ++i) {
     const char *colName = colNames[i];
     const char *val = argv[i];
     if (!strcmp(colName, "ID")) {
       cl->m_ID = atoi(val);
-    } else if (!strcmp(colName, "cardId")) {
+    } else if (!strcmp(colName, "cardID")) {
       cl->m_cardID = atoi(val);
     } else if (!strcmp(colName, "name")) {
       cl->m_name = calloc(FORMFIELDLENGTH + 1, sizeof(char));
@@ -85,16 +85,19 @@ static int clientGetListQueryCallback(struct List *list, int argc,
       strcpy(cl->m_surname, val);
     } else if (!strcmp(colName, "phoneNumber")) {
       cl->m_phoneNum = atoi(val);
+    } else if (!strcmp(colName, "adress")) {
+      cl->m_adress = calloc(FORMFIELDLENGTH + 1, sizeof(char));
+      strcpy(cl->m_adress, val);
+    } else {
+      fprintf(stderr, "Client to structure fail. FAILED on %s", colName);
+      abort();
     }
-    listPushBack(list, cl);
   }
+  listPushBack(list, cl);
   return 0;
 }
 
-/**
- *@brief Get list of clients.
- **/
-struct List *clientGetList(int sType, bool desc) {
+char *clientGetQueryOfSort(int sType, bool desc) {
   char *query = calloc(1000, sizeof(char));
   strcpy(query,
          "SELECT ID, cardID, name, surname, adress, phoneNumber FROM clients "
@@ -120,12 +123,19 @@ struct List *clientGetList(int sType, bool desc) {
   };
   strcat(query, orderStr);
   if (desc)
-    strcat(query, "DESC");
+    strcat(query, " DESC");
   strcat(query, ";");
-  struct List *result = NULL;
+  return query;
+}
+
+/**
+ *@brief Get list of clients.
+ **/
+struct List *clientGetList(int sType, bool desc) {
+  struct List *res = NULL;
+  char *q = clientGetQueryOfSort(clientSort_cardId, 0);
   dbHandleGetResultAsList(
-      &result,
-      (int (*)(void *, int, char **, char **))clientGetListQueryCallback,
-      query);
-  return result;
+      &res, (int (*)(void *, int, char **, char **))clientGetListQueryCallback,
+      q);
+  return res;
 }

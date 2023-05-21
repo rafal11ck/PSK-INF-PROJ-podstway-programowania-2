@@ -65,5 +65,5 @@ void clientFree(struct Client *client);
 bool clientIsComplete(const struct Client *const client);
 
 struct List *clientGetList(int sType, bool desc);
-
+char *clientGetQueryOfSort(int sType, bool desc);
 #endif // CLIENT_H_
