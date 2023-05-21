@@ -68,7 +68,7 @@ static int clientGetListQueryCallback(struct List *list, int argc,
                                       const char **argv,
                                       const char **const colNames) {
   assert(list && argv && argc && colNames);
-  printf("list size before push is %d\n", listSize(list));
+  // printf("list size before push is %d\n", listSize(list));
   struct Client *cl = clientNew();
   for (int i = 0; i < argc; ++i) {
     const char *colName = colNames[i];
@@ -133,9 +133,29 @@ char *clientGetQueryOfSort(int sType, bool desc) {
  **/
 struct List *clientGetList(int sType, bool desc) {
   struct List *res = NULL;
-  char *q = clientGetQueryOfSort(clientSort_cardId, 0);
+  char *q = clientGetQueryOfSort(clientSort_cardId, desc);
   dbHandleGetResultAsList(
       &res, (int (*)(void *, int, char **, char **))clientGetListQueryCallback,
       q);
+  return res;
+}
+
+/**
+ *@breif make Clone of Client.
+ *@param dest Client structure where data will be cloned into.
+ *@param src Client to create clone of.
+ *@return Clone of Client.
+ **/
+struct Client *clientClone(struct Client *dest, const struct Client *src) {
+  struct Client *res = dest;
+  res->m_ID = src->m_ID;
+  res->m_adress = calloc(FORMFIELDLENGTH + 1, sizeof(char));
+  res->m_phoneNum = src->m_phoneNum;
+  res->m_cardID = src->m_cardID;
+  res->m_adress = src->m_adress;
+  res->m_name = calloc(FORMFIELDLENGTH + 1, sizeof(char));
+  res->m_name = src->m_name;
+  res->m_surname = calloc(FORMFIELDLENGTH + 1, sizeof(char));
+  res->m_surname = src->m_surname;
   return res;
 }

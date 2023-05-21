@@ -3,6 +3,8 @@
 #include "dbhandle.h"
 #include "list.h"
 #include "menuutil.h"
+#include "time.h"
+#include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -55,8 +57,9 @@ static int cb3(void *list, int argc, char **argv, char **const colNames) {
 
 int main() {
 
+  srand(time(0));
   struct List *res = NULL;
-  char *q = clientGetQueryOfSort(clientSort_cardId, 0);
+  char *q = clientGetQueryOfSort(rand() % clientSort_MAX, 0);
   dbHandleGetResultAsList(&res, cb3, q);
   printf("Query =\t %s\n", q);
   printf("Result list size  = %d\n", listSize(res));

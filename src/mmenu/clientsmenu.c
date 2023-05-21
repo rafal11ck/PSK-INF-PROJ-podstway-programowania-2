@@ -138,7 +138,10 @@ char *clientGetListViewString(struct Client *client) {
  *@todo extract function for clientChoose.
  **/
 static void extractClient(struct Client **out, const struct ListNode *node) {
-  out = 0;
+  assert(*out != NULL);
+  char *msg[] = {"CALLED", NULL};
+  menuUtilMessagebox("extracClient", (const char *const *)msg);
+  clientClone(*out, node->m_data);
 }
 
 /**
@@ -146,24 +149,32 @@ static void extractClient(struct Client **out, const struct ListNode *node) {
  *@return
  *-Chosen client ID or INVALIDCLIENTID if canceled.
  *
- *@todo I left here.
+ *@warning Extracted client has to be freed manually. See also @link
+ *clientChooseNoReturn @endlink.
  **/
 static struct Client *clientChoose(void) {
   const char *colNames[] = {"cardId", "name", "surname", "adress",
                             "phone number"};
   const int colCount = sizeof(colNames) / sizeof(*colNames);
 
-  //(struct List * (*)(int, bool)) clientGetList
-  struct Client **out;
-  //! @bug segfault by that call.
+  struct Client *out = clientNew();
   bool didChoose = listViewInvoke(
-      (void **)out, (void *)(const struct ListNode *)extractClient,
+      (void **)&out, (void *)(const struct ListNode *)extractClient,
       clientGetList, colNames, colCount,
       (char *(*)(void *))clientGetListViewString, (void *)(void *)clientFree);
 
-  struct Client *result = (out ? *out : NULL);
-  return result;
+  if (!didChoose) {
+    clientFree(out);
+    out = NULL;
+  }
+  return out;
 }
+
+/**
+ *@brief Wrapper around @link clientChoose @endlink frees extracted client
+ *instanntly.
+ **/
+void clientChooseNoReturn(void) { clientFree(clientChoose()); }
 
 /**
  *@brief Handles displaying of clients menu.

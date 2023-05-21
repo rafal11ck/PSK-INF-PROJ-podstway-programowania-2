@@ -1,4 +1,5 @@
 #include "menuutil.h"
+#include "client.h"
 #include "list.h"
 #include <assert.h>
 #include <eti.h>
@@ -97,8 +98,10 @@ void printWindowBoarders(WINDOW *window, const char *const title) {
  *NULL terminated array*/
 void menuUtilMessagebox(const char *const title, const char *const message[]) {
   int rowsNeeded = 0;
-  for (int i = 0; message[i] != NULL; ++i) {
-    ++rowsNeeded;
+  if (message != NULL) {
+    for (int i = 0; message[i] != NULL; ++i) {
+      ++rowsNeeded;
+    }
   }
   int messWinWidth =
       2 + max(getLongestStringLength(message, rowsNeeded), strlen(title));
@@ -612,6 +615,7 @@ bool listViewInvoke(void **out,
       // if chosen choice is set already.
       if (out != NULL && extractData != NULL)
         extractData(out, choice);
+
     case canceled:
       break;
     case sortInvert:
@@ -629,6 +633,7 @@ bool listViewInvoke(void **out,
         --currentSortType;
       }
       break;
+
     case invalid:
       assert(false && "Should never happen.");
     }
