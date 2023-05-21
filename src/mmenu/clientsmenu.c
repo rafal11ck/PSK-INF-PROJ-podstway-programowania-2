@@ -139,15 +139,16 @@ char *clientGetListViewString(struct Client *client) {
  **/
 static void extractClient(struct Client **out, const struct ListNode *node) {
   assert(*out != NULL);
-  char *msg[] = {"CALLED", NULL};
-  menuUtilMessagebox("extracClient", (const char *const *)msg);
+  struct Client *res = node->m_data;
+  mvprintw(1, 1, "%d\n%d\n%s", res->m_ID, res->m_cardID, res->m_name);
   clientClone(*out, node->m_data);
 }
 
 /**
  *@brief Invokes ListView of clients
  *@return
- *-Chosen client ID or INVALIDCLIENTID if canceled.
+ *-Chosen client clone
+ *-NULL if canceled.
  *
  *@warning Extracted client has to be freed manually. See also @link
  *clientChooseNoReturn @endlink.
@@ -167,8 +168,11 @@ static struct Client *clientChoose(void) {
     clientFree(out);
     out = NULL;
   }
+
   return out;
 }
+
+void clientRemove(void) { struct Client *toRemove = clientChoose(); }
 
 /**
  *@brief Wrapper around @link clientChoose @endlink frees extracted client
@@ -186,8 +190,8 @@ void clientsMenu(void) {
                                  "edit clients", "Return to main menu"};
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
   //! @todo implement submenus.
-  void (*menuFun[])(void) = {(void (*)(void))clientChoose, addClient, NULL,
-                             NULL, NULL};
+  void (*menuFun[])(void) = {(void (*)(void))clientChooseNoReturn, addClient,
+                             clientRemove, NULL, NULL};
   menuInvoke(title, choices, choicesCount, menuFun);
 }
 

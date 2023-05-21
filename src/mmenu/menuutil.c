@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define NOTRACE
+
 /**
  *@file
  *@brief Menu displaying utilities.
@@ -104,7 +106,9 @@ void menuUtilMessagebox(const char *const title, const char *const message[]) {
     }
   }
   int messWinWidth =
-      2 + max(getLongestStringLength(message, rowsNeeded), strlen(title));
+      2 +
+      max((message ? getLongestStringLength(message, rowsNeeded) : rowsNeeded),
+          strlen(title));
   int messWinHeight = 4 + rowsNeeded;
   WINDOW *messWin =
       newwin(messWinHeight, messWinWidth, (LINES - messWinHeight) / 2,
@@ -122,7 +126,6 @@ void menuUtilMessagebox(const char *const title, const char *const message[]) {
   update_panels();
   doupdate();
 }
-
 /**
  *@brief Control menu navigation and invoke option that we chose
  *@param menu MENU pointer
@@ -143,7 +146,7 @@ static void menuHandleIteraction(MENU *menu, PANEL *panel) {
       break;
     case 10:;
       ITEM *curitem = current_item(menu);
-#ifndef NDEBUG
+#ifndef NOTRACE
       const char *const name = item_name(curitem);
       // printing choices on stdscr for testing.
       move(LINES - 2, 0);
@@ -172,8 +175,8 @@ static void menuHandleIteraction(MENU *menu, PANEL *panel) {
  *@param choicesCount Number of elements in table of choices
  *@param menuFun Table of pointers on functions
  *
- *@todo Split into functions, make allocation and dallcation seperate functions,
- *make it allocate on heap instead of stack.
+ *@todo Split into functions, make allocation and dallcation seperate
+ *functions, make it allocate on heap instead of stack.
  **/
 void menuInvoke(const char *const title, const char *const choices[],
                 const int choicesCount, void (*menuFun[])(void)) {
@@ -236,7 +239,7 @@ static void formHandleIteraction(FORM *form) {
     switch (input) {
     case 10:
       tmp = form_driver(form, REQ_DOWN_FIELD);
-#ifndef NDEBUG
+#ifndef NOTRACE
       attron(COLOR_PAIR(1));
       mvprintw(LINES - 4, 0, "form_driver status code = %d", tmp);
       attroff(COLOR_PAIR(1));
@@ -329,7 +332,7 @@ void formInvoke(FORM *form, const char *const formFieldNames[],
   delwin(form_sub(form));
   delwin(form_win(form));
   unpost_form(form);
-#ifndef NDEBUG
+#ifndef NOTRACE
   // print content of form on screen.
   attron(COLOR_PAIR(1));
   mvprintw(1, 1, "%s", title);
@@ -439,6 +442,10 @@ listViewHandleIteraction(struct ListNode **result, MENU *menu) {
       state = sortInvert;
       doExit = true;
       break;
+    case 'r':
+      state = sortInvert;
+      doExit = true;
+      break;
     default:
       break;
     };
@@ -477,7 +484,8 @@ static void listViewFreeList(struct List **list, void (*dealloactor)(void *)) {
  *@warning Does not use weaper around ListNode to get ListNode::m_data that is
  *passsed to getItem function as parameter.
  *
- *@todo make reverseOrder make MENU in reverse order (tranverse list from back).
+ *@todo make reverseOrder make MENU in reverse order (tranverse list from
+ *back).
  */
 static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
                               const int colCount) {
@@ -562,8 +570,8 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
  *listViewInvoke List ListNode that is deallocated after call returns so if
  *result is to be preserved it has to do copy of data by itself.
  *@param listFun Functions that returns sorted list. Parameter sortType says
- *which sort type should be used it be handled by function. Parameter descending
- *of informs if sorting is ascending or descending.
+ *which sort type should be used it be handled by function. Parameter
+ *descending of informs if sorting is ascending or descending.
  *@warning listFuns sortType paremeter should be handled in range from 0 to
  *colCount-1.
  *@param columnNames array of column names strings.
@@ -595,9 +603,11 @@ bool listViewInvoke(void **out,
   enum ListViewIteractionStateCode choiceState = invalid;
   struct List *list = NULL;
   do {
-    // this could be refactored at cost of readabiiltiy, but could save time in
-    // reverse.
+    // this could be refactored at cost of readabiiltiy, but could save time
+    // in reverse.
+    //
     list = listFun(currentSortType, sortDescending);
+
     assert(list);
     // Make list on screen.
     MENU *menu = listViewInitMenu(list, getItemString, colCount);
@@ -615,7 +625,6 @@ bool listViewInvoke(void **out,
       // if chosen choice is set already.
       if (out != NULL && extractData != NULL)
         extractData(out, choice);
-
     case canceled:
       break;
     case sortInvert:

@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define NOTRACE
+
 /**
  *@file
  *@brief Implements function to operate on client.
@@ -118,7 +120,7 @@ char *clientGetQueryOfSort(int sType, bool desc) {
     orderStr = "adress";
     break;
   case clientSort_phoneNum:
-    orderStr = "cardID";
+    orderStr = "phoneNumber";
     break;
   };
   strcat(query, orderStr);
@@ -133,7 +135,11 @@ char *clientGetQueryOfSort(int sType, bool desc) {
  **/
 struct List *clientGetList(int sType, bool desc) {
   struct List *res = NULL;
-  char *q = clientGetQueryOfSort(clientSort_cardId, desc);
+  char *q = clientGetQueryOfSort(sType, desc);
+#ifndef NOTRACE
+  char *msg[] = {q, NULL};
+  menuUtilMessagebox("clientGetList", msg);
+#endif
   dbHandleGetResultAsList(
       &res, (int (*)(void *, int, char **, char **))clientGetListQueryCallback,
       q);
@@ -148,14 +154,15 @@ struct List *clientGetList(int sType, bool desc) {
  **/
 struct Client *clientClone(struct Client *dest, const struct Client *src) {
   struct Client *res = dest;
+  res = clientNew();
   res->m_ID = src->m_ID;
   res->m_adress = calloc(FORMFIELDLENGTH + 1, sizeof(char));
+  strcpy(res->m_adress, src->m_adress);
   res->m_phoneNum = src->m_phoneNum;
   res->m_cardID = src->m_cardID;
-  res->m_adress = src->m_adress;
   res->m_name = calloc(FORMFIELDLENGTH + 1, sizeof(char));
-  res->m_name = src->m_name;
+  strcpy(res->m_name, src->m_name);
   res->m_surname = calloc(FORMFIELDLENGTH + 1, sizeof(char));
-  res->m_surname = src->m_surname;
+  strcpy(res->m_surname, src->m_surname);
   return res;
 }
