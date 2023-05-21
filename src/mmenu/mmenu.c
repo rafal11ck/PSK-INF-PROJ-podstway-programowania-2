@@ -1,10 +1,10 @@
 #include "mmenu.h"
-#include "carsmenu.h"
-#include "clientsmenu.h"
-#include "menuutil.h"
-#include "rentalsmenu.h"
-#include <ncurses.h>
-#include <stdlib.h>
+#include "carsmenu.h"    //For submenu.
+#include "clientsmenu.h" //For submenu.
+#include "menuutil.h"    //For displaying
+#include "rentalsmenu.h" //For submenu.
+#include <ncurses.h>     //For displaying.
+#include <stdlib.h>      //For NULL.
 
 /**
  *@file
@@ -16,16 +16,12 @@
  */
 void mainMenuSelection(void);
 
-/**
- * @brief Starts ncurses
- **/
-
 void mainMenuSelection(void) {
   const char *const title = "Main menu";
   const char *const choices[] = {"Cars", "Clients", "Rentals", "Exit"};
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
   void (*menuFun[])(void) = {carsMenu, clientsMenu, rentalsMenu, NULL};
-  invokeMenu(title, choices, choicesCount, menuFun);
+  menuInvoke(title, choices, choicesCount, menuFun);
 }
 
 void mainMenu(void) {
@@ -33,6 +29,8 @@ void mainMenu(void) {
   noecho();
   cbreak();
   keypad(stdscr, TRUE);
+  start_color();
+  init_pair(1, COLOR_BLACK, COLOR_GREEN); // debugging color
   mainMenuSelection();
   endwin();
 }

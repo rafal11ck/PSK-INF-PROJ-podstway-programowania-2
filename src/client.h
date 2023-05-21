@@ -2,7 +2,29 @@
 #define CLIENT_H_
 
 /**
- * @brief Structure hodling client single data
+ * @file
+ * @brief Interface for Client structure.
+ *
+ **/
+
+#include "list.h"
+#include <stdbool.h>
+
+/**
+ *@brief Indicates that Client::m_ID is not valid.
+ **/
+#define INVALIDCLIENTID -1
+/**
+ *@brief Indicates that Client::m_cardID is not valid.
+ **/
+#define INVALIDCLIENTCARDID -1
+/**
+ *@brief Indicates that Client::m_phoneNum is not valid.
+ **/
+#define INVALIDCLIENTPHONENUM -1
+
+/**
+ * @brief Structure holding client single data
  */
 struct Client {
   //! %Client ID.
@@ -13,10 +35,36 @@ struct Client {
   char *m_name;
   //! String holding second name.
   char *m_surname;
-  //! Adress.
+  //! Address.
   char *m_adress;
   //! Phone number.
   int m_phoneNum;
 };
 
+/**
+ *@brief Client sort types.
+ **/
+enum ClientSort {
+  //! cardId
+  clientSort_cardId,
+  //! name
+  clientSort_name,
+  //! surname
+  clientSort_surname,
+  //! adress
+  clientSort_adress,
+  //! phoneNum
+  clientSort_phoneNum,
+  //! how many of ClientSort types exist
+  clientSort_MAX
+};
+
+struct Client *clientNew();
+void clientFree(struct Client *client);
+
+bool clientIsComplete(const struct Client *const client);
+
+struct List *clientGetList(int sType, bool desc);
+char *clientGetQueryOfSort(int sType, bool desc);
+struct Client *clientClone(struct Client *dest, const struct Client *src);
 #endif // CLIENT_H_

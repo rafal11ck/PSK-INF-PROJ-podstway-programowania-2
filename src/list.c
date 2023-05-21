@@ -1,6 +1,7 @@
 #include "list.h"
 #include <assert.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 /**
@@ -26,25 +27,37 @@ struct ListNode *listCreateNode(void *data);
 bool listInsertBefore(struct List *list, struct ListNode *node, void *data);
 
 /**
- * @brief Dealocates data poined by ListNode::m_data and ListNode.
- * @param node for dealocation.
+ * @brief Free memory taken by ListNode.
+ * @param node For removal.
+ * @return False if succeed.
  */
 bool listDealocateListNode(struct ListNode *node) {
   assert(node != NULL);
-  free(node->m_data);
+  // free(node->m_data);
   free(node);
   return false;
 }
 
+/**
+ * @brief Returns empty list
+ * @return Poitner to empty list.
+ */
 struct List *listCreateList() {
   struct List *list = malloc(sizeof(struct List));
   // ensure that memory was allocated
   assert(list);
   list->m_front = NULL;
   list->m_back = NULL;
+  list->m_size = 0;
   return list;
 };
 
+/**
+ * @brief Adds item at the front of list.
+ * @param list List into which item is added.
+ * @param data Pointer to data that will be pushed.
+ * @return false if everything is fine.
+ * */
 bool listPushFront(struct List *list, void *data) {
   struct ListNode *node = listCreateNode(data);
   // if List is empty
@@ -56,9 +69,16 @@ bool listPushFront(struct List *list, void *data) {
     node->m_next->m_prev = node;
   }
   list->m_front = node;
+  ++list->m_size;
   return false;
 }
 
+/**
+ * @brief Adds item at the end of list.
+ * @param list List into which item is added.
+ * @param data Pointer to data that will be pushed.
+ * @return false if everything is fine.
+ */
 bool listPushBack(struct List *list, void *data) {
 
   struct ListNode *node = listCreateNode(data);
@@ -71,9 +91,18 @@ bool listPushBack(struct List *list, void *data) {
     node->m_prev->m_next = node;
   }
   list->m_back = node;
+  ++list->m_size;
   return false;
 }
 
+/**
+ * @brief Inserts data in list at appropriate positon so that list remains
+ * sorted.
+ * @param list List into which item is inserted.
+ * @param data Pointer to data that will be inserted.
+ * @param prevFun Pointer to function that compares two data instances.
+ * @return false if everything is fine.
+ */
 bool listInsert(struct List *list, void *data,
                 bool (*prevFun)(const void *, const void *)) {
   struct ListNode *it = list->m_front;
@@ -115,17 +144,34 @@ bool listInsertBefore(struct List *list, struct ListNode *node, void *data) {
   newNode->m_prev->m_next = newNode;
   // Make node after newNode point to newNode.
   node->m_prev = newNode;
+  ++list->m_size;
   return false;
 }
 
-struct ListNode *listGetFront(struct List *list) {
-  return list->m_front;
-}
+/**
+ * @brief Returns pointer to the first element of list.
+ * @param list List pointer of which first element is wanted.
+ * @return Pointer to the first element in the List.
+ * - Returns NULL if List is empty.
+ */
+struct ListNode *listGetFront(struct List *list) { return list->m_front; }
 
-struct ListNode *listGetBack(struct List *list) {
-  return list->m_back;
-}
+/**
+ * @brief Returns pointer to the last element of list.
+ * @param list List pointer of which last element is wanted.
+ * @return Pointer to the last element in the List.
+ * - Returns NULL if List is empty.
+ */
+struct ListNode *listGetBack(struct List *list) { return list->m_back; }
 
+/**
+ * @brief Removes ListNode from List.
+ * @param list List from which ListNode has to be deleted.
+ * @param node ListNode for removal.
+ * @return False if deleted successfully.
+ *
+ * @warning Does not remove data allocated by user in ListNode::m_data.
+ */
 bool listDeleteNode(struct List *list, struct ListNode *node) {
   assert(node != NULL);
   // If node for removal is first in the list
@@ -146,6 +192,14 @@ bool listDeleteNode(struct List *list, struct ListNode *node) {
     else
       node->m_next->m_prev = node->m_prev;
   }
+  --list->m_size;
   listDealocateListNode(node);
   return false;
 }
+
+/**
+ * @brief How many elements are there in List.
+ * @param list List of which size is to be retrived.
+ * @return Size of list.
+ * */
+int listSize(const struct List *const list) { return list->m_size; }

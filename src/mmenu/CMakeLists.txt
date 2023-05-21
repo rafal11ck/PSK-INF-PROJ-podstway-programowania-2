@@ -1,3 +1,5 @@
+include_directories(../)
+
 add_library(mmenu
   carsmenu.c
   carsmenu.h
@@ -10,6 +12,5 @@ add_library(mmenu
   rentalsmenu.c
   rentalsmenu.h
 )
+target_link_libraries(mmenu ncurses dbhandle panel menu form client list)
 
-
-target_link_libraries(mmenu ncurses dbhandle panel menu)
