@@ -149,7 +149,7 @@ static void extractClient(struct Client **out, const struct ListNode *node) {
  *-Chosen client clone
  *-NULL if canceled.
  *
- *@warning Extracted client has to be freed manually. See also @link
+ *@note Extracted client has to be freed manually. See also @link
  *clientChooseNoReturn @endlink.
  **/
 static struct Client *clientChoose(void) {
@@ -164,15 +164,15 @@ static struct Client *clientChoose(void) {
       (char *(*)(void *))clientGetListViewString, (void *)(void *)clientFree);
 
 #ifndef NOTRACE
-  menuUtilMessagebox("clientChoose -- retuned from listViewInvoke.", NULL);
-  char *outVal = calloc(100, sizeof(char));
-  sprintf(outVal, "clientChoose -- out val = %p", out);
-  menuUtilMessagebox(outVal, NULL);
-  free(outVal);
-  menuUtilMessagebox(clientGetListViewString(out), NULL);
+  if (out) {
+    char *outVal = calloc(100, sizeof(char));
+    sprintf(outVal, "clientChoose -- out val = %p", out);
+    menuUtilMessagebox(outVal, NULL);
+    free(outVal);
+    menuUtilMessagebox(clientGetListViewString(out), NULL);
+  }
 #endif
 
-  //! @bug segfault.
   doupdate();
   return out;
 }
@@ -181,8 +181,8 @@ void clientRemove(void) {
   struct Client *toRemove = clientChoose();
   if (toRemove) {
 #ifndef NOTRACE
-
     menuUtilMessagebox("clientRemove", NULL);
+
 #endif
     clientFree(toRemove);
   }

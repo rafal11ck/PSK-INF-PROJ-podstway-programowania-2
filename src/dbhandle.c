@@ -162,3 +162,26 @@ bool dbHandleGetResultAsList(struct List **out,
   sqlite3_close(DB);
   return status;
 }
+
+/**
+ *@brief Remove clinet from database.
+ *@param id Id of clinet that will be removed
+ *@return -- true if success -- false otherwise.
+ *
+ */
+bool dbHandleRemoveClient(int id) {
+  sqlite3_open(DBFILENAME, &DB); // open
+  char *err = NULL;
+  char *query = calloc(500, sizeof(char));
+
+  bool status = true;
+  int rc = sqlite3_exec(DB, query, NULL, NULL, &err);
+  if (rc != SQLITE_OK) {
+    const char *msg[] = {err, NULL};
+    menuUtilMessagebox("dbHandleRemoveClient", msg);
+    sqlite3_free(err);
+    status = false;
+  }
+  sqlite3_close(DB);
+  return status;
+}
