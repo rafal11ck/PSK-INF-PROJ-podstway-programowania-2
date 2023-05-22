@@ -152,13 +152,13 @@ struct List *clientGetList(int sType, bool desc) {
  *@param src Client to create clone of.
  *@return Clone of Client.
  **/
-struct Client *clientClone(struct Client *dest, const struct Client *src) {
-  struct Client *res = dest;
+void clientClone(struct Client **dest, const struct Client *src) {
+  struct Client *res = *dest;
   res = clientNew();
   res->m_ID = src->m_ID;
   res->m_phoneNum = src->m_phoneNum;
   res->m_cardID = src->m_cardID;
-
+  res->m_cardID = src->m_cardID;
   res->m_adress = calloc(FORMFIELDLENGTH + 1, sizeof(char));
   strcpy(res->m_adress, src->m_adress);
 
@@ -167,5 +167,4 @@ struct Client *clientClone(struct Client *dest, const struct Client *src) {
 
   res->m_surname = calloc(FORMFIELDLENGTH + 1, sizeof(char));
   strcpy(res->m_surname, src->m_surname);
-  return res;
 }

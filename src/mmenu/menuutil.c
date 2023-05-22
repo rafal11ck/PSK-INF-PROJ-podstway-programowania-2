@@ -588,14 +588,20 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
  *up/down valgrind says memory is lost.
  */
 bool listViewInvoke(void **out,
-                    void (*extractData)(void **out,
-                                        const struct ListNode *const data),
+                    void (*dataExtractor)(void **out,
+                                          const struct ListNode *const data),
                     struct List *(*listFun)(int sortType, bool descending),
                     const char *const columnNames[], const int colCount,
                     char *(*getItemString)(void *),
                     void (*dealloactor)(void *)) {
   assert(listFun && "No list functions passed");
   assert(getItemString && "Can't create list without that function.");
+  if (out) {
+    assert(dataExtractor && "Can't extract data, out location provieded, but "
+                            "extract function was not.");
+  }
+  if (dataExtractor)
+    assert(out && "extractData has to have space to save data.");
 
   // Load List
   int currentSortType = 0;
@@ -623,8 +629,10 @@ bool listViewInvoke(void **out,
     switch (choiceState) {
     case chosen:
       // if chosen choice is set already.
-      if (out != NULL && extractData != NULL)
-        extractData(out, choice);
+      if (dataExtractor) {
+        dataExtractor(out, choice);
+      }
+      break;
     case canceled:
       break;
     case sortInvert:

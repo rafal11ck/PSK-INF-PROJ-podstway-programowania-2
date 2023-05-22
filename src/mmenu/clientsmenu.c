@@ -121,7 +121,7 @@ void addClient(void) {
  *@param client Client based on which generate string.
  *@return string repersenting client
  * */
-char *clientGetListViewString(struct Client *client) {
+char *clientGetListViewString(const struct Client *client) {
   struct Client *clientPtr = (struct Client *)client;
   // 5 is number of fields in resulting string
   const int fieldCount = 5;
@@ -141,7 +141,7 @@ static void extractClient(struct Client **out, const struct ListNode *node) {
   assert(*out != NULL);
   menuUtilMessagebox("extractClient Called", NULL);
   struct Client *res = node->m_data;
-  clientClone(*out, node->m_data);
+  clientClone(out, node->m_data);
 }
 
 /**
@@ -158,27 +158,35 @@ static struct Client *clientChoose(void) {
                             "phone number"};
   const int colCount = sizeof(colNames) / sizeof(*colNames);
 
-  struct Client *out = clientNew();
+  struct Client *out = NULL;
   bool didChoose = listViewInvoke(
       (void **)&out, (void *)(const struct ListNode *)extractClient,
       clientGetList, colNames, colCount,
       (char *(*)(void *))clientGetListViewString, (void *)(void *)clientFree);
 
-  if (!didChoose) {
-    clientFree(out);
-    out = NULL;
-  }
-
+  getch();
+  //! @bug segfault.
+  mvprintw(0, 0, "%s\n", clientGetListViewString(out));
+  doupdate();
+  getch();
   return out;
 }
 
-void clientRemove(void) { struct Client *toRemove = clientChoose(); }
+void clientRemove(void) {
+  struct Client *toRemove = clientChoose();
+  if (toRemove) {
+  }
+}
 
 /**
  *@brief Wrapper around @link clientChoose @endlink frees extracted client
  *instanntly.
  **/
-void clientChooseNoReturn(void) { clientFree(clientChoose()); }
+void clientChooseNoReturn(void) {
+  struct Client *r = clientChoose();
+  if (r)
+    clientFree(r);
+}
 
 /**
  *@brief Handles displaying of clients menu.
@@ -194,5 +202,3 @@ void clientsMenu(void) {
                              clientRemove, NULL, NULL};
   menuInvoke(title, choices, choicesCount, menuFun);
 }
-
-char *clientGetListViewString(struct Client *client);

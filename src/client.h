@@ -66,5 +66,5 @@ bool clientIsComplete(const struct Client *const client);
 
 struct List *clientGetList(int sType, bool desc);
 char *clientGetQueryOfSort(int sType, bool desc);
-struct Client *clientClone(struct Client *dest, const struct Client *src);
+void clientClone(struct Client **dest, const struct Client *src);
 #endif // CLIENT_H_
