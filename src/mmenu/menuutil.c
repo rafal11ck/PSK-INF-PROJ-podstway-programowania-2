@@ -566,13 +566,13 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
  *@param extractData Function taking two parameters first is pointer to the
  *memory where result will be saved (out parameter will be passed
  *internally), second is Listnode, from witch data will be extracted.
- *@warning extractData parameter function receives pointer to internal
+ *@note extractData parameter function receives pointer to internal
  *listViewInvoke List ListNode that is deallocated after call returns so if
  *result is to be preserved it has to do copy of data by itself.
  *@param listFun Functions that returns sorted list. Parameter sortType says
  *which sort type should be used it be handled by function. Parameter
  *descending of informs if sorting is ascending or descending.
- *@warning listFuns sortType paremeter should be handled in range from 0 to
+ *@note listFuns sortType paremeter should be handled in range from 0 to
  *colCount-1.
  *@param columnNames array of column names strings.
  *@param colCount How many columns are there.
@@ -584,8 +584,6 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
  *- true if chosen something.
  *- false if canceled.
  *
- *@bug Possbilbe memory leak when sort type is switched without preiror moving
- *up/down valgrind says memory is lost.
  */
 bool listViewInvoke(void **out,
                     void (*dataExtractor)(void **out,
@@ -625,11 +623,12 @@ bool listViewInvoke(void **out,
 
     choiceState = listViewHandleIteraction(&choice, menu);
 
-    //!@todo implement sort type changes.
     switch (choiceState) {
     case chosen:
       // if chosen choice is set already.
       if (dataExtractor) {
+        //! @warning make sure extractData correctly, hard to
+        //! debug.
         dataExtractor(out, choice);
       }
       break;

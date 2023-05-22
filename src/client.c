@@ -99,6 +99,10 @@ static int clientGetListQueryCallback(struct List *list, int argc,
   return 0;
 }
 
+/**
+ *@brief Generates SQL query.
+ *@param sType ClientSort based on which to sort.
+ * */
 char *clientGetQueryOfSort(int sType, bool desc) {
   char *query = calloc(1000, sizeof(char));
   strcpy(query,
@@ -132,6 +136,11 @@ char *clientGetQueryOfSort(int sType, bool desc) {
 
 /**
  *@brief Get list of clients.
+ *@param sType Sort type coresponding to @link ClientSort @endlink.
+ *@param desc Wheather sorting should be descending.
+ *- flase -- ascending
+ *- true -- descending
+ *@return List of clients. See also Client.
  **/
 struct List *clientGetList(int sType, bool desc) {
   struct List *res = NULL;

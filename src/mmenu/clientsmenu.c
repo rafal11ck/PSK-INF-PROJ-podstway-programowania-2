@@ -141,8 +141,6 @@ static void extractClient(struct Client **out, const struct ListNode *node) {
   assert(out != NULL && "extractClient can not output to NULL");
   struct Client *res = node->m_data;
   clientClone(out, node->m_data);
-  char *msg[] = {res->m_adress, res->m_name, res->m_surname, NULL};
-  menuUtilMessagebox("ExtractClient testOut", msg);
 }
 
 /**
@@ -171,19 +169,22 @@ static struct Client *clientChoose(void) {
   sprintf(outVal, "clientChoose -- out val = %p", out);
   menuUtilMessagebox(outVal, NULL);
   free(outVal);
-#endif
-
   menuUtilMessagebox(clientGetListViewString(out), NULL);
+#endif
 
   //! @bug segfault.
   doupdate();
-  getch();
   return out;
 }
 
 void clientRemove(void) {
   struct Client *toRemove = clientChoose();
   if (toRemove) {
+#ifndef NOTRACE
+
+    menuUtilMessagebox("clientRemove", NULL);
+#endif
+    clientFree(toRemove);
   }
 }
 
