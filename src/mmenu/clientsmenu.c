@@ -184,6 +184,7 @@ void clientRemove(void) {
     menuUtilMessagebox("clientRemove", NULL);
 
 #endif
+    //! @todo Implement here
     clientFree(toRemove);
   }
 }
