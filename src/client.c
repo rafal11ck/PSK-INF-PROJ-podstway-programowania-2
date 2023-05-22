@@ -156,12 +156,15 @@ struct Client *clientClone(struct Client *dest, const struct Client *src) {
   struct Client *res = dest;
   res = clientNew();
   res->m_ID = src->m_ID;
-  res->m_adress = calloc(FORMFIELDLENGTH + 1, sizeof(char));
-  strcpy(res->m_adress, src->m_adress);
   res->m_phoneNum = src->m_phoneNum;
   res->m_cardID = src->m_cardID;
+
+  res->m_adress = calloc(FORMFIELDLENGTH + 1, sizeof(char));
+  strcpy(res->m_adress, src->m_adress);
+
   res->m_name = calloc(FORMFIELDLENGTH + 1, sizeof(char));
   strcpy(res->m_name, src->m_name);
+
   res->m_surname = calloc(FORMFIELDLENGTH + 1, sizeof(char));
   strcpy(res->m_surname, src->m_surname);
   return res;

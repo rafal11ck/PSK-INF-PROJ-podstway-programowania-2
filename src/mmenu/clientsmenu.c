@@ -139,8 +139,8 @@ char *clientGetListViewString(struct Client *client) {
  **/
 static void extractClient(struct Client **out, const struct ListNode *node) {
   assert(*out != NULL);
+  menuUtilMessagebox("extractClient Called", NULL);
   struct Client *res = node->m_data;
-  mvprintw(1, 1, "%d\n%d\n%s", res->m_ID, res->m_cardID, res->m_name);
   clientClone(*out, node->m_data);
 }
 
