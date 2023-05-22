@@ -136,10 +136,6 @@ char *clientGetQueryOfSort(int sType, bool desc) {
 struct List *clientGetList(int sType, bool desc) {
   struct List *res = NULL;
   char *q = clientGetQueryOfSort(sType, desc);
-#ifndef NOTRACE
-  char *msg[] = {q, NULL};
-  menuUtilMessagebox("clientGetList", msg);
-#endif
   dbHandleGetResultAsList(
       &res, (int (*)(void *, int, char **, char **))clientGetListQueryCallback,
       q);
@@ -153,7 +149,7 @@ struct List *clientGetList(int sType, bool desc) {
  *@return Clone of Client.
  **/
 void clientClone(struct Client **dest, const struct Client *src) {
-  struct Client *res = *dest;
+  struct Client *res = NULL;
   res = clientNew();
   res->m_ID = src->m_ID;
   res->m_phoneNum = src->m_phoneNum;
@@ -167,4 +163,6 @@ void clientClone(struct Client **dest, const struct Client *src) {
 
   res->m_surname = calloc(FORMFIELDLENGTH + 1, sizeof(char));
   strcpy(res->m_surname, src->m_surname);
+
+  *dest = res;
 }

@@ -138,10 +138,11 @@ char *clientGetListViewString(const struct Client *client) {
  *@todo extract function for clientChoose.
  **/
 static void extractClient(struct Client **out, const struct ListNode *node) {
-  assert(*out != NULL);
-  menuUtilMessagebox("extractClient Called", NULL);
+  assert(out != NULL && "extractClient can not output to NULL");
   struct Client *res = node->m_data;
   clientClone(out, node->m_data);
+  char *msg[] = {res->m_adress, res->m_name, res->m_surname, NULL};
+  menuUtilMessagebox("ExtractClient testOut", msg);
 }
 
 /**
@@ -164,9 +165,17 @@ static struct Client *clientChoose(void) {
       clientGetList, colNames, colCount,
       (char *(*)(void *))clientGetListViewString, (void *)(void *)clientFree);
 
-  getch();
+#ifndef NOTRACE
+  menuUtilMessagebox("clientChoose -- retuned from listViewInvoke.", NULL);
+  char *outVal = calloc(100, sizeof(char));
+  sprintf(outVal, "clientChoose -- out val = %p", out);
+  menuUtilMessagebox(outVal, NULL);
+  free(outVal);
+#endif
+
+  menuUtilMessagebox(clientGetListViewString(out), NULL);
+
   //! @bug segfault.
-  mvprintw(0, 0, "%s\n", clientGetListViewString(out));
   doupdate();
   getch();
   return out;
