@@ -151,18 +151,21 @@ struct List *clientGetList(int sType, bool desc) {
 }
 
 /**
- *@breif make Clone of Client.
+ *@breif make Clone of Client. It allocates memory internaly.
  *@param dest Client structure where data will be cloned into.
  *@param src Client to create clone of.
  *@return Clone of Client.
  **/
 void clientClone(struct Client **dest, const struct Client *src) {
   struct Client *res = NULL;
+
   res = clientNew();
   res->m_ID = src->m_ID;
+
   res->m_phoneNum = src->m_phoneNum;
+
   res->m_cardID = src->m_cardID;
-  res->m_cardID = src->m_cardID;
+
   res->m_adress = calloc(FORMFIELDLENGTH + 1, sizeof(char));
   strcpy(res->m_adress, src->m_adress);
 

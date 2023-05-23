@@ -174,9 +174,9 @@ bool dbHandlClientRemove(int id) {
   char *err = NULL;
   char *query = calloc(500, sizeof(char));
   //! i left here
-  sprintf(query, "")
+  sprintf(query, "DELETE FROM clients WHERE clients.ID=%d", id);
 
-      bool status = true;
+  bool status = true;
   int rc = sqlite3_exec(DB, query, NULL, NULL, &err);
   if (rc != SQLITE_OK) {
     const char *msg[] = {err, NULL};
@@ -184,6 +184,31 @@ bool dbHandlClientRemove(int id) {
     sqlite3_free(err);
     status = false;
   }
+  // free(query); // ??
+  sqlite3_close(DB);
+  return status;
+}
+
+bool dbHandleClientUpdate(struct Client *toEdit) {
+  char *err = NULL;
+  char *query = calloc(700, sizeof(char));
+  sprintf(query,
+          "UPDATE clients SET cardID = '%d', name = '%s', surname "
+          "='%s', adress='%s', phoneNumber='%d' WHERE ID = %d;",
+          toEdit->m_cardID, toEdit->m_name, toEdit->m_surname, toEdit->m_adress,
+          toEdit->m_phoneNum, toEdit->m_ID);
+  menuUtilMessagebox(query, NULL);
+  bool status = true;
+  sqlite3_open(DBFILENAME, &DB); // open
+  int rc = sqlite3_exec(DB, query, NULL, NULL, &err);
+  if (rc != SQLITE_OK) {
+    const char *msg[] = {err, NULL};
+    assert(err);
+    menuUtilMessagebox("dbHandleClientUpdate ERROR", msg);
+    sqlite3_free(err);
+    status = false;
+  }
+  // free(query); // ??
   sqlite3_close(DB);
   return status;
 }

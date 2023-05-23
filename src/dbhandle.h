@@ -22,5 +22,6 @@ bool dbHandleGetResultAsList(struct List **out,
                              const char *query);
 
 bool dbHandlClientRemove(int id);
+bool dbHandleClientUpdate(struct Client *toEdit);
 
 #endif // DBHANDLE_H

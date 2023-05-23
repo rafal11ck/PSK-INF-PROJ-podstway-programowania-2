@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// #define NOTRACE
+
 /**
  *@file
  *@brief Clients menu implementation.
@@ -75,7 +77,6 @@ static bool clientFormParse(struct Client **result, FORM *form) {
  * @return Whenever changes should be propagated.
  * - false = nothing to do.
  *
- * @todo make placeHolder do shit.
  */
 static bool clientFormEdit(struct Client **result,
                            const struct Client *const placeHolder) {
@@ -88,6 +89,29 @@ static bool clientFormEdit(struct Client **result,
   set_field_type(form_fields(form)[0], TYPE_INTEGER, 0, 0, 0);
   set_field_type(form_fields(form)[4], TYPE_INTEGER, 0, 0, 0);
   //! @todo set fields initial values as in edit given Client structure.
+  if (placeHolder) {
+    if (placeHolder->m_cardID != INVALIDCLIENTCARDID) {
+      char *tempstr = calloc(FORMFIELDLENGTH, sizeof(char));
+      sprintf(tempstr, "%d", placeHolder->m_cardID);
+      set_field_buffer(form_fields(form)[0], 0, tempstr);
+      free(tempstr);
+    }
+    if (placeHolder->m_name) {
+      set_field_buffer(form_fields(form)[1], 0, placeHolder->m_name);
+    }
+    if (placeHolder->m_surname) {
+      set_field_buffer(form_fields(form)[2], 0, placeHolder->m_surname);
+    }
+    if (placeHolder->m_surname) {
+      set_field_buffer(form_fields(form)[3], 0, placeHolder->m_adress);
+    }
+    if (placeHolder->m_phoneNum != INVALIDCLIENTPHONENUM) {
+      char *tempstr = calloc(FORMFIELDLENGTH, sizeof(char));
+      sprintf(tempstr, "%d", placeHolder->m_cardID);
+      set_field_buffer(form_fields(form)[4], 0, tempstr);
+      free(tempstr);
+    }
+  }
   formInvoke(form, formFieldNames, "Client");
 
   bool altered = false;
@@ -165,10 +189,11 @@ static struct Client *clientChoose(void) {
 #ifndef NOTRACE
   if (out) {
     char *outVal = calloc(100, sizeof(char));
+    char *msg[] = {clientGetListViewString(out), NULL};
     sprintf(outVal, "clientChoose -- out val = %p", out);
-    menuUtilMessagebox(outVal, NULL);
+    menuUtilMessagebox(outVal, (const char **)msg);
+    free(msg[0]);
     free(outVal);
-    menuUtilMessagebox(clientGetListViewString(out), NULL);
   }
 #endif
 
@@ -180,8 +205,10 @@ void clientRemove(void) {
   struct Client *toRemove = clientChoose();
   if (toRemove) {
 #ifndef NOTRACE
-    menuUtilMessagebox("clientRemove", NULL);
-
+    char *str = calloc(200, sizeof(char));
+    char *info = clientGetListViewString(toRemove);
+    const char *msg[] = {"Removing clinet with data:", info, NULL};
+    menuUtilMessagebox("clientRemove", (const char **)msg);
 #endif
     dbHandlClientRemove(toRemove->m_ID);
     clientFree(toRemove);
@@ -198,6 +225,20 @@ void clientChooseNoReturn(void) {
     clientFree(r);
 }
 
+void clientEdit(void) {
+  struct Client *toEdit = clientChoose();
+  struct Client *edited = NULL;
+  clientClone(&edited, toEdit);
+
+  if (clientFormEdit(&edited, toEdit)) {
+    //!@todo update DB.
+    dbHandleClientUpdate(edited);
+  }
+
+  clientFree(toEdit);
+  clientFree(edited);
+}
+
 /**
  *@brief Handles displaying of clients menu.
  */
@@ -209,6 +250,6 @@ void clientsMenu(void) {
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
   //! @todo implement submenus.
   void (*menuFun[])(void) = {(void (*)(void))clientChooseNoReturn, addClient,
-                             clientRemove, NULL, NULL};
+                             clientRemove, clientEdit, NULL};
   menuInvoke(title, choices, choicesCount, menuFun);
 }
