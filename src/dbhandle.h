@@ -21,4 +21,6 @@ bool dbHandleGetResultAsList(struct List **out,
                                              char **colNames),
                              const char *query);
 
+bool dbHandlClientRemove(int id);
+
 #endif // DBHANDLE_H

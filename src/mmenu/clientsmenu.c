@@ -1,9 +1,8 @@
 #include "clientsmenu.h"
-#include "../client.h" //! @todo remove that dots but LSP is retarded and complains, despite cmake working...
+#include "client.h" //! @todo remove that dots but LSP is retarded and complains, despite cmake working...
 #include "dbhandle.h"
 #include "list.h"
 #include "menuutil.h"
-#include "mmenu.h"
 #include <assert.h>
 #include <form.h>
 #include <ncurses.h>
@@ -184,7 +183,7 @@ void clientRemove(void) {
     menuUtilMessagebox("clientRemove", NULL);
 
 #endif
-    //! @todo Implement here
+    dbHandlClientRemove(toRemove->m_ID);
     clientFree(toRemove);
   }
 }

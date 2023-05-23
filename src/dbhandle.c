@@ -169,12 +169,14 @@ bool dbHandleGetResultAsList(struct List **out,
  *@return -- true if success -- false otherwise.
  *
  */
-bool dbHandleRemoveClient(int id) {
+bool dbHandlClientRemove(int id) {
   sqlite3_open(DBFILENAME, &DB); // open
   char *err = NULL;
   char *query = calloc(500, sizeof(char));
+  //! i left here
+  sprintf(query, "")
 
-  bool status = true;
+      bool status = true;
   int rc = sqlite3_exec(DB, query, NULL, NULL, &err);
   if (rc != SQLITE_OK) {
     const char *msg[] = {err, NULL};
