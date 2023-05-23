@@ -197,7 +197,6 @@ bool dbHandleClientUpdate(struct Client *toEdit) {
           "='%s', adress='%s', phoneNumber='%d' WHERE ID = %d;",
           toEdit->m_cardID, toEdit->m_name, toEdit->m_surname, toEdit->m_adress,
           toEdit->m_phoneNum, toEdit->m_ID);
-  menuUtilMessagebox(query, NULL);
   bool status = true;
   sqlite3_open(DBFILENAME, &DB); // open
   int rc = sqlite3_exec(DB, query, NULL, NULL, &err);

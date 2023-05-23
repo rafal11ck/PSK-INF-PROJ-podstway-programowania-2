@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// #define NOTRACE
+#define NOTRACE
 
 /**
  *@file
@@ -32,7 +32,6 @@ static bool clientFormParse(struct Client **result, FORM *form) {
   assert(result && "Can not be null pointer.");
   bool isFormAltered = false;
   struct Client *resultPtr = *result;
-  resultPtr->m_ID = INVALIDCLIENTID;
 
   // for each changed field in form
   for (int i = 0; i < field_count(form); ++i) {
@@ -102,12 +101,12 @@ static bool clientFormEdit(struct Client **result,
     if (placeHolder->m_surname) {
       set_field_buffer(form_fields(form)[2], 0, placeHolder->m_surname);
     }
-    if (placeHolder->m_surname) {
+    if (placeHolder->m_adress) {
       set_field_buffer(form_fields(form)[3], 0, placeHolder->m_adress);
     }
     if (placeHolder->m_phoneNum != INVALIDCLIENTPHONENUM) {
       char *tempstr = calloc(FORMFIELDLENGTH, sizeof(char));
-      sprintf(tempstr, "%d", placeHolder->m_cardID);
+      sprintf(tempstr, "%d", placeHolder->m_phoneNum);
       set_field_buffer(form_fields(form)[4], 0, tempstr);
       free(tempstr);
     }
@@ -225,13 +224,15 @@ void clientChooseNoReturn(void) {
     clientFree(r);
 }
 
+/**
+ *@brief Edit client.
+ **/
 void clientEdit(void) {
   struct Client *toEdit = clientChoose();
   struct Client *edited = NULL;
   clientClone(&edited, toEdit);
 
   if (clientFormEdit(&edited, toEdit)) {
-    //!@todo update DB.
     dbHandleClientUpdate(edited);
   }
 
