@@ -157,7 +157,9 @@ char *clientGetListViewString(const struct Client *client) {
 }
 
 /**
- *@todo extract function for clientChoose.
+ * @brief extract client given ListNode.
+ * @param out where to save extracted Client.
+ * @param node from where Client is extracted.
  **/
 static void extractClient(struct Client **out, const struct ListNode *node) {
   assert(out != NULL && "extractClient can not output to NULL");
@@ -200,6 +202,9 @@ static struct Client *clientChoose(void) {
   return out;
 }
 
+/**
+ *@brief Remove client
+ **/
 void clientRemove(void) {
   struct Client *toRemove = clientChoose();
   if (toRemove) {

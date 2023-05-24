@@ -64,6 +64,11 @@ bool clientIsComplete(const struct Client *const client) {
 /**
  *@brief CallBack function for @link dbHandleGetResultAsList @endlink .
  *Transforms row into Client.
+ *@param list List to isert data into.
+ *@param argc How many columns are there.
+ *@param argv Values in columns.
+ *@param colNames names of columns.
+ *@return 0.
  **/
 static int clientGetListQueryCallback(struct List *list, int argc,
                                       const char **argv,
@@ -101,6 +106,8 @@ static int clientGetListQueryCallback(struct List *list, int argc,
 /**
  *@brief Generates SQL query.
  *@param sType ClientSort based on which to sort.
+ *@param desc Whather soring should be descending.
+ *@return query.
  * */
 char *clientGetQueryOfSort(int sType, bool desc) {
   char *query = calloc(1000, sizeof(char));
@@ -151,10 +158,9 @@ struct List *clientGetList(int sType, bool desc) {
 }
 
 /**
- *@breif make Clone of Client. It allocates memory internaly.
+ *@brief make Clone of Client. It allocates memory internaly.
  *@param dest Client structure where data will be cloned into.
  *@param src Client to create clone of.
- *@return Clone of Client.
  **/
 void clientClone(struct Client **dest, const struct Client *src) {
   struct Client *res = NULL;

@@ -1,5 +1,4 @@
 #include "menuutil.h"
-#include "client.h"
 #include "list.h"
 #include <assert.h>
 #include <eti.h>
@@ -13,8 +12,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NOTRACE
-
 /**
  *@file
  *@brief Menu displaying utilities.
@@ -22,8 +19,9 @@
  *Wraps ncurses liblary.
  **/
 
-//! @todo Display IMPORTANT it has to be list as menu items with usr pointers to
-//! nodes in the list, use pads for scrolling horizontally.
+/**
+ *@brief Hide trace information used for debugging. */
+#define NOTRACE
 
 /**
  *@brief String to indicate current selected choice in menus.
@@ -563,10 +561,10 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
 /**
  *@brief List Viewer for lists.
  *@param out Where result will be saved.
- *@param extractData Function taking two parameters first is pointer to the
+ *@param dataExtractor Function taking two parameters first is pointer to the
  *memory where result will be saved (out parameter will be passed
  *internally), second is Listnode, from witch data will be extracted.
- *@note extractData parameter function receives pointer to internal
+ *@note dataExtractor parameter function receives pointer to internal
  *listViewInvoke List ListNode that is deallocated after call returns so if
  *result is to be preserved it has to do copy of data by itself.
  *@param listFun Functions that returns sorted list. Parameter sortType says

@@ -189,6 +189,13 @@ bool dbHandlClientRemove(int id) {
   return status;
 }
 
+/**
+ *@brief Update Client in database.
+ *@param toEdit Client to update.
+ *@return Whather succeded
+ *- true -- sucess
+ *- false -- failed
+ **/
 bool dbHandleClientUpdate(struct Client *toEdit) {
   char *err = NULL;
   char *query = calloc(700, sizeof(char));
