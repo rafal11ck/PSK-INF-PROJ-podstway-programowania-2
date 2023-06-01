@@ -56,4 +56,14 @@ int main() {
   *x = 3;
   listInsert(list, x, &intCmp);
   printList(list);
+
+  printf("Removing List elements...");
+  while (listSize(list) > 0) {
+    free(listGetFront(list)->m_data);
+    listDeleteNode(list, listGetFront(list));
+  }
+  printList(list);
+
+  printf("Delete List...");
+  free(list);
 }

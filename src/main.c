@@ -1,4 +1,6 @@
-#include "menu.h"
+#include "dbhandle.h"
+#include "menuutil.h"
+#include "mmenu/mmenu.h"
 
 /**
  *@file
@@ -6,5 +8,11 @@
  * */
 /**
  * @brief main.
- * */
-int main() { mainMenu(); }
+ * @return 0;
+ */
+int main() {
+  const char *test[] = {"test", NULL};
+  menuUtilMessagebox("TEST in main", test);
+  if (!dbHandleOpenDB())
+    mainMenu();
+}
