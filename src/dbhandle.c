@@ -31,7 +31,7 @@ static char *ENUSREDBTABLESQUERY = "CREATE TABLE IF NOT EXISTS cars("
                                    "	regNum	TEXT,"
                                    "	brand	TEXT,"
                                    "	model	TEXT,"
-                                   "	yearOfProduction	INTEGER,"
+                                   "	yOfProd	INTEGER,"
                                    "	color	TEXT,"
                                    "	mileage	INTEGER,"
                                    "   PRIMARY KEY(ID AUTOINCREMENT));"
@@ -121,7 +121,7 @@ static bool dbHandleGetCarInsertQuery(char **out, const struct Car *car) {
   }
 
   sprintf(*out,
-          "INSERT INTO cars (regNum, brand, model, yearOfProduction, color, mileage) "
+          "INSERT INTO cars (regNum, brand, model, yOfProd, color, mileage) "
           "VALUES ('%s', '%s', '%s', %d, '%s', %ld);",
           car->m_regNum, car->m_brand, car->m_model, car->m_yOfProd, car->m_color, car->m_mileage);
   return true;
