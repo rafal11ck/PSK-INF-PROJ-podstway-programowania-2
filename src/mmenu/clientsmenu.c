@@ -251,8 +251,8 @@ void clientEdit(void) {
 void clientsMenu(void) {
 
   const char *const title = "Clients";
-  const char *const choices[] = {"list clients", "Add client", "remove client",
-                                 "edit clients", "Return to main menu"};
+  const char *const choices[] = {"List clients", "Add client", "Remove client",
+                                 "Edit clients", "Return to main menu"};
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
   //! @todo implement submenus.
   void (*menuFun[])(void) = {(void (*)(void))clientChooseNoReturn, addClient,
