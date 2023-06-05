@@ -300,7 +300,7 @@ bool dbHandleCarUpdate(struct Car *toEdit) {
   char *query = calloc(700, sizeof(char));
   sprintf(query,
           "UPDATE cars SET regNum = '%s', brand = '%s', model = '%s', "
-          "yearOfProduction = %d, color = '%s', mileage = %ld WHERE ID = %d;",
+          "yOfProd = %d, color = '%s', mileage = %ld WHERE ID = %d;",
           toEdit->m_regNum, toEdit->m_brand, toEdit->m_model, toEdit->m_yOfProd,
           toEdit->m_color, toEdit->m_mileage, toEdit->m_ID);
   bool status = true;
