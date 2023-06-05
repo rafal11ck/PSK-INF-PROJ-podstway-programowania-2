@@ -256,8 +256,8 @@ void carEdit(void) {
 void carsMenu(void) {
 
   const char *const title = "Cars";
-  const char *const choices[] = {"List cars", "Add cars", "Remove cars",
-                                 "Edit cars", "Return to main menu"};
+  const char *const choices[] = {"List cars", "Add car", "Remove car",
+                                 "Edit car", "Return to main menu"};
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
   //! @todo implement submenus.
   void (*menuFun[])(void) = {(void (*)(void))carChooseNoReturn, addCar,
