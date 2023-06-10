@@ -10,5 +10,5 @@
 
 void clientsMenu(void);
 
-char *clientGetListViewString(struct Client *client);
+char *clientGetListViewString(const struct Client *client);
 #endif // CLEINTSMENU_H

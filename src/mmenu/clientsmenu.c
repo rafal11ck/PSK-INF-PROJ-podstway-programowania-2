@@ -1,9 +1,8 @@
 #include "clientsmenu.h"
-#include "../client.h" //! @todo remove that dots but LSP is retarded and complains, despite cmake working...
+#include "client.h" //! @todo remove that dots but LSP is retarded and complains, despite cmake working...
 #include "dbhandle.h"
 #include "list.h"
 #include "menuutil.h"
-#include "mmenu.h"
 #include <assert.h>
 #include <form.h>
 #include <ncurses.h>
@@ -11,6 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#define NOTRACE
 
 /**
  *@file
@@ -31,7 +32,6 @@ static bool clientFormParse(struct Client **result, FORM *form) {
   assert(result && "Can not be null pointer.");
   bool isFormAltered = false;
   struct Client *resultPtr = *result;
-  resultPtr->m_ID = INVALIDCLIENTID;
 
   // for each changed field in form
   for (int i = 0; i < field_count(form); ++i) {
@@ -76,7 +76,6 @@ static bool clientFormParse(struct Client **result, FORM *form) {
  * @return Whenever changes should be propagated.
  * - false = nothing to do.
  *
- * @todo make placeHolder do shit.
  */
 static bool clientFormEdit(struct Client **result,
                            const struct Client *const placeHolder) {
@@ -89,6 +88,29 @@ static bool clientFormEdit(struct Client **result,
   set_field_type(form_fields(form)[0], TYPE_INTEGER, 0, 0, 0);
   set_field_type(form_fields(form)[4], TYPE_INTEGER, 0, 0, 0);
   //! @todo set fields initial values as in edit given Client structure.
+  if (placeHolder) {
+    if (placeHolder->m_cardID != INVALIDCLIENTCARDID) {
+      char *tempstr = calloc(FORMFIELDLENGTH, sizeof(char));
+      sprintf(tempstr, "%d", placeHolder->m_cardID);
+      set_field_buffer(form_fields(form)[0], 0, tempstr);
+      free(tempstr);
+    }
+    if (placeHolder->m_name) {
+      set_field_buffer(form_fields(form)[1], 0, placeHolder->m_name);
+    }
+    if (placeHolder->m_surname) {
+      set_field_buffer(form_fields(form)[2], 0, placeHolder->m_surname);
+    }
+    if (placeHolder->m_adress) {
+      set_field_buffer(form_fields(form)[3], 0, placeHolder->m_adress);
+    }
+    if (placeHolder->m_phoneNum != INVALIDCLIENTPHONENUM) {
+      char *tempstr = calloc(FORMFIELDLENGTH, sizeof(char));
+      sprintf(tempstr, "%d", placeHolder->m_phoneNum);
+      set_field_buffer(form_fields(form)[4], 0, tempstr);
+      free(tempstr);
+    }
+  }
   formInvoke(form, formFieldNames, "Client");
 
   bool altered = false;
@@ -121,7 +143,7 @@ void addClient(void) {
  *@param client Client based on which generate string.
  *@return string repersenting client
  * */
-char *clientGetListViewString(struct Client *client) {
+char *clientGetListViewString(const struct Client *client) {
   struct Client *clientPtr = (struct Client *)client;
   // 5 is number of fields in resulting string
   const int fieldCount = 5;
@@ -135,21 +157,23 @@ char *clientGetListViewString(struct Client *client) {
 }
 
 /**
- *@todo extract function for clientChoose.
+ * @brief extract client given ListNode.
+ * @param out where to save extracted Client.
+ * @param node from where Client is extracted.
  **/
 static void extractClient(struct Client **out, const struct ListNode *node) {
-  assert(*out != NULL);
-  char *msg[] = {"CALLED", NULL};
-  menuUtilMessagebox("extracClient", (const char *const *)msg);
-  clientClone(*out, node->m_data);
+  assert(out != NULL && "extractClient can not output to NULL");
+  struct Client *res = node->m_data;
+  clientClone(out, node->m_data);
 }
 
 /**
  *@brief Invokes ListView of clients
  *@return
- *-Chosen client ID or INVALIDCLIENTID if canceled.
+ *-Chosen client clone
+ *-NULL if canceled.
  *
- *@warning Extracted client has to be freed manually. See also @link
+ *@note Extracted client has to be freed manually. See also @link
  *clientChooseNoReturn @endlink.
  **/
 static struct Client *clientChoose(void) {
@@ -157,24 +181,69 @@ static struct Client *clientChoose(void) {
                             "phone number"};
   const int colCount = sizeof(colNames) / sizeof(*colNames);
 
-  struct Client *out = clientNew();
+  struct Client *out = NULL;
   bool didChoose = listViewInvoke(
       (void **)&out, (void *)(const struct ListNode *)extractClient,
       clientGetList, colNames, colCount,
       (char *(*)(void *))clientGetListViewString, (void *)(void *)clientFree);
 
-  if (!didChoose) {
-    clientFree(out);
-    out = NULL;
+#ifndef NOTRACE
+  if (out) {
+    char *outVal = calloc(100, sizeof(char));
+    char *msg[] = {clientGetListViewString(out), NULL};
+    sprintf(outVal, "clientChoose -- out val = %p", out);
+    menuUtilMessagebox(outVal, (const char **)msg);
+    free(msg[0]);
+    free(outVal);
   }
+#endif
+
+  doupdate();
   return out;
+}
+
+/**
+ *@brief Remove client
+ **/
+void clientRemove(void) {
+  struct Client *toRemove = clientChoose();
+  if (toRemove) {
+#ifndef NOTRACE
+    char *str = calloc(200, sizeof(char));
+    char *info = clientGetListViewString(toRemove);
+    const char *msg[] = {"Removing clinet with data:", info, NULL};
+    menuUtilMessagebox("clientRemove", (const char **)msg);
+#endif
+    dbHandlClientRemove(toRemove->m_ID);
+    clientFree(toRemove);
+  }
 }
 
 /**
  *@brief Wrapper around @link clientChoose @endlink frees extracted client
  *instanntly.
  **/
-void clientChooseNoReturn(void) { clientFree(clientChoose()); }
+void clientChooseNoReturn(void) {
+  struct Client *r = clientChoose();
+  if (r)
+    clientFree(r);
+}
+
+/**
+ *@brief Edit client.
+ **/
+void clientEdit(void) {
+  struct Client *toEdit = clientChoose();
+  struct Client *edited = NULL;
+  clientClone(&edited, toEdit);
+
+  if (clientFormEdit(&edited, toEdit)) {
+    dbHandleClientUpdate(edited);
+  }
+
+  clientFree(toEdit);
+  clientFree(edited);
+}
 
 /**
  *@brief Handles displaying of clients menu.
@@ -182,13 +251,11 @@ void clientChooseNoReturn(void) { clientFree(clientChoose()); }
 void clientsMenu(void) {
 
   const char *const title = "Clients";
-  const char *const choices[] = {"list clients", "Add client", "remove client",
-                                 "edit clients", "Return to main menu"};
+  const char *const choices[] = {"List clients", "Add client", "Remove client",
+                                 "Edit clients", "Return to main menu"};
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
   //! @todo implement submenus.
-  void (*menuFun[])(void) = {(void (*)(void))clientChoose, addClient, NULL,
-                             NULL, NULL};
+  void (*menuFun[])(void) = {(void (*)(void))clientChooseNoReturn, addClient,
+                             clientRemove, clientEdit, NULL};
   menuInvoke(title, choices, choicesCount, menuFun);
 }
-
-char *clientGetListViewString(struct Client *client);

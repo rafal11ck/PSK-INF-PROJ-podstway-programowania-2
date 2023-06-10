@@ -10,7 +10,7 @@ add_library(client car.h client.c)
 add_library(retnal rental.h rental.c)
 add_library(list list.h list.c)
 add_library(dbhandle dbhandle.h dbhandle.c)
-target_link_libraries(dbhandle sqlite3)
+target_link_libraries(dbhandle sqlite3 car client)
 
 include_directories(. mmenu)
 
@@ -19,6 +19,8 @@ target_link_libraries(testlist list)
 
 add_executable(testDbHandle testDbHandle.c)
 target_link_libraries(testDbHandle list dbhandle mmenu)
+
+
 
 add_executable(testListView testListView.c)
 target_link_libraries(testListView list mmenu ncurses)

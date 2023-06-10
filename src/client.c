@@ -1,5 +1,4 @@
 #include "client.h"
-#include "clientsmenu.h"
 #include "dbhandle.h"
 #include "list.h"
 #include "menuutil.h"
@@ -9,6 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#define NOTRACE
 
 /**
  *@file
@@ -63,6 +64,11 @@ bool clientIsComplete(const struct Client *const client) {
 /**
  *@brief CallBack function for @link dbHandleGetResultAsList @endlink .
  *Transforms row into Client.
+ *@param list List to isert data into.
+ *@param argc How many columns are there.
+ *@param argv Values in columns.
+ *@param colNames names of columns.
+ *@return 0.
  **/
 static int clientGetListQueryCallback(struct List *list, int argc,
                                       const char **argv,
@@ -97,6 +103,12 @@ static int clientGetListQueryCallback(struct List *list, int argc,
   return 0;
 }
 
+/**
+ *@brief Generates SQL query.
+ *@param sType ClientSort based on which to sort.
+ *@param desc Whather soring should be descending.
+ *@return query.
+ * */
 char *clientGetQueryOfSort(int sType, bool desc) {
   char *query = calloc(1000, sizeof(char));
   strcpy(query,
@@ -118,7 +130,7 @@ char *clientGetQueryOfSort(int sType, bool desc) {
     orderStr = "adress";
     break;
   case clientSort_phoneNum:
-    orderStr = "cardID";
+    orderStr = "phoneNumber";
     break;
   };
   strcat(query, orderStr);
@@ -130,10 +142,15 @@ char *clientGetQueryOfSort(int sType, bool desc) {
 
 /**
  *@brief Get list of clients.
+ *@param sType Sort type coresponding to @link ClientSort @endlink.
+ *@param desc Wheather sorting should be descending.
+ *- flase -- ascending
+ *- true -- descending
+ *@return List of clients. See also Client.
  **/
 struct List *clientGetList(int sType, bool desc) {
   struct List *res = NULL;
-  char *q = clientGetQueryOfSort(clientSort_cardId, desc);
+  char *q = clientGetQueryOfSort(sType, desc);
   dbHandleGetResultAsList(
       &res, (int (*)(void *, int, char **, char **))clientGetListQueryCallback,
       q);
@@ -141,21 +158,28 @@ struct List *clientGetList(int sType, bool desc) {
 }
 
 /**
- *@breif make Clone of Client.
+ *@brief make Clone of Client. It allocates memory internaly.
  *@param dest Client structure where data will be cloned into.
  *@param src Client to create clone of.
- *@return Clone of Client.
  **/
-struct Client *clientClone(struct Client *dest, const struct Client *src) {
-  struct Client *res = dest;
+void clientClone(struct Client **dest, const struct Client *src) {
+  struct Client *res = NULL;
+
+  res = clientNew();
   res->m_ID = src->m_ID;
-  res->m_adress = calloc(FORMFIELDLENGTH + 1, sizeof(char));
+
   res->m_phoneNum = src->m_phoneNum;
+
   res->m_cardID = src->m_cardID;
-  res->m_adress = src->m_adress;
+
+  res->m_adress = calloc(FORMFIELDLENGTH + 1, sizeof(char));
+  strcpy(res->m_adress, src->m_adress);
+
   res->m_name = calloc(FORMFIELDLENGTH + 1, sizeof(char));
-  res->m_name = src->m_name;
+  strcpy(res->m_name, src->m_name);
+
   res->m_surname = calloc(FORMFIELDLENGTH + 1, sizeof(char));
-  res->m_surname = src->m_surname;
-  return res;
+  strcpy(res->m_surname, src->m_surname);
+
+  *dest = res;
 }

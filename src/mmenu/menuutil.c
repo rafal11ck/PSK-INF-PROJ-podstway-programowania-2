@@ -1,5 +1,4 @@
 #include "menuutil.h"
-#include "client.h"
 #include "list.h"
 #include <assert.h>
 #include <eti.h>
@@ -20,8 +19,9 @@
  *Wraps ncurses liblary.
  **/
 
-//! @todo Display IMPORTANT it has to be list as menu items with usr pointers to
-//! nodes in the list, use pads for scrolling horizontally.
+/**
+ *@brief Hide trace information used for debugging. */
+#define NOTRACE
 
 /**
  *@brief String to indicate current selected choice in menus.
@@ -104,7 +104,9 @@ void menuUtilMessagebox(const char *const title, const char *const message[]) {
     }
   }
   int messWinWidth =
-      2 + max(getLongestStringLength(message, rowsNeeded), strlen(title));
+      2 +
+      max((message ? getLongestStringLength(message, rowsNeeded) : rowsNeeded),
+          strlen(title));
   int messWinHeight = 4 + rowsNeeded;
   WINDOW *messWin =
       newwin(messWinHeight, messWinWidth, (LINES - messWinHeight) / 2,
@@ -122,7 +124,6 @@ void menuUtilMessagebox(const char *const title, const char *const message[]) {
   update_panels();
   doupdate();
 }
-
 /**
  *@brief Control menu navigation and invoke option that we chose
  *@param menu MENU pointer
@@ -143,7 +144,7 @@ static void menuHandleIteraction(MENU *menu, PANEL *panel) {
       break;
     case 10:;
       ITEM *curitem = current_item(menu);
-#ifndef NDEBUG
+#ifndef NOTRACE
       const char *const name = item_name(curitem);
       // printing choices on stdscr for testing.
       move(LINES - 2, 0);
@@ -172,8 +173,8 @@ static void menuHandleIteraction(MENU *menu, PANEL *panel) {
  *@param choicesCount Number of elements in table of choices
  *@param menuFun Table of pointers on functions
  *
- *@todo Split into functions, make allocation and dallcation seperate functions,
- *make it allocate on heap instead of stack.
+ *@todo Split into functions, make allocation and dallcation seperate
+ *functions, make it allocate on heap instead of stack.
  **/
 void menuInvoke(const char *const title, const char *const choices[],
                 const int choicesCount, void (*menuFun[])(void)) {
@@ -236,7 +237,7 @@ static void formHandleIteraction(FORM *form) {
     switch (input) {
     case 10:
       tmp = form_driver(form, REQ_DOWN_FIELD);
-#ifndef NDEBUG
+#ifndef NOTRACE
       attron(COLOR_PAIR(1));
       mvprintw(LINES - 4, 0, "form_driver status code = %d", tmp);
       attroff(COLOR_PAIR(1));
@@ -329,7 +330,7 @@ void formInvoke(FORM *form, const char *const formFieldNames[],
   delwin(form_sub(form));
   delwin(form_win(form));
   unpost_form(form);
-#ifndef NDEBUG
+#ifndef NOTRACE
   // print content of form on screen.
   attron(COLOR_PAIR(1));
   mvprintw(1, 1, "%s", title);
@@ -439,6 +440,10 @@ listViewHandleIteraction(struct ListNode **result, MENU *menu) {
       state = sortInvert;
       doExit = true;
       break;
+    case 'r':
+      state = sortInvert;
+      doExit = true;
+      break;
     default:
       break;
     };
@@ -477,7 +482,8 @@ static void listViewFreeList(struct List **list, void (*dealloactor)(void *)) {
  *@warning Does not use weaper around ListNode to get ListNode::m_data that is
  *passsed to getItem function as parameter.
  *
- *@todo make reverseOrder make MENU in reverse order (tranverse list from back).
+ *@todo make reverseOrder make MENU in reverse order (tranverse list from
+ *back).
  */
 static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
                               const int colCount) {
@@ -555,16 +561,16 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
 /**
  *@brief List Viewer for lists.
  *@param out Where result will be saved.
- *@param extractData Function taking two parameters first is pointer to the
+ *@param dataExtractor Function taking two parameters first is pointer to the
  *memory where result will be saved (out parameter will be passed
  *internally), second is Listnode, from witch data will be extracted.
- *@warning extractData parameter function receives pointer to internal
+ *@note dataExtractor parameter function receives pointer to internal
  *listViewInvoke List ListNode that is deallocated after call returns so if
  *result is to be preserved it has to do copy of data by itself.
  *@param listFun Functions that returns sorted list. Parameter sortType says
- *which sort type should be used it be handled by function. Parameter descending
- *of informs if sorting is ascending or descending.
- *@warning listFuns sortType paremeter should be handled in range from 0 to
+ *which sort type should be used it be handled by function. Parameter
+ *descending of informs if sorting is ascending or descending.
+ *@note listFuns sortType paremeter should be handled in range from 0 to
  *colCount-1.
  *@param columnNames array of column names strings.
  *@param colCount How many columns are there.
@@ -576,18 +582,22 @@ void printColumnNames(WINDOW *win, const char *const columnNames[],
  *- true if chosen something.
  *- false if canceled.
  *
- *@bug Possbilbe memory leak when sort type is switched without preiror moving
- *up/down valgrind says memory is lost.
  */
 bool listViewInvoke(void **out,
-                    void (*extractData)(void **out,
-                                        const struct ListNode *const data),
+                    void (*dataExtractor)(void **out,
+                                          const struct ListNode *const data),
                     struct List *(*listFun)(int sortType, bool descending),
                     const char *const columnNames[], const int colCount,
                     char *(*getItemString)(void *),
                     void (*dealloactor)(void *)) {
   assert(listFun && "No list functions passed");
   assert(getItemString && "Can't create list without that function.");
+  if (out) {
+    assert(dataExtractor && "Can't extract data, out location provieded, but "
+                            "extract function was not.");
+  }
+  if (dataExtractor)
+    assert(out && "extractData has to have space to save data.");
 
   // Load List
   int currentSortType = 0;
@@ -595,9 +605,11 @@ bool listViewInvoke(void **out,
   enum ListViewIteractionStateCode choiceState = invalid;
   struct List *list = NULL;
   do {
-    // this could be refactored at cost of readabiiltiy, but could save time in
-    // reverse.
+    // this could be refactored at cost of readabiiltiy, but could save time
+    // in reverse.
+    //
     list = listFun(currentSortType, sortDescending);
+
     assert(list);
     // Make list on screen.
     MENU *menu = listViewInitMenu(list, getItemString, colCount);
@@ -609,13 +621,15 @@ bool listViewInvoke(void **out,
 
     choiceState = listViewHandleIteraction(&choice, menu);
 
-    //!@todo implement sort type changes.
     switch (choiceState) {
     case chosen:
       // if chosen choice is set already.
-      if (out != NULL && extractData != NULL)
-        extractData(out, choice);
-
+      if (dataExtractor) {
+        //! @warning make sure extractData correctly, hard to
+        //! debug.
+        dataExtractor(out, choice);
+      }
+      break;
     case canceled:
       break;
     case sortInvert:

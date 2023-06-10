@@ -1,12 +1,17 @@
 #include "list.h"
 #include "menuutil.h"
 #include <ncurses.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 bool intLess(const void *a, const void *b) {
   return *(int *)(a) < *(int *)(b) ? true : false;
+}
+
+bool intMore(const void *a, const void *b) {
+  return *(int *)(a) > *(int *)(b) ? true : false;
 }
 
 struct List *getList(void) {
@@ -20,13 +25,30 @@ struct List *getList(void) {
   return list;
 }
 
+struct List *getList2(void) {
+  // create list and insert elements.
+  struct List *list = listCreateList();
+  for (int i = 0; i < 100; ++i) {
+    int *t = calloc(sizeof(int), 1);
+    *t = i + 1;
+    listInsert(list, t, intMore);
+  }
+  return list;
+}
+
 struct List *listGetter(int sType, bool desc) {
-  return getList();
+  if (sType == 0)
+    return getList();
+  else if (sType == 1)
+    return getList2();
+  else
+    abort();
 }
 
 char *getIntString(void *x) {
   char *result = calloc(sizeof(char), 2 * FORMFIELDLENGTH + 1);
-  sprintf(result, "%*d%*d", FORMFIELDLENGTH, *(int *)x, FORMFIELDLENGTH, 1);
+  sprintf(result, "%*d%*d", FORMFIELDLENGTH, *(int *)x, FORMFIELDLENGTH,
+          *(int *)x);
   return result;
 }
 
