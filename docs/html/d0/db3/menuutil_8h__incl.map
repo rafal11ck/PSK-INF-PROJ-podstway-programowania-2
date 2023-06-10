@@ -1,0 +1,9 @@
+<map id="menuutil.h" name="menuutil.h">
+<area shape="rect" id="Node000001" title="Header file for menu operations." alt="" coords="49,5,170,41"/>
+<area shape="rect" id="Node000002" href="$da/d23/list_8h.html" title="Doubly linked list interface." alt="" coords="27,89,93,125"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,43,81,75,77,73,97,40"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="118,89,200,125"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="122,40,142,73,137,75,117,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,173,115,208"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="63,125,63,155,57,155,57,125"/>
+</map>

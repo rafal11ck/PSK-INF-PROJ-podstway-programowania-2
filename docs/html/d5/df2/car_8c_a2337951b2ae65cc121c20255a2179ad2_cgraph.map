@@ -1,0 +1,9 @@
+<map id="carGetListQueryCallback" name="carGetListQueryCallback">
+<area shape="rect" id="Node000001" title="CallBack function for dbHandleGetResultAsList. Transforms row into Car." alt="" coords="5,36,268,72"/>
+<area shape="rect" id="Node000002" href="$d5/df2/car_8c.html#a0d3175ea031713002ce87092fd6e258f" title="Allocates and returns car containing nothing." alt="" coords="342,5,435,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="268,35,324,28,324,34,269,40"/>
+<area shape="rect" id="Node000003" href="$d7/d40/list_8c.html#a339df7b81560e9469a44d37ad966870f" title="Adds item at the end of list." alt="" coords="316,65,461,101"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="269,67,299,70,298,75,268,72"/>
+<area shape="rect" id="Node000004" href="$d7/d40/list_8c.html#ab3906daba38e516a6c2bd15bfa3042db" title="Instantiates ListNode containing pointer to data." alt="" coords="509,65,672,101"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="461,81,491,81,491,86,461,86"/>
+</map>

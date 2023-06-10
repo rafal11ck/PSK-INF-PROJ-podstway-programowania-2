@@ -1,0 +1,16 @@
+<map id="carGetListViewString" name="carGetListViewString">
+<area shape="rect" id="Node000001" title="Given car, generates a string representing car data in listView friendly format (whole row)." alt="" coords="607,96,830,132"/>
+<area shape="rect" id="Node000002" href="$dc/dc6/carsmenu_8c.html#ad451b82b7f3d31d1bb3fc4c210941579" title="Invokes the listView of cars." alt="" coords="434,67,559,102"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="590,99,559,95,560,90,590,94"/>
+<area shape="rect" id="Node000012" href="$dc/dc6/carsmenu_8c.html#a76be213354bbaa3d64a095bafa1ec8d2" title="Removes a car." alt="" coords="212,125,344,161"/>
+<area shape="poly" id="edge8_Node000001_Node000012" title=" " alt="" coords="590,125,344,142,343,136,590,120"/>
+<area shape="rect" id="Node000003" href="$dc/dc6/carsmenu_8c.html#a04e2543edc445ed8a4cbd29b3466a07d" title="Wrapper around carChoose frees extracted car instanntly." alt="" coords="170,5,386,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="416,65,343,44,345,39,418,60"/>
+<area shape="rect" id="Node000011" href="$dc/dc6/carsmenu_8c.html#acf8ae724beca8714d7d114a7f2539895" title="Edit car." alt="" coords="234,65,322,101"/>
+<area shape="poly" id="edge4_Node000002_Node000011" title=" " alt="" coords="416,87,323,86,323,81,416,81"/>
+<area shape="poly" id="edge6_Node000002_Node000012" title=" " alt="" coords="418,108,345,128,343,123,416,103"/>
+<area shape="rect" id="Node000004" href="$dc/dc6/carsmenu_8c.html#a7adcbb9b8798811ec24e33760623ebc0" title="Handles displaying of cars menu." alt="" coords="5,65,122,101"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="196,49,123,69,122,64,194,44"/>
+<area shape="poly" id="edge5_Node000011_Node000004" title=" " alt="" coords="216,86,122,86,122,81,216,81"/>
+<area shape="poly" id="edge7_Node000012_Node000004" title=" " alt="" coords="195,123,122,102,123,97,196,118"/>
+</map>

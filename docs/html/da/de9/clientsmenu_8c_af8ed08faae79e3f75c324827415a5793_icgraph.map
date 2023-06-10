@@ -1,0 +1,12 @@
+<map id="clientFormParse" name="clientFormParse">
+<area shape="rect" id="Node000001" title="Parse form." alt="" coords="558,36,737,72"/>
+<area shape="rect" id="Node000002" href="$da/de9/clientsmenu_8c.html#a6edce5784156f2643efd7ccc086716e3" title="Function for editing client." alt="" coords="351,36,510,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="541,57,511,57,511,51,541,51"/>
+<area shape="rect" id="Node000003" href="$da/de9/clientsmenu_8c.html#a37a5ed3b8a63a9497f34682ce7db3126" title="function for adding client;" alt="" coords="191,5,303,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="333,40,303,35,304,30,334,35"/>
+<area shape="rect" id="Node000011" href="$da/de9/clientsmenu_8c.html#a3785053dd7fa7ee54cb52674dadf5941" title="Edit client." alt="" coords="192,65,302,101"/>
+<area shape="poly" id="edge4_Node000002_Node000011" title=" " alt="" coords="334,72,302,77,301,72,333,67"/>
+<area shape="rect" id="Node000004" href="$da/de9/clientsmenu_8c.html#ad2a8354e045a2d4deb82f4b3b20ad5a4" title="Handles displaying of clients menu." alt="" coords="5,36,143,72"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="174,39,143,44,142,39,173,34"/>
+<area shape="poly" id="edge5_Node000011_Node000004" title=" " alt="" coords="174,74,143,68,144,63,175,68"/>
+</map>

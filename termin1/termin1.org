@@ -1,0 +1,41 @@
+#+options: toc:nil
++-----------------------------------------------------------------------------------------+
+|                          Politechnika Świętokrzyska w Kielcach                          |
+|                    Wydział Elektrotechniki,Automatyki I Informatyki                     |
++-----------------------------------------------------------------------------------------+
+|                           Podstawy Programownaia 2 - Projekt                            |
+|                        Informatyka - I Rok akademicki 2022/2023                         |
++----------------------------------------------------------------+------------------------+
+|                        Temat Projektu:                         |       Wykonali:        |
+|                    Wypożyczalnia Samochodów                    |     1. Rafał Grot      |
+|                                                                |     2. Kamil Gunia     |
+|                                                                |    3. Jakub Grzelec    |
+|                                                                | 4. Karina Goszczyńska  |
++----------------------------------------------------------------+------------------------+
+* Pierwszy kamień milowy
+** Opanowanie systemu kontroli wersji =git=.
+Mogło być lepiej ale damy radę.
+** Podział pracy w zespole.
++Mogło być lepiej ale damy radę.+ Jednak nie daliśmy. Tak jak widać w repozytorium
+[[https://github.com/rafal11ck/PSK-INF-PROJ-podstway-programowania-2/][Link]]
+*Szczególnie wkład.*
+** Projekt relacyjnej bazy danych samochodów, klientów, wypożyczeń.
+Jest. Włącznie z implementacją.
+** Zapoznanie się z biblioteką =sqlite= [[https://www.sqlite.org]] ,nauka tworzenia i wykonywania prostych kwerend za jej pomocą.
+Jest użyta w projekcie
+* Drugi kamień milowy
+** Implementacja bazy danych.
+   Była na 1 KM.
+** Implementacja dodawania, usuwania oraz modyfikacji -- Samochodów i klientów.
++W trakcie, ze względu na podjęte decyzje usuwanie oraz modyfikacja wymaga wyświetlania.+ Jest
+** Implementacja wypożyczania i oddawania samochodów
+Do realizacja jest wymagana implementacja samochodów. Jeszce nie ma.
+** Wyświetlanie samochodów z możliwością sortowania rosnącego/malejącego.
++W trakcie.+ Jest.
+* I termin
+1. Stworzenie dokumentacji w programie =Doxygen=
+   Jest od 1 kamienia.
+2. Sporządzenie sprawozdania.
+
+3. Dodanie ewentualnych ulepszeń.
+   Ewentualnie dodatki powinny być widoczne w repozytorium.

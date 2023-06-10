@@ -1,0 +1,15 @@
+<map id="listSize" name="listSize">
+<area shape="rect" id="Node000001" title="How many elements are there in List." alt="" coords="631,60,722,96"/>
+<area shape="rect" id="Node000002" href="$d7/dba/menuutil_8c.html#a6229d06cea0b18a996e9f378719c56bb" title="frees internal List of listView." alt="" coords="409,5,581,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="614,62,556,44,557,39,615,57"/>
+<area shape="rect" id="Node000003" href="$d7/dba/menuutil_8c.html#aca301edf9d04aa391571851b148355ba" title="List Viewer for lists." alt="" coords="200,60,358,96"/>
+<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="614,81,358,81,358,75,614,75"/>
+<area shape="rect" id="Node000019" href="$d7/dba/menuutil_8c.html#a06a2ceb28df68b49e42d701e49f324c9" title="Allocates and fills MENU, based on List content." alt="" coords="406,115,583,150"/>
+<area shape="poly" id="edge5_Node000001_Node000019" title=" " alt="" coords="615,99,557,117,556,112,614,94"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="406,48,353,62,352,57,404,43"/>
+<area shape="rect" id="Node000004" href="$dc/dc6/carsmenu_8c.html#ad451b82b7f3d31d1bb3fc4c210941579" title="Invokes the listView of cars." alt="" coords="16,29,141,65"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="182,66,141,59,142,54,183,60"/>
+<area shape="rect" id="Node000015" href="$da/de9/clientsmenu_8c.html#a1d711b31a5a18af01cdd582e537ff921" title="Invokes ListView of clients." alt="" coords="5,89,152,125"/>
+<area shape="poly" id="edge4_Node000003_Node000015" title=" " alt="" coords="183,95,153,99,152,94,182,89"/>
+<area shape="poly" id="edge6_Node000019_Node000003" title=" " alt="" coords="404,112,352,99,353,94,406,107"/>
+</map>

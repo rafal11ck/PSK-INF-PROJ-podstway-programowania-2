@@ -1,0 +1,32 @@
+<map id="client.h" name="client.h">
+<area shape="rect" id="Node000001" title="Interface for Client structure." alt="" coords="506,5,596,41"/>
+<area shape="rect" id="Node000002" href="$dd/d93/client_8c.html" title="Implements function to operate on client." alt="" coords="1020,173,1109,208"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="614,40,671,60,730,87,755,105,780,122,841,144,891,152,943,158,1008,170,1020,173,1019,178,1007,175,942,163,891,157,840,149,778,127,752,110,727,91,669,65,612,45"/>
+<area shape="rect" id="Node000003" href="$da/de9/clientsmenu_8c.html" title="Clients menu implementation." alt="" coords="139,173,294,208"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="489,31,443,38,393,49,341,66,294,91,272,110,253,132,227,174,222,171,249,128,268,106,291,87,339,61,391,44,442,32,488,26"/>
+<area shape="rect" id="Node000004" href="$d6/d4a/clientsmenu_8h.html" title="Clients menu interface." alt="" coords="304,89,460,125"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="501,51,418,91,416,86,499,46"/>
+<area shape="rect" id="Node000005" href="$d3/df4/dbhandle_8c.html" title="Database handling." alt="" coords="318,173,446,208"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="532,57,505,92,473,127,442,153,411,174,408,170,439,148,469,123,501,88,528,54"/>
+<area shape="rect" id="Node000007" href="$d2/da6/testDbHandle_8c_source.html" title=" " alt="" coords="470,173,638,208"/>
+<area shape="poly" id="edge18_Node000001_Node000007" title=" " alt="" coords="554,59,556,172,551,172,549,59"/>
+<area shape="rect" id="Node000008" href="$db/d9d/dbhandle_8h.html" title="Database operations interface." alt="" coords="588,89,717,125"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="587,50,633,86,630,91,584,54"/>
+<area shape="rect" id="Node000012" href="$d5/d43/rental_8h_source.html" title=" " alt="" coords="791,89,885,125"/>
+<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="614,39,791,90,790,95,612,45"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="333,135,252,175,250,170,331,130"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="385,142,385,172,379,172,379,142"/>
+<area shape="rect" id="Node000006" href="$de/dc9/mmenu_8c.html" title="Menu implementation." alt="" coords="5,173,116,208"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="298,132,117,178,115,173,297,127"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="434,130,519,170,517,175,432,135"/>
+<area shape="poly" id="edge12_Node000008_Node000002" title=" " alt="" coords="734,122,736,122,872,144,1008,170,1020,173,1019,178,1007,175,871,149,735,127,733,127"/>
+<area shape="poly" id="edge13_Node000008_Node000003" title=" " alt="" coords="571,126,295,177,294,172,570,121"/>
+<area shape="poly" id="edge14_Node000008_Node000005" title=" " alt="" coords="580,133,440,175,438,170,579,127"/>
+<area shape="poly" id="edge16_Node000008_Node000007" title=" " alt="" coords="621,138,576,174,573,170,617,134"/>
+<area shape="rect" id="Node000009" href="$d5/df2/car_8c.html" title="Implements function to operate on client." alt="" coords="928,173,996,208"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="734,123,823,144,917,170,929,174,927,179,916,175,821,149,733,128"/>
+<area shape="rect" id="Node000010" href="$dc/dc6/carsmenu_8c.html" title="Cars menu implementation." alt="" coords="662,173,795,208"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="682,136,715,171,711,174,678,139"/>
+<area shape="rect" id="Node000011" href="$d0/d29/main_8c.html" title="Main file." alt="" coords="819,173,905,208"/>
+<area shape="poly" id="edge15_Node000008_Node000011" title=" " alt="" coords="713,129,820,170,818,175,711,134"/>
+</map>

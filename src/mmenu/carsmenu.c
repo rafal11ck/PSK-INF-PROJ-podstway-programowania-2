@@ -80,16 +80,17 @@ static bool carFormParse(struct Car **result, FORM *form) {
  * - false = nothing to do.
  *
  */
-static bool carFormEdit(struct Car **result, const struct Car *const placeHolder) {
+static bool carFormEdit(struct Car **result,
+                        const struct Car *const placeHolder) {
   assert(result);
-  const char *const formFieldNames[] = {"Registration Number", "Brand",
-                                        "Model", "Year of Production", "Color", "Mileage (KM)"};
+  const char *const formFieldNames[] = {
+      "Registration Number", "Brand", "Model",
+      "Year of Production",  "Color", "Mileage (KM)"};
   int fieldCount = sizeof(formFieldNames) / sizeof(*formFieldNames);
 
   FORM *form = formInit(fieldCount);
   set_field_type(form_fields(form)[3], TYPE_INTEGER, 0, 0, 0);
   set_field_type(form_fields(form)[5], TYPE_INTEGER, 0, 0, 0);
-  //! @todo set fields initial values as in edit given Car structure.
   if (placeHolder) {
     if (placeHolder->m_regNum) {
       set_field_buffer(form_fields(form)[0], 0, placeHolder->m_regNum);
@@ -154,10 +155,10 @@ char *carGetListViewString(const struct Car *car) {
   const int fieldCount = 6;
   // +1 for null terminator
   char *result = calloc(fieldCount * FORMFIELDLENGTH + 1, sizeof(char));
-  sprintf(result, "%*s%*s%*s%*d%*s%*ld", FORMFIELDLENGTH,
-          carPtr->m_regNum, FORMFIELDLENGTH, carPtr->m_brand,
-          FORMFIELDLENGTH, carPtr->m_model,FORMFIELDLENGTH, carPtr->m_yOfProd,
-          FORMFIELDLENGTH, carPtr->m_color, FORMFIELDLENGTH, carPtr->m_mileage);
+  sprintf(result, "%*s%*s%*s%*d%*s%*ld", FORMFIELDLENGTH, carPtr->m_regNum,
+          FORMFIELDLENGTH, carPtr->m_brand, FORMFIELDLENGTH, carPtr->m_model,
+          FORMFIELDLENGTH, carPtr->m_yOfProd, FORMFIELDLENGTH, carPtr->m_color,
+          FORMFIELDLENGTH, carPtr->m_mileage);
   return result;
 }
 
@@ -183,14 +184,14 @@ static void extractCar(struct Car **out, const struct ListNode *node) {
  **/
 static struct Car *carChoose(void) {
   const char *colNames[] = {"Registration Number", "Brand", "Model",
-                            "Year of Production", "Color", "Mileage (KM)"};
+                            "Year of Production",  "Color", "Mileage (KM)"};
   const int colCount = sizeof(colNames) / sizeof(*colNames);
 
   struct Car *out = NULL;
   bool didChoose = listViewInvoke(
-      (void **)&out, (void *)(const struct ListNode *)extractCar,
-      carGetList, colNames, colCount,
-      (char *(*)(void *))carGetListViewString, (void *)(void *)carFree);
+      (void **)&out, (void *)(const struct ListNode *)extractCar, carGetList,
+      colNames, colCount, (char *(*)(void *))carGetListViewString,
+      (void *)(void *)carFree);
 
 #ifndef NOTRACE
   if (out) {
@@ -259,7 +260,6 @@ void carsMenu(void) {
   const char *const choices[] = {"List cars", "Add car", "Remove car",
                                  "Edit car", "Return to main menu"};
   const int choicesCount = sizeof(choices) / sizeof(choices[0]);
-  //! @todo implement submenus.
   void (*menuFun[])(void) = {(void (*)(void))carChooseNoReturn, addCar,
                              carRemove, carEdit, NULL};
   menuInvoke(title, choices, choicesCount, menuFun);

@@ -1,0 +1,33 @@
+<map id="mainMenu" name="mainMenu">
+<area shape="rect" id="Node000001" title="Invokes menu." alt="" coords="5,273,128,309"/>
+<area shape="rect" id="Node000002" href="$de/dc9/mmenu_8c.html#a315bc1f41a79da39147ec73e38cfc9e7" title="Handles main menu." alt="" coords="176,245,387,281"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,281,158,277,158,282,128,286"/>
+<area shape="rect" id="Node000003" href="$dc/dc6/carsmenu_8c.html#a7adcbb9b8798811ec24e33760623ebc0" title="Handles displaying of cars menu." alt="" coords="447,131,563,166"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="317,242,452,172,455,177,319,247"/>
+<area shape="rect" id="Node000047" href="$d7/dba/menuutil_8c.html#a949419e66b27ac75475821fb7aba527d" title="Handle all operation and functions for menu." alt="" coords="672,245,812,281"/>
+<area shape="poly" id="edge15_Node000002_Node000047" title=" " alt="" coords="363,242,435,231,505,227,576,231,655,242,655,248,575,236,505,232,435,236,364,247"/>
+<area shape="rect" id="Node000050" href="$da/de9/clientsmenu_8c.html#ad2a8354e045a2d4deb82f4b3b20ad5a4" title="Handles displaying of clients menu." alt="" coords="437,360,574,396"/>
+<area shape="poly" id="edge9_Node000002_Node000050" title=" " alt="" coords="319,279,455,349,452,354,317,284"/>
+<area shape="rect" id="Node000071" href="$d6/dc5/rentalsmenu_8c.html#a4cad208e714dfe28ce655b7853a3d5fd" title="Handles Rentals Menu." alt="" coords="435,245,575,281"/>
+<area shape="poly" id="edge16_Node000002_Node000071" title=" " alt="" coords="387,261,418,261,418,266,387,266"/>
+<area shape="rect" id="Node000004" href="$dc/dc6/carsmenu_8c.html#a920be2aa6ca8626fdd965865d26f3fd4" title="Function for adding a car." alt="" coords="696,5,788,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="522,128,565,89,622,51,679,31,680,36,625,56,569,93,526,132"/>
+<area shape="rect" id="Node000020" href="$dc/dc6/carsmenu_8c.html#a04e2543edc445ed8a4cbd29b3466a07d" title="Wrapper around carChoose frees extracted car instanntly." alt="" coords="634,65,850,101"/>
+<area shape="poly" id="edge4_Node000003_Node000020" title=" " alt="" coords="563,129,623,111,651,103,653,109,624,116,564,134"/>
+<area shape="rect" id="Node000043" href="$dc/dc6/carsmenu_8c.html#acf8ae724beca8714d7d114a7f2539895" title="Edit car." alt="" coords="698,125,786,161"/>
+<area shape="poly" id="edge5_Node000003_Node000043" title=" " alt="" coords="564,145,680,142,680,147,564,150"/>
+<area shape="rect" id="Node000045" href="$dc/dc6/carsmenu_8c.html#a76be213354bbaa3d64a095bafa1ec8d2" title="Removes a car." alt="" coords="676,185,808,221"/>
+<area shape="poly" id="edge6_Node000003_Node000045" title=" " alt="" coords="564,159,660,182,659,187,563,164"/>
+<area shape="poly" id="edge7_Node000003_Node000047" title=" " alt="" coords="541,165,577,188,600,211,610,220,625,230,657,244,655,249,622,235,607,225,597,214,574,192,538,169"/>
+<area shape="poly" id="edge8_Node000047_Node000001" title=" " alt="" coords="672,281,576,295,458,302,341,304,145,298,145,293,341,298,458,297,575,290,671,276"/>
+<area shape="poly" id="edge14_Node000050_Node000047" title=" " alt="" coords="538,357,574,334,597,312,607,302,622,291,655,278,657,283,625,296,610,306,600,316,577,339,541,362"/>
+<area shape="rect" id="Node000051" href="$da/de9/clientsmenu_8c.html#a37a5ed3b8a63a9497f34682ce7db3126" title="function for adding client;" alt="" coords="686,305,798,341"/>
+<area shape="poly" id="edge10_Node000050_Node000051" title=" " alt="" coords="574,359,668,337,669,343,575,365"/>
+<area shape="rect" id="Node000059" href="$da/de9/clientsmenu_8c.html#a1aa5fbc029a7e320bf6f6c3a2e6e27cc" title="Wrapper around clientChoose frees extracted client instanntly." alt="" coords="623,365,861,401"/>
+<area shape="poly" id="edge11_Node000050_Node000059" title=" " alt="" coords="574,377,606,377,606,383,574,382"/>
+<area shape="rect" id="Node000067" href="$da/de9/clientsmenu_8c.html#a3785053dd7fa7ee54cb52674dadf5941" title="Edit client." alt="" coords="687,425,797,461"/>
+<area shape="poly" id="edge12_Node000050_Node000067" title=" " alt="" coords="568,394,624,410,671,423,670,428,623,415,566,399"/>
+<area shape="rect" id="Node000069" href="$da/de9/clientsmenu_8c.html#ae81aa78f6e32fdd87e554ba85c063111" title="Remove client." alt="" coords="666,485,818,521"/>
+<area shape="poly" id="edge13_Node000050_Node000069" title=" " alt="" coords="526,394,569,433,625,470,650,481,648,486,622,475,565,437,522,398"/>
+<area shape="poly" id="edge17_Node000071_Node000047" title=" " alt="" coords="575,261,655,261,655,266,575,266"/>
+</map>

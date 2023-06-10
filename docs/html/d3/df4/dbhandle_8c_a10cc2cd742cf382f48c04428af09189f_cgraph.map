@@ -1,0 +1,15 @@
+<map id="dbHandleClientInsert" name="dbHandleClientInsert">
+<area shape="rect" id="Node000001" title="Insert client into db." alt="" coords="5,67,228,102"/>
+<area shape="rect" id="Node000002" href="$d3/df4/dbhandle_8c.html#aa047043390f11acf01f2c50504d8bf77" title="Given client, get string containing SQL query that would add that client to DB." alt="" coords="276,21,592,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,66,287,57,288,63,229,71"/>
+<area shape="rect" id="Node000004" href="$d7/dba/menuutil_8c.html#ae6ed898f3726361b1edde3f8707f0260" title="Displays message box on the screen with title and message." alt="" coords="319,96,549,132"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="229,92,302,99,301,104,228,97"/>
+<area shape="rect" id="Node000003" href="$dd/d93/client_8c.html#a673f8913ce042048c6a8d7e77434dc18" title="Checks if every field despite Client::m_ID in Client is set." alt="" coords="675,5,856,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="592,29,657,26,657,31,592,34"/>
+<area shape="rect" id="Node000005" href="$d7/dba/menuutil_8c.html#ac6b71fcc47a9cdec8ac08b98e754239c" title="Get length of longest string in array of strings." alt="" coords="640,65,890,101"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="548,101,622,94,623,99,549,106"/>
+<area shape="rect" id="Node000006" href="$d7/dba/menuutil_8c.html#a9941ed217da0309cd9453bdb776d5c51" title="Add basic functionality to the shitty language which C is." alt="" coords="734,125,796,161"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="549,121,716,136,716,142,548,127"/>
+<area shape="rect" id="Node000007" href="$d7/dba/menuutil_8c.html#a14ca6bd9893f550a2051ca6cd5a689ac" title="Print boarders of window." alt="" coords="652,185,878,221"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="498,130,641,170,672,178,671,183,639,175,497,135"/>
+</map>

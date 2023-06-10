@@ -1,0 +1,5 @@
+<map id="dbHandleGetClientInsertQuery" name="dbHandleGetClientInsertQuery">
+<area shape="rect" id="Node000001" title="Given client, get string containing SQL query that would add that client to DB." alt="" coords="5,5,322,41"/>
+<area shape="rect" id="Node000002" href="$dd/d93/client_8c.html#a673f8913ce042048c6a8d7e77434dc18" title="Checks if every field despite Client::m_ID in Client is set." alt="" coords="370,5,551,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="322,20,352,20,352,26,322,26"/>
+</map>

@@ -1,0 +1,55 @@
+<map id="carsMenu" name="carsMenu">
+<area shape="rect" id="Node000001" title="Handles displaying of cars menu." alt="" coords="5,585,122,621"/>
+<area shape="rect" id="Node000002" href="$dc/dc6/carsmenu_8c.html#a920be2aa6ca8626fdd965865d26f3fd4" title="Function for adding a car." alt="" coords="232,169,324,205"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="72,584,257,219,262,222,77,586"/>
+<area shape="rect" id="Node000018" href="$dc/dc6/carsmenu_8c.html#a04e2543edc445ed8a4cbd29b3466a07d" title="Wrapper around carChoose frees extracted car instanntly." alt="" coords="170,645,386,681"/>
+<area shape="poly" id="edge9_Node000001_Node000018" title=" " alt="" coords="123,617,196,637,194,643,121,622"/>
+<area shape="rect" id="Node000041" href="$dc/dc6/carsmenu_8c.html#acf8ae724beca8714d7d114a7f2539895" title="Edit car." alt="" coords="234,448,322,484"/>
+<area shape="poly" id="edge15_Node000001_Node000041" title=" " alt="" coords="91,583,232,491,235,496,94,587"/>
+<area shape="rect" id="Node000043" href="$dc/dc6/carsmenu_8c.html#a76be213354bbaa3d64a095bafa1ec8d2" title="Removes a car." alt="" coords="212,585,344,621"/>
+<area shape="poly" id="edge23_Node000001_Node000043" title=" " alt="" coords="122,601,194,601,194,606,122,606"/>
+<area shape="rect" id="Node000045" href="$d7/dba/menuutil_8c.html#a949419e66b27ac75475821fb7aba527d" title="Handle all operation and functions for menu." alt="" coords="208,855,348,890"/>
+<area shape="poly" id="edge30_Node000001_Node000045" title=" " alt="" coords="81,620,254,839,249,842,77,623"/>
+<area shape="rect" id="Node000003" href="$dc/dc6/carsmenu_8c.html#a30a34923bcd0082000de90700343bd84" title="Function for editing car." alt="" coords="481,275,619,310"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="318,203,435,254,470,266,468,271,433,259,316,208"/>
+<area shape="rect" id="Node000012" href="$d5/df2/car_8c.html#a4ccd342eeebaa0daf8b8b5922ad3b2ff" title="Deallocates car." alt="" coords="781,615,877,650"/>
+<area shape="poly" id="edge3_Node000002_Node000012" title=" " alt="" coords="324,194,434,217,471,221,503,222,560,219,587,220,613,226,640,239,668,261,689,286,700,310,704,334,704,359,703,410,707,438,717,469,736,506,758,541,803,600,798,603,754,544,731,508,712,471,701,439,698,411,699,359,699,335,695,312,684,289,664,265,637,243,612,231,586,225,560,224,503,227,470,227,434,222,323,199"/>
+<area shape="rect" id="Node000013" href="$d5/df2/car_8c.html#a47a583e551002d7fc00d05227eba5855" title="Checks if every field in Car is set." alt="" coords="470,5,630,41"/>
+<area shape="poly" id="edge4_Node000002_Node000013" title=" " alt="" coords="295,167,353,113,391,83,433,57,458,45,461,50,435,62,394,87,356,117,298,171"/>
+<area shape="rect" id="Node000014" href="$d5/df2/car_8c.html#a0d3175ea031713002ce87092fd6e258f" title="Allocates and returns car containing nothing." alt="" coords="782,197,876,233"/>
+<area shape="poly" id="edge5_Node000002_Node000014" title=" " alt="" coords="302,166,360,131,396,113,433,101,498,85,551,79,603,84,667,101,705,116,741,138,798,183,795,187,738,142,703,121,665,106,602,89,551,85,499,91,435,106,398,118,362,135,305,171"/>
+<area shape="rect" id="Node000015" href="$d3/df4/dbhandle_8c.html#ae62043f5776328dcdc74dc9f29c4e2c6" title="Insert a car into the database." alt="" coords="450,115,651,150"/>
+<area shape="poly" id="edge6_Node000002_Node000015" title=" " alt="" coords="323,176,441,152,442,157,324,181"/>
+<area shape="rect" id="Node000017" href="$d7/dba/menuutil_8c.html#ae6ed898f3726361b1edde3f8707f0260" title="Displays message box on the screen with title and message." alt="" coords="714,423,944,458"/>
+<area shape="poly" id="edge8_Node000002_Node000017" title=" " alt="" coords="324,177,394,170,482,169,530,174,578,183,624,197,668,217,695,235,720,257,762,308,795,361,816,405,812,408,790,363,758,311,716,261,692,239,665,221,622,202,576,188,529,179,482,175,394,175,324,182"/>
+<area shape="poly" id="edge7_Node000015_Node000017" title=" " alt="" coords="637,148,668,167,811,406,806,409,664,170,634,153"/>
+<area shape="poly" id="edge14_Node000018_Node000012" title=" " alt="" coords="387,677,521,687,594,686,666,679,716,668,764,654,766,659,718,674,667,684,594,691,520,692,386,682"/>
+<area shape="rect" id="Node000019" href="$dc/dc6/carsmenu_8c.html#ad451b82b7f3d31d1bb3fc4c210941579" title="Invokes the listView of cars." alt="" coords="488,615,613,650"/>
+<area shape="poly" id="edge10_Node000018_Node000019" title=" " alt="" coords="386,648,470,639,470,644,387,654"/>
+<area shape="poly" id="edge11_Node000019_Node000012" title=" " alt="" coords="613,630,764,630,764,635,613,635"/>
+<area shape="poly" id="edge13_Node000019_Node000017" title=" " alt="" coords="613,620,640,611,665,600,707,571,744,536,802,471,806,474,748,540,710,575,668,604,642,616,614,625"/>
+<area shape="rect" id="Node000027" href="$dc/dc6/carsmenu_8c.html#a55b6445add211264ded95be67ff98aa5" title="Given car, generates a string representing car data in listView friendly format (whole row)." alt="" coords="718,723,940,758"/>
+<area shape="poly" id="edge12_Node000019_Node000027" title=" " alt="" coords="599,648,766,713,764,718,597,653"/>
+<area shape="poly" id="edge19_Node000041_Node000003" title=" " alt="" coords="292,446,349,384,389,350,433,321,463,308,465,313,435,326,392,354,353,388,296,449"/>
+<area shape="poly" id="edge20_Node000041_Node000012" title=" " alt="" coords="323,467,477,490,573,512,667,541,732,570,788,603,785,607,730,575,665,546,571,517,476,496,322,473"/>
+<area shape="poly" id="edge16_Node000041_Node000019" title=" " alt="" coords="297,482,354,540,393,572,435,599,472,614,470,619,433,604,390,577,350,544,293,486"/>
+<area shape="rect" id="Node000029" href="$d5/df2/car_8c.html#aad591876ff6e73edb792e10ad133e602" title="Make a clone of Car. It allocates memory internally." alt="" coords="497,335,604,370"/>
+<area shape="poly" id="edge17_Node000041_Node000029" title=" " alt="" coords="307,445,364,413,433,381,478,366,480,371,435,386,367,418,310,450"/>
+<area shape="rect" id="Node000042" href="$d3/df4/dbhandle_8c.html#a127bbad9ae9228590e2a7eb06a085321" title="Update a car in the database." alt="" coords="442,395,658,430"/>
+<area shape="poly" id="edge21_Node000041_Node000042" title=" " alt="" coords="322,455,438,432,439,437,323,460"/>
+<area shape="poly" id="edge18_Node000029_Node000014" title=" " alt="" coords="603,340,665,319,733,282,790,242,793,246,736,286,667,324,605,345"/>
+<area shape="poly" id="edge22_Node000042_Node000017" title=" " alt="" coords="659,421,697,425,696,430,658,426"/>
+<area shape="poly" id="edge25_Node000043_Node000012" title=" " alt="" coords="345,616,387,631,411,647,421,654,435,659,478,668,523,673,612,672,696,661,764,647,765,652,696,667,613,677,522,678,477,674,433,664,418,658,408,651,385,636,343,621"/>
+<area shape="poly" id="edge29_Node000043_Node000017" title=" " alt="" coords="322,582,433,541,588,496,729,460,730,465,590,501,435,546,324,587"/>
+<area shape="poly" id="edge24_Node000043_Node000019" title=" " alt="" coords="344,608,470,621,470,627,344,613"/>
+<area shape="poly" id="edge26_Node000043_Node000027" title=" " alt="" coords="345,614,387,632,403,644,412,657,421,669,435,680,500,706,568,723,637,734,700,739,700,744,636,739,567,728,498,711,433,684,417,673,407,660,399,648,385,636,343,619"/>
+<area shape="rect" id="Node000044" href="$d3/df4/dbhandle_8c.html#a230344c970b882095a893674614099c4" title="Remove a car from the database." alt="" coords="437,555,664,590"/>
+<area shape="poly" id="edge27_Node000043_Node000044" title=" " alt="" coords="344,593,419,585,419,590,344,598"/>
+<area shape="poly" id="edge28_Node000044_Node000017" title=" " alt="" coords="589,552,773,464,775,469,591,557"/>
+<area shape="rect" id="Node000046" href="$d7/dba/menuutil_8c.html#acef3bbabe9293534ee600e9b89eda07b" title="Calculate minimum window width." alt="" coords="471,825,630,861"/>
+<area shape="poly" id="edge31_Node000045_Node000046" title=" " alt="" coords="348,862,453,851,453,856,348,868"/>
+<area shape="rect" id="Node000047" href="$de/dc9/mmenu_8c.html#a29c2128f12316ca1ce77fd1d686f6ec7" title="Invokes menu." alt="" coords="489,885,611,921"/>
+<area shape="poly" id="edge32_Node000045_Node000047" title=" " alt="" coords="348,878,472,892,471,897,348,883"/>
+<area shape="rect" id="Node000071" href="$d7/dba/menuutil_8c.html#ae9bbf0350539ebe186df7d627930ca51" title="Control menu navigation and invoke option that we chose." alt="" coords="434,945,666,981"/>
+<area shape="poly" id="edge33_Node000045_Node000071" title=" " alt="" coords="324,888,435,930,460,938,458,943,433,935,322,893"/>
+</map>

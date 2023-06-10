@@ -1,0 +1,6 @@
+<map id="List" name="List">
+<area shape="rect" id="Node000001" title="Stores pointers to first and last elements of double linked list." alt="" coords="23,197,148,290"/>
+<area shape="rect" id="Node000002" href="$da/d23/list_8h.html#dd/d2d/structListNode" title="Doubly linked list node." alt="" coords="5,5,165,99"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,99,88,178,83,178,83,99"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="166,33,184,39,192,52,185,64,180,62,187,52,181,43,164,38"/>
+</map>

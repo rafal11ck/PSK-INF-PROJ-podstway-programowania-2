@@ -1,0 +1,5 @@
+<map id="listPushFront" name="listPushFront">
+<area shape="rect" id="Node000001" title="Adds item at the front of list." alt="" coords="5,5,153,41"/>
+<area shape="rect" id="Node000002" href="$d7/d40/list_8c.html#ab3906daba38e516a6c2bd15bfa3042db" title="Instantiates ListNode containing pointer to data." alt="" coords="201,5,364,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,20,183,20,183,26,153,26"/>
+</map>

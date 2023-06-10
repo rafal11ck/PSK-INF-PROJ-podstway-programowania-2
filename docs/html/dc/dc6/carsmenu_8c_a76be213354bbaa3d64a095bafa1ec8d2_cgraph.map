@@ -1,0 +1,49 @@
+<map id="carRemove" name="carRemove">
+<area shape="rect" id="Node000001" title="Removes a car." alt="" coords="5,230,137,266"/>
+<area shape="rect" id="Node000002" href="$dc/dc6/carsmenu_8c.html#ad451b82b7f3d31d1bb3fc4c210941579" title="Invokes the listView of cars." alt="" coords="236,350,361,386"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,264,249,339,247,344,106,269"/>
+<area shape="rect" id="Node000003" href="$d5/df2/car_8c.html#a4ccd342eeebaa0daf8b8b5922ad3b2ff" title="Deallocates car." alt="" coords="524,230,619,266"/>
+<area shape="poly" id="edge23_Node000001_Node000003" title=" " alt="" coords="137,245,506,245,506,250,137,250"/>
+<area shape="rect" id="Node000012" href="$d7/dba/menuutil_8c.html#ae6ed898f3726361b1edde3f8707f0260" title="Displays message box on the screen with title and message." alt="" coords="1047,290,1276,326"/>
+<area shape="poly" id="edge27_Node000001_Node000012" title=" " alt="" coords="83,228,123,179,151,154,183,133,299,81,403,41,499,15,592,4,685,8,781,27,885,62,1000,113,1025,128,1049,147,1090,189,1123,234,1146,273,1141,276,1118,237,1086,193,1045,151,1022,133,997,118,883,67,780,32,684,13,592,9,500,21,404,46,301,85,186,138,155,158,127,183,87,231"/>
+<area shape="rect" id="Node000016" href="$dc/dc6/carsmenu_8c.html#a55b6445add211264ded95be67ff98aa5" title="Given car, generates a string representing car data in listView friendly format (whole row)." alt="" coords="460,599,682,635"/>
+<area shape="poly" id="edge24_Node000001_Node000016" title=" " alt="" coords="85,264,127,325,155,361,187,395,256,459,314,505,377,542,461,584,476,591,474,595,459,589,374,547,311,509,252,463,183,399,151,365,122,329,81,267"/>
+<area shape="rect" id="Node000030" href="$d3/df4/dbhandle_8c.html#a230344c970b882095a893674614099c4" title="Remove a car from the database." alt="" coords="185,147,412,183"/>
+<area shape="poly" id="edge25_Node000001_Node000030" title=" " alt="" coords="121,227,230,187,232,192,123,232"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="326,347,386,312,459,276,506,260,508,265,461,281,389,316,329,352"/>
+<area shape="rect" id="Node000004" href="$d5/df2/car_8c.html#ad946b04e98242aa73d41af8cd6963335" title="Get list of cars." alt="" coords="511,290,631,326"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="361,351,493,322,494,327,362,357"/>
+<area shape="poly" id="edge22_Node000002_Node000012" title=" " alt="" coords="362,380,481,401,641,419,729,423,820,421,910,412,998,395,1032,383,1064,368,1121,334,1123,339,1067,373,1034,388,999,400,911,417,820,426,729,428,640,424,480,407,361,385"/>
+<area shape="poly" id="edge9_Node000002_Node000016" title=" " alt="" coords="322,384,367,428,414,485,428,514,435,539,443,562,462,585,466,588,463,592,458,588,438,565,430,541,423,516,410,488,363,431,318,388"/>
+<area shape="rect" id="Node000017" href="$dc/dc6/carsmenu_8c.html#acf7941e462559f5f161ffcd804d4b8c9" title="Extracts car from the given ListNode." alt="" coords="511,350,631,386"/>
+<area shape="poly" id="edge10_Node000002_Node000017" title=" " alt="" coords="362,365,493,365,493,370,362,370"/>
+<area shape="rect" id="Node000019" href="$d7/dba/menuutil_8c.html#aca301edf9d04aa391571851b148355ba" title="List Viewer for lists." alt="" coords="492,539,650,575"/>
+<area shape="poly" id="edge12_Node000002_Node000019" title=" " alt="" coords="328,384,531,527,528,531,325,388"/>
+<area shape="rect" id="Node000005" href="$d5/df2/car_8c.html#a2337951b2ae65cc121c20255a2179ad2" title="CallBack function for dbHandleGetResultAsList. Transforms row into Car." alt="" coords="733,230,996,266"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="631,293,757,267,758,272,632,298"/>
+<area shape="rect" id="Node000009" href="$d5/df2/car_8c.html#a42654de8d3a43e2623c8882f42207408" title="Generates SQL query." alt="" coords="761,170,968,206"/>
+<area shape="poly" id="edge5_Node000004_Node000009" title=" " alt="" coords="631,296,657,287,681,275,696,261,704,246,713,231,729,216,743,209,746,213,732,221,717,234,709,249,700,264,684,279,659,292,633,301"/>
+<area shape="rect" id="Node000010" href="$d3/df4/dbhandle_8c.html#a93d9b43b32495dc8630963c174aeba05" title="Given query and callback function create List based on the query." alt="" coords="730,290,999,326"/>
+<area shape="poly" id="edge6_Node000004_Node000010" title=" " alt="" coords="632,305,713,305,713,310,632,310"/>
+<area shape="poly" id="edge7_Node000010_Node000012" title=" " alt="" coords="999,305,1029,305,1029,310,999,310"/>
+<area shape="rect" id="Node000015" href="$d7/dba/menuutil_8c.html#a14ca6bd9893f550a2051ca6cd5a689ac" title="Print boarders of window." alt="" coords="1324,547,1550,583"/>
+<area shape="poly" id="edge8_Node000012_Node000015" title=" " alt="" coords="1184,324,1406,533,1402,537,1180,328"/>
+<area shape="rect" id="Node000018" href="$d5/df2/car_8c.html#aad591876ff6e73edb792e10ad133e602" title="Make a clone of Car. It allocates memory internally." alt="" coords="811,350,918,386"/>
+<area shape="poly" id="edge11_Node000017_Node000018" title=" " alt="" coords="632,365,794,365,794,370,632,370"/>
+<area shape="poly" id="edge21_Node000019_Node000015" title=" " alt="" coords="652,565,669,574,684,586,703,613,710,641,709,669,706,696,702,723,703,749,712,773,732,795,765,817,796,829,826,834,855,831,920,815,998,795,1059,778,1119,756,1177,730,1232,701,1328,641,1398,592,1401,596,1331,646,1235,705,1179,735,1121,761,1061,783,999,800,921,820,856,837,825,839,795,834,763,822,729,799,707,775,698,750,697,723,700,696,704,669,704,642,698,615,680,590,666,578,650,570"/>
+<area shape="rect" id="Node000020" href="$d7/d40/list_8c.html#a0837532833bd96d83104386c1aa69c10" title="How many elements are there in List." alt="" coords="1116,630,1207,666"/>
+<area shape="poly" id="edge13_Node000019_Node000020" title=" " alt="" coords="609,536,665,514,730,496,806,481,867,472,927,475,1000,496,1043,519,1082,550,1114,584,1140,614,1135,617,1110,587,1078,554,1040,524,998,501,926,480,867,477,807,486,731,501,667,519,611,541"/>
+<area shape="rect" id="Node000021" href="$d7/dba/menuutil_8c.html#a6229d06cea0b18a996e9f378719c56bb" title="frees internal List of listView." alt="" coords="778,630,951,666"/>
+<area shape="poly" id="edge14_Node000019_Node000021" title=" " alt="" coords="650,573,684,585,708,600,731,615,762,625,760,630,729,620,705,605,681,590,648,578"/>
+<area shape="rect" id="Node000026" href="$d7/dba/menuutil_8c.html#a5cf01d8794a16c8f4d79eed99ec0b560" title="frees memory used by listView internal Menu" alt="" coords="768,510,961,546"/>
+<area shape="poly" id="edge16_Node000019_Node000026" title=" " alt="" coords="651,547,751,536,751,542,651,552"/>
+<area shape="rect" id="Node000027" href="$d7/dba/menuutil_8c.html#a6154454b5c30466c33806a07ce7578d5" title=" " alt="" coords="739,570,990,606"/>
+<area shape="poly" id="edge17_Node000019_Node000027" title=" " alt="" coords="651,563,721,570,721,575,650,568"/>
+<area shape="rect" id="Node000028" href="$d7/dba/menuutil_8c.html#a06a2ceb28df68b49e42d701e49f324c9" title="Allocates and fills MENU, based on List content." alt="" coords="776,750,953,786"/>
+<area shape="poly" id="edge18_Node000019_Node000028" title=" " alt="" coords="652,566,684,586,699,605,706,624,709,663,711,700,718,718,732,735,761,753,758,758,729,739,713,721,706,701,703,663,701,625,694,607,681,590,649,571"/>
+<area shape="rect" id="Node000029" href="$d7/dba/menuutil_8c.html#adc98ee6c310a6ad6286dde9a1426db38" title="Prints header row of table." alt="" coords="762,690,967,726"/>
+<area shape="poly" id="edge20_Node000019_Node000029" title=" " alt="" coords="652,568,684,586,702,609,709,632,715,654,732,675,747,685,744,689,729,679,710,657,704,634,697,611,681,590,649,573"/>
+<area shape="poly" id="edge15_Node000021_Node000020" title=" " alt="" coords="951,645,1098,645,1098,650,951,650"/>
+<area shape="poly" id="edge19_Node000028_Node000020" title=" " alt="" coords="953,749,998,735,1061,705,1117,673,1120,678,1064,710,1000,740,954,754"/>
+<area shape="poly" id="edge26_Node000030_Node000012" title=" " alt="" coords="374,144,498,122,574,113,656,108,742,108,830,115,917,130,1000,156,1043,179,1082,210,1114,244,1140,274,1135,277,1110,247,1078,214,1040,184,998,161,915,135,829,120,742,113,656,113,574,119,498,127,375,149"/>
+</map>

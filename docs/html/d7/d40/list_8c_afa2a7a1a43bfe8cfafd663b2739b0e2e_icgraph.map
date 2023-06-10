@@ -1,0 +1,11 @@
+<map id="listDeleteNode" name="listDeleteNode">
+<area shape="rect" id="Node000001" title="Removes ListNode from List." alt="" coords="626,36,788,72"/>
+<area shape="rect" id="Node000002" href="$d7/dba/menuutil_8c.html#a6229d06cea0b18a996e9f378719c56bb" title="frees internal List of listView." alt="" coords="406,36,578,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="609,57,579,57,579,51,609,51"/>
+<area shape="rect" id="Node000003" href="$d7/dba/menuutil_8c.html#aca301edf9d04aa391571851b148355ba" title="List Viewer for lists." alt="" coords="200,36,358,72"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="389,57,358,57,358,51,389,51"/>
+<area shape="rect" id="Node000004" href="$dc/dc6/carsmenu_8c.html#ad451b82b7f3d31d1bb3fc4c210941579" title="Invokes the listView of cars." alt="" coords="16,5,141,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="182,42,141,35,142,30,183,36"/>
+<area shape="rect" id="Node000015" href="$da/de9/clientsmenu_8c.html#a1d711b31a5a18af01cdd582e537ff921" title="Invokes ListView of clients." alt="" coords="5,65,152,101"/>
+<area shape="poly" id="edge4_Node000003_Node000015" title=" " alt="" coords="183,71,153,75,152,70,182,65"/>
+</map>

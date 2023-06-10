@@ -1,0 +1,15 @@
+<map id="clientChoose" name="clientChoose">
+<area shape="rect" id="Node000001" title="Invokes ListView of clients." alt="" coords="735,65,882,101"/>
+<area shape="rect" id="Node000002" href="$da/de9/clientsmenu_8c.html#a1aa5fbc029a7e320bf6f6c3a2e6e27cc" title="Wrapper around clientChoose frees extracted client instanntly." alt="" coords="450,5,687,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="718,63,642,44,643,39,719,58"/>
+<area shape="rect" id="Node000010" href="$da/de9/clientsmenu_8c.html#a3785053dd7fa7ee54cb52674dadf5941" title="Edit client." alt="" coords="514,65,623,101"/>
+<area shape="poly" id="edge4_Node000001_Node000010" title=" " alt="" coords="718,86,624,86,624,81,718,81"/>
+<area shape="rect" id="Node000011" href="$da/de9/clientsmenu_8c.html#ae81aa78f6e32fdd87e554ba85c063111" title="Remove client." alt="" coords="493,125,645,161"/>
+<area shape="poly" id="edge6_Node000001_Node000011" title=" " alt="" coords="719,108,643,127,642,122,718,103"/>
+<area shape="rect" id="Node000003" href="$da/de9/clientsmenu_8c.html#ad2a8354e045a2d4deb82f4b3b20ad5a4" title="Handles displaying of clients menu." alt="" coords="265,65,402,101"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="480,49,403,68,402,63,478,43"/>
+<area shape="rect" id="Node000004" href="$de/dc9/mmenu_8c.html#a315bc1f41a79da39147ec73e38cfc9e7" title="Handles main menu." alt="" coords="5,65,217,101"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="247,86,217,86,217,81,247,81"/>
+<area shape="poly" id="edge5_Node000010_Node000003" title=" " alt="" coords="496,86,403,86,403,81,496,81"/>
+<area shape="poly" id="edge7_Node000011_Node000003" title=" " alt="" coords="478,123,402,103,403,98,480,118"/>
+</map>

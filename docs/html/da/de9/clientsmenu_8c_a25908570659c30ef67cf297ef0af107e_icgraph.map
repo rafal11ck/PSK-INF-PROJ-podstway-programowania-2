@@ -1,0 +1,16 @@
+<map id="clientGetListViewString" name="clientGetListViewString">
+<area shape="rect" id="Node000001" title="Given client generates string repesenting client string in listView friendly format...." alt="" coords="670,96,914,132"/>
+<area shape="rect" id="Node000002" href="$da/de9/clientsmenu_8c.html#a1d711b31a5a18af01cdd582e537ff921" title="Invokes ListView of clients." alt="" coords="476,67,622,102"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="653,100,622,96,623,91,653,94"/>
+<area shape="rect" id="Node000012" href="$da/de9/clientsmenu_8c.html#ae81aa78f6e32fdd87e554ba85c063111" title="Remove client." alt="" coords="233,125,386,161"/>
+<area shape="poly" id="edge8_Node000001_Node000012" title=" " alt="" coords="653,125,386,141,386,136,653,120"/>
+<area shape="rect" id="Node000003" href="$da/de9/clientsmenu_8c.html#a1aa5fbc029a7e320bf6f6c3a2e6e27cc" title="Wrapper around clientChoose frees extracted client instanntly." alt="" coords="191,5,428,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="459,64,382,44,383,39,461,59"/>
+<area shape="rect" id="Node000011" href="$da/de9/clientsmenu_8c.html#a3785053dd7fa7ee54cb52674dadf5941" title="Edit client." alt="" coords="255,65,364,101"/>
+<area shape="poly" id="edge4_Node000002_Node000011" title=" " alt="" coords="458,87,365,86,365,81,458,81"/>
+<area shape="poly" id="edge6_Node000002_Node000012" title=" " alt="" coords="460,109,386,127,384,122,458,104"/>
+<area shape="rect" id="Node000004" href="$da/de9/clientsmenu_8c.html#ad2a8354e045a2d4deb82f4b3b20ad5a4" title="Handles displaying of clients menu." alt="" coords="5,65,143,101"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="220,49,144,68,143,63,219,43"/>
+<area shape="poly" id="edge5_Node000011_Node000004" title=" " alt="" coords="237,86,143,86,143,81,237,81"/>
+<area shape="poly" id="edge7_Node000012_Node000004" title=" " alt="" coords="219,123,143,103,144,98,220,118"/>
+</map>

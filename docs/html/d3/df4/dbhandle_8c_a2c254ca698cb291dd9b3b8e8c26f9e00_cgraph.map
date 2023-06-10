@@ -1,0 +1,5 @@
+<map id="dbHandleGetCarInsertQuery" name="dbHandleGetCarInsertQuery">
+<area shape="rect" id="Node000001" title="Given car, get string containing SQL query that would add that car to DB." alt="" coords="5,5,301,41"/>
+<area shape="rect" id="Node000002" href="$d5/df2/car_8c.html#a47a583e551002d7fc00d05227eba5855" title="Checks if every field in Car is set." alt="" coords="349,5,509,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="301,20,331,20,331,26,301,26"/>
+</map>

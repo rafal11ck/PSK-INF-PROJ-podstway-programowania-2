@@ -1,0 +1,16 @@
+<map id="computeWidth" name="computeWidth">
+<area shape="rect" id="Node000001" title="Calculate minimum window width." alt="" coords="640,88,800,124"/>
+<area shape="rect" id="Node000002" href="$d7/dba/menuutil_8c.html#a949419e66b27ac75475821fb7aba527d" title="Handle all operation and functions for menu." alt="" coords="453,88,592,124"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="623,109,593,109,593,103,623,103"/>
+<area shape="rect" id="Node000003" href="$dc/dc6/carsmenu_8c.html#a7adcbb9b8798811ec24e33760623ebc0" title="Handles displaying of cars menu." alt="" coords="277,5,393,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="464,83,376,44,378,39,466,78"/>
+<area shape="rect" id="Node000004" href="$de/dc9/mmenu_8c.html#a315bc1f41a79da39147ec73e38cfc9e7" title="Handles main menu." alt="" coords="5,88,217,124"/>
+<area shape="poly" id="edge6_Node000002_Node000004" title=" " alt="" coords="435,106,405,106,265,106,217,106,217,101,265,101,405,101,435,101"/>
+<area shape="rect" id="Node000007" href="$da/de9/clientsmenu_8c.html#ad2a8354e045a2d4deb82f4b3b20ad5a4" title="Handles displaying of clients menu." alt="" coords="266,115,404,150"/>
+<area shape="poly" id="edge4_Node000002_Node000007" title=" " alt="" coords="436,121,404,125,404,120,435,116"/>
+<area shape="rect" id="Node000008" href="$d6/dc5/rentalsmenu_8c.html#a4cad208e714dfe28ce655b7853a3d5fd" title="Handles Rentals Menu." alt="" coords="265,175,405,210"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="470,134,406,164,379,176,377,172,404,159,467,129"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="269,50,163,90,161,85,267,45"/>
+<area shape="poly" id="edge5_Node000007_Node000004" title=" " alt="" coords="248,125,217,121,217,116,249,120"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="270,170,158,127,160,122,272,165"/>
+</map>

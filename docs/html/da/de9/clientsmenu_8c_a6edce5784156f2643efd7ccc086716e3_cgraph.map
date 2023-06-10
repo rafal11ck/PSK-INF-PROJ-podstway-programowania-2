@@ -1,0 +1,19 @@
+<map id="clientFormEdit" name="clientFormEdit">
+<area shape="rect" id="Node000001" title="Function for editing client." alt="" coords="5,96,165,132"/>
+<area shape="rect" id="Node000002" href="$da/de9/clientsmenu_8c.html#af8ed08faae79e3f75c324827415a5793" title="Parse form." alt="" coords="213,5,391,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,93,212,51,228,45,230,50,214,56,123,98"/>
+<area shape="rect" id="Node000003" href="$d7/dba/menuutil_8c.html#a1c0a1284f839b7e790c8234b3778e065" title="Frees memory used for form, and it&#39;s fields." alt="" coords="248,65,356,101"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,100,230,91,231,96,165,105"/>
+<area shape="rect" id="Node000004" href="$d7/dba/menuutil_8c.html#a6cfb2b5b15b5e79df457b5c902c3bf7d" title="Initialize FORM." alt="" coords="255,125,349,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,122,238,132,238,137,165,127"/>
+<area shape="rect" id="Node000005" href="$d7/dba/menuutil_8c.html#af8f262005a4975cc6ccc3423d939f910" title="Put form on screen in nice looking form." alt="" coords="238,185,366,221"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="125,130,214,170,230,176,228,181,212,175,122,135"/>
+<area shape="rect" id="Node000006" href="$d7/dba/menuutil_8c.html#ab9a65295e184f9f64ea1431f8c2e36b2" title="Manages input in the form." alt="" coords="454,95,675,130"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="360,182,390,170,413,155,438,141,457,134,459,138,440,146,416,160,392,175,363,187"/>
+<area shape="rect" id="Node000007" href="$d7/dba/menuutil_8c.html#ac6b71fcc47a9cdec8ac08b98e754239c" title="Get length of longest string in array of strings." alt="" coords="439,155,689,190"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="366,193,421,187,422,192,366,198"/>
+<area shape="rect" id="Node000008" href="$d7/dba/menuutil_8c.html#a9941ed217da0309cd9453bdb776d5c51" title="Add basic functionality to the shitty language which C is." alt="" coords="533,215,595,250"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="366,208,516,224,515,230,366,213"/>
+<area shape="rect" id="Node000009" href="$d7/dba/menuutil_8c.html#a14ca6bd9893f550a2051ca6cd5a689ac" title="Print boarders of window." alt="" coords="451,275,677,310"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="342,219,440,259,465,267,463,272,438,264,340,224"/>
+</map>

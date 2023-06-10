@@ -399,7 +399,6 @@ enum ListViewIteractionStateCode {
  *@param result usr_ptr of chosen menu ITEM will be assigned to this.
  *@param menu Menu to choose from.
  *@return @link ListViewIteractionStateCode @endlink
- *@todo implement
  **/
 static enum ListViewIteractionStateCode
 listViewHandleIteraction(struct ListNode **result, MENU *menu) {
@@ -482,8 +481,6 @@ static void listViewFreeList(struct List **list, void (*dealloactor)(void *)) {
  *@warning Does not use weaper around ListNode to get ListNode::m_data that is
  *passsed to getItem function as parameter.
  *
- *@todo make reverseOrder make MENU in reverse order (tranverse list from
- *back).
  */
 static MENU *listViewInitMenu(struct List *list, char *(*getItemString)(void *),
                               const int colCount) {

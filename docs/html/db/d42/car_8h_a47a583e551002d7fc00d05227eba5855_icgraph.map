@@ -1,0 +1,14 @@
+<map id="carIsComplete" name="carIsComplete">
+<area shape="rect" id="Node000001" title="Checks if every field in Car is set." alt="" coords="1161,5,1321,41"/>
+<area shape="rect" id="Node000002" href="$dc/dc6/carsmenu_8c.html#a920be2aa6ca8626fdd965865d26f3fd4" title="Function for adding a car." alt="" coords="429,5,520,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1143,24,1113,23,841,21,568,23,521,24,521,19,568,18,841,16,1113,18,1143,18"/>
+<area shape="rect" id="Node000010" href="$d3/df4/dbhandle_8c.html#a2c254ca698cb291dd9b3b8e8c26f9e00" title="Given car, get string containing SQL query that would add that car to DB." alt="" coords="818,32,1113,68"/>
+<area shape="poly" id="edge4_Node000001_Node000010" title=" " alt="" coords="1144,35,1114,38,1113,33,1143,30"/>
+<area shape="rect" id="Node000003" href="$dc/dc6/carsmenu_8c.html#a7adcbb9b8798811ec24e33760623ebc0" title="Handles displaying of cars menu." alt="" coords="265,5,381,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="411,26,382,26,382,21,411,21"/>
+<area shape="rect" id="Node000004" href="$de/dc9/mmenu_8c.html#a315bc1f41a79da39147ec73e38cfc9e7" title="Handles main menu." alt="" coords="5,5,217,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="247,26,217,26,217,21,247,21"/>
+<area shape="rect" id="Node000011" href="$d3/df4/dbhandle_8c.html#ae62043f5776328dcdc74dc9f29c4e2c6" title="Insert a car into the database." alt="" coords="568,32,770,68"/>
+<area shape="poly" id="edge5_Node000010_Node000011" title=" " alt="" coords="800,53,770,53,770,47,800,47"/>
+<area shape="poly" id="edge6_Node000011_Node000002" title=" " alt="" coords="551,36,520,32,521,27,551,31"/>
+</map>

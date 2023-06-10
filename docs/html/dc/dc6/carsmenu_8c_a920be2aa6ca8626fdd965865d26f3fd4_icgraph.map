@@ -1,0 +1,9 @@
+<map id="addCar" name="addCar">
+<area shape="rect" id="Node000001" title="Function for adding a car." alt="" coords="599,5,691,41"/>
+<area shape="rect" id="Node000002" href="$dc/dc6/carsmenu_8c.html#a7adcbb9b8798811ec24e33760623ebc0" title="Handles displaying of cars menu." alt="" coords="435,5,551,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="582,26,552,26,552,20,582,20"/>
+<area shape="rect" id="Node000003" href="$de/dc9/mmenu_8c.html#a315bc1f41a79da39147ec73e38cfc9e7" title="Handles main menu." alt="" coords="176,5,387,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="418,26,388,26,388,20,418,20"/>
+<area shape="rect" id="Node000004" href="$de/dc9/mmenu_8c.html#a29c2128f12316ca1ce77fd1d686f6ec7" title="Invokes menu." alt="" coords="5,5,128,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="158,26,128,26,128,20,158,20"/>
+</map>

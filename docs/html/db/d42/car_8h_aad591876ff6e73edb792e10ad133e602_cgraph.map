@@ -1,0 +1,5 @@
+<map id="carClone" name="carClone">
+<area shape="rect" id="Node000001" title="Make a clone of Car. It allocates memory internally." alt="" coords="5,5,113,41"/>
+<area shape="rect" id="Node000002" href="$d5/df2/car_8c.html#a0d3175ea031713002ce87092fd6e258f" title="Allocates and returns car containing nothing." alt="" coords="161,5,254,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,20,143,20,143,26,113,26"/>
+</map>

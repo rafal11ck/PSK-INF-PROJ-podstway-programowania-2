@@ -1,0 +1,9 @@
+<map id="clientGetListQueryCallback" name="clientGetListQueryCallback">
+<area shape="rect" id="Node000001" title="CallBack function for dbHandleGetResultAsList . Transforms row into Client." alt="" coords="5,36,289,72"/>
+<area shape="rect" id="Node000002" href="$dd/d93/client_8c.html#a2ecd1e440fb6f0c7ceb787859a7d284a" title="Allocates and returns client containing nothing." alt="" coords="352,5,467,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,35,335,29,335,34,289,40"/>
+<area shape="rect" id="Node000003" href="$d7/d40/list_8c.html#a339df7b81560e9469a44d37ad966870f" title="Adds item at the end of list." alt="" coords="337,65,482,101"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,67,319,70,319,76,289,72"/>
+<area shape="rect" id="Node000004" href="$d7/d40/list_8c.html#ab3906daba38e516a6c2bd15bfa3042db" title="Instantiates ListNode containing pointer to data." alt="" coords="530,65,693,101"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="482,81,512,81,512,86,482,86"/>
+</map>

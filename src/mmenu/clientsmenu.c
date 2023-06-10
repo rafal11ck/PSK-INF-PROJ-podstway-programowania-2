@@ -1,5 +1,5 @@
 #include "clientsmenu.h"
-#include "client.h" //! @todo remove that dots but LSP is retarded and complains, despite cmake working...
+#include "client.h"
 #include "dbhandle.h"
 #include "list.h"
 #include "menuutil.h"
@@ -87,7 +87,6 @@ static bool clientFormEdit(struct Client **result,
   FORM *form = formInit(fieldCount);
   set_field_type(form_fields(form)[0], TYPE_INTEGER, 0, 0, 0);
   set_field_type(form_fields(form)[4], TYPE_INTEGER, 0, 0, 0);
-  //! @todo set fields initial values as in edit given Client structure.
   if (placeHolder) {
     if (placeHolder->m_cardID != INVALIDCLIENTCARDID) {
       char *tempstr = calloc(FORMFIELDLENGTH, sizeof(char));

@@ -1,0 +1,9 @@
+<map id="clientRemove" name="clientRemove">
+<area shape="rect" id="Node000001" title="Remove client." alt="" coords="620,5,773,41"/>
+<area shape="rect" id="Node000002" href="$da/de9/clientsmenu_8c.html#ad2a8354e045a2d4deb82f4b3b20ad5a4" title="Handles displaying of clients menu." alt="" coords="435,5,572,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="603,26,573,26,573,20,603,20"/>
+<area shape="rect" id="Node000003" href="$de/dc9/mmenu_8c.html#a315bc1f41a79da39147ec73e38cfc9e7" title="Handles main menu." alt="" coords="176,5,387,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="417,26,387,26,387,20,417,20"/>
+<area shape="rect" id="Node000004" href="$de/dc9/mmenu_8c.html#a29c2128f12316ca1ce77fd1d686f6ec7" title="Invokes menu." alt="" coords="5,5,128,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="158,26,128,26,128,20,158,20"/>
+</map>

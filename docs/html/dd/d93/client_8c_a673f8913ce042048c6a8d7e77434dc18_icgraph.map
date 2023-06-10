@@ -1,0 +1,14 @@
+<map id="clientIsComplete" name="clientIsComplete">
+<area shape="rect" id="Node000001" title="Checks if every field despite Client::m_ID in Client is set." alt="" coords="1245,5,1426,41"/>
+<area shape="rect" id="Node000002" href="$da/de9/clientsmenu_8c.html#a37a5ed3b8a63a9497f34682ce7db3126" title="function for adding client;" alt="" coords="450,5,562,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1227,24,1197,23,904,21,610,23,563,24,563,19,610,18,904,16,1197,18,1227,18"/>
+<area shape="rect" id="Node000010" href="$d3/df4/dbhandle_8c.html#aa047043390f11acf01f2c50504d8bf77" title="Given client, get string containing SQL query that would add that client to DB." alt="" coords="881,32,1197,68"/>
+<area shape="poly" id="edge4_Node000001_Node000010" title=" " alt="" coords="1228,36,1198,38,1197,33,1227,30"/>
+<area shape="rect" id="Node000003" href="$da/de9/clientsmenu_8c.html#ad2a8354e045a2d4deb82f4b3b20ad5a4" title="Handles displaying of clients menu." alt="" coords="265,5,402,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="432,26,402,26,402,21,432,21"/>
+<area shape="rect" id="Node000004" href="$de/dc9/mmenu_8c.html#a315bc1f41a79da39147ec73e38cfc9e7" title="Handles main menu." alt="" coords="5,5,217,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="247,26,217,26,217,21,247,21"/>
+<area shape="rect" id="Node000011" href="$d3/df4/dbhandle_8c.html#a10cc2cd742cf382f48c04428af09189f" title="Insert client into db." alt="" coords="610,32,833,68"/>
+<area shape="poly" id="edge5_Node000010_Node000011" title=" " alt="" coords="863,53,833,53,833,47,863,47"/>
+<area shape="poly" id="edge6_Node000011_Node000002" title=" " alt="" coords="593,37,562,33,563,27,594,31"/>
+</map>

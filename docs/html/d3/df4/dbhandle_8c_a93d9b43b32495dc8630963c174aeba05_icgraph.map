@@ -1,0 +1,23 @@
+<map id="dbHandleGetResultAsList" name="dbHandleGetResultAsList">
+<area shape="rect" id="Node000001" title="Given query and callback function create List based on the query." alt="" coords="674,164,943,200"/>
+<area shape="rect" id="Node000002" href="$d5/df2/car_8c.html#ad946b04e98242aa73d41af8cd6963335" title="Get list of cars." alt="" coords="496,104,616,140"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="713,162,616,139,617,133,714,157"/>
+<area shape="rect" id="Node000014" href="$dd/d93/client_8c.html#ae9344815031f09e5f54986014cea5f29" title="Get list of clients." alt="" coords="485,193,626,229"/>
+<area shape="poly" id="edge6_Node000001_Node000014" title=" " alt="" coords="657,202,627,206,626,200,657,197"/>
+<area shape="rect" id="Node000003" href="$dc/dc6/carsmenu_8c.html#ad451b82b7f3d31d1bb3fc4c210941579" title="Invokes the listView of cars." alt="" coords="301,96,427,132"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="478,121,427,119,427,114,478,116"/>
+<area shape="rect" id="Node000004" href="$dc/dc6/carsmenu_8c.html#a04e2543edc445ed8a4cbd29b3466a07d" title="Wrapper around carChoose frees extracted car instanntly." alt="" coords="16,5,232,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="314,90,242,56,204,44,206,39,244,51,317,85"/>
+<area shape="rect" id="Node000012" href="$dc/dc6/carsmenu_8c.html#acf8ae724beca8714d7d114a7f2539895" title="Edit car." alt="" coords="80,65,168,101"/>
+<area shape="poly" id="edge4_Node000003_Node000012" title=" " alt="" coords="283,106,168,91,169,86,284,101"/>
+<area shape="rect" id="Node000013" href="$dc/dc6/carsmenu_8c.html#a76be213354bbaa3d64a095bafa1ec8d2" title="Removes a car." alt="" coords="58,125,190,161"/>
+<area shape="poly" id="edge5_Node000003_Node000013" title=" " alt="" coords="284,126,190,138,190,133,284,121"/>
+<area shape="rect" id="Node000015" href="$da/de9/clientsmenu_8c.html#a1d711b31a5a18af01cdd582e537ff921" title="Invokes ListView of clients." alt="" coords="291,231,437,266"/>
+<area shape="poly" id="edge7_Node000014_Node000015" title=" " alt="" coords="468,231,438,237,437,232,467,226"/>
+<area shape="rect" id="Node000016" href="$da/de9/clientsmenu_8c.html#a1aa5fbc029a7e320bf6f6c3a2e6e27cc" title="Wrapper around clientChoose frees extracted client instanntly." alt="" coords="5,185,243,221"/>
+<area shape="poly" id="edge8_Node000015_Node000016" title=" " alt="" coords="273,234,221,224,222,219,274,229"/>
+<area shape="rect" id="Node000017" href="$da/de9/clientsmenu_8c.html#a3785053dd7fa7ee54cb52674dadf5941" title="Edit client." alt="" coords="69,245,179,281"/>
+<area shape="poly" id="edge9_Node000015_Node000017" title=" " alt="" coords="273,257,179,262,179,257,273,251"/>
+<area shape="rect" id="Node000018" href="$da/de9/clientsmenu_8c.html#ae81aa78f6e32fdd87e554ba85c063111" title="Remove client." alt="" coords="48,305,200,341"/>
+<area shape="poly" id="edge10_Node000015_Node000018" title=" " alt="" coords="300,275,243,295,201,307,199,302,242,290,299,270"/>
+</map>

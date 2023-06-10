@@ -1,0 +1,9 @@
+<map id="listDeleteNode" name="listDeleteNode">
+<area shape="rect" id="Node000001" title="Removes ListNode from List." alt="" coords="5,65,167,101"/>
+<area shape="rect" id="Node000002" href="$d7/d40/list_8c.html#a625985389d2bf8d34673ba60958f7b86" title="Free memory taken by ListNode." alt="" coords="215,5,445,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,62,237,43,238,48,162,67"/>
+<area shape="rect" id="Node000003" href="$d7/d40/list_8c.html#a8b8c4f6480771a17429d8e50c200d162" title="Returns pointer to the last element of list." alt="" coords="264,65,396,101"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="167,81,246,81,246,86,167,86"/>
+<area shape="rect" id="Node000004" href="$d7/d40/list_8c.html#a81da6612d4d712db1debb1555b18db54" title="Returns pointer to the first element of list." alt="" coords="263,125,397,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="162,99,247,120,245,125,161,104"/>
+</map>

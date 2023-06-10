@@ -1,0 +1,7 @@
+<map id="extractClient" name="extractClient">
+<area shape="rect" id="Node000001" title="extract client given ListNode." alt="" coords="5,5,147,41"/>
+<area shape="rect" id="Node000002" href="$dd/d93/client_8c.html#ad02c9ee4fe2e382b42ce897135f738af" title="make Clone of Client. It allocates memory internaly." alt="" coords="195,5,323,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,20,177,20,177,26,147,26"/>
+<area shape="rect" id="Node000003" href="$dd/d93/client_8c.html#a2ecd1e440fb6f0c7ceb787859a7d284a" title="Allocates and returns client containing nothing." alt="" coords="371,5,485,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="324,20,354,20,354,26,324,26"/>
+</map>

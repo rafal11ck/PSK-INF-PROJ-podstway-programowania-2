@@ -1,0 +1,13 @@
+<map id="carGetQueryOfSort" name="carGetQueryOfSort">
+<area shape="rect" id="Node000001" title="Generates SQL query." alt="" coords="611,65,819,101"/>
+<area shape="rect" id="Node000002" href="$d5/df2/car_8c.html#ad946b04e98242aa73d41af8cd6963335" title="Get list of cars." alt="" coords="443,65,563,101"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="594,86,564,86,564,81,594,81"/>
+<area shape="rect" id="Node000003" href="$dc/dc6/carsmenu_8c.html#ad451b82b7f3d31d1bb3fc4c210941579" title="Invokes the listView of cars." alt="" coords="270,65,395,101"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="425,86,395,86,395,81,425,81"/>
+<area shape="rect" id="Node000004" href="$dc/dc6/carsmenu_8c.html#a04e2543edc445ed8a4cbd29b3466a07d" title="Wrapper around carChoose frees extracted car instanntly." alt="" coords="5,5,222,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="252,64,181,44,182,39,253,59"/>
+<area shape="rect" id="Node000012" href="$dc/dc6/carsmenu_8c.html#acf8ae724beca8714d7d114a7f2539895" title="Edit car." alt="" coords="69,65,158,101"/>
+<area shape="poly" id="edge4_Node000003_Node000012" title=" " alt="" coords="252,86,158,86,158,81,252,81"/>
+<area shape="rect" id="Node000013" href="$dc/dc6/carsmenu_8c.html#a76be213354bbaa3d64a095bafa1ec8d2" title="Removes a car." alt="" coords="48,125,179,161"/>
+<area shape="poly" id="edge5_Node000003_Node000013" title=" " alt="" coords="253,108,181,128,179,123,252,102"/>
+</map>

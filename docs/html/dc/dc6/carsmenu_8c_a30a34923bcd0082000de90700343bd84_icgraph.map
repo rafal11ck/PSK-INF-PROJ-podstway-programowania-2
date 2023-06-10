@@ -1,0 +1,12 @@
+<map id="carFormEdit" name="carFormEdit">
+<area shape="rect" id="Node000001" title="Function for editing car." alt="" coords="568,36,707,72"/>
+<area shape="rect" id="Node000002" href="$dc/dc6/carsmenu_8c.html#a920be2aa6ca8626fdd965865d26f3fd4" title="Function for adding a car." alt="" coords="429,5,520,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="550,40,520,34,521,29,551,35"/>
+<area shape="rect" id="Node000010" href="$dc/dc6/carsmenu_8c.html#acf8ae724beca8714d7d114a7f2539895" title="Edit car." alt="" coords="431,65,519,101"/>
+<area shape="poly" id="edge4_Node000001_Node000010" title=" " alt="" coords="552,72,520,78,519,73,551,67"/>
+<area shape="rect" id="Node000003" href="$dc/dc6/carsmenu_8c.html#a7adcbb9b8798811ec24e33760623ebc0" title="Handles displaying of cars menu." alt="" coords="265,36,381,72"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="412,38,382,45,381,39,411,33"/>
+<area shape="rect" id="Node000004" href="$de/dc9/mmenu_8c.html#a315bc1f41a79da39147ec73e38cfc9e7" title="Handles main menu." alt="" coords="5,36,217,72"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="247,57,217,57,217,51,247,51"/>
+<area shape="poly" id="edge5_Node000010_Node000003" title=" " alt="" coords="413,74,381,68,382,63,414,69"/>
+</map>

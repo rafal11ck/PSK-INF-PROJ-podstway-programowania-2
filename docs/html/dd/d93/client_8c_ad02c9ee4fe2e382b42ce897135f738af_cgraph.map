@@ -1,0 +1,5 @@
+<map id="clientClone" name="clientClone">
+<area shape="rect" id="Node000001" title="make Clone of Client. It allocates memory internaly." alt="" coords="5,5,134,41"/>
+<area shape="rect" id="Node000002" href="$dd/d93/client_8c.html#a2ecd1e440fb6f0c7ceb787859a7d284a" title="Allocates and returns client containing nothing." alt="" coords="182,5,296,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,20,164,20,164,26,134,26"/>
+</map>

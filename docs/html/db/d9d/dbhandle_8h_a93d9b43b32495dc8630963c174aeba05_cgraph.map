@@ -1,0 +1,13 @@
+<map id="dbHandleGetResultAsList" name="dbHandleGetResultAsList">
+<area shape="rect" id="Node000001" title="Given query and callback function create List based on the query." alt="" coords="5,36,274,72"/>
+<area shape="rect" id="Node000002" href="$d7/d40/list_8c.html#a5fccd2bb814aa2d6757242416f61ac40" title="Returns empty list." alt="" coords="363,5,510,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="274,37,345,30,346,35,274,43"/>
+<area shape="rect" id="Node000003" href="$d7/dba/menuutil_8c.html#ae6ed898f3726361b1edde3f8707f0260" title="Displays message box on the screen with title and message." alt="" coords="322,65,551,101"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="274,64,304,67,304,73,274,70"/>
+<area shape="rect" id="Node000004" href="$d7/dba/menuutil_8c.html#ac6b71fcc47a9cdec8ac08b98e754239c" title="Get length of longest string in array of strings." alt="" coords="599,5,849,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="525,62,618,42,619,48,526,67"/>
+<area shape="rect" id="Node000005" href="$d7/dba/menuutil_8c.html#a9941ed217da0309cd9453bdb776d5c51" title="Add basic functionality to the shitty language which C is." alt="" coords="693,65,755,101"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="552,81,675,81,675,86,552,86"/>
+<area shape="rect" id="Node000006" href="$d7/dba/menuutil_8c.html#a14ca6bd9893f550a2051ca6cd5a689ac" title="Print boarders of window." alt="" coords="611,125,837,161"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="526,99,619,119,618,124,525,104"/>
+</map>

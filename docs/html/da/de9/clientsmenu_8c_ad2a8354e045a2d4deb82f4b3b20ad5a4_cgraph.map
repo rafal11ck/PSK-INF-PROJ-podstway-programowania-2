@@ -1,0 +1,55 @@
+<map id="clientsMenu" name="clientsMenu">
+<area shape="rect" id="Node000001" title="Handles displaying of clients menu." alt="" coords="5,585,143,621"/>
+<area shape="rect" id="Node000002" href="$da/de9/clientsmenu_8c.html#a37a5ed3b8a63a9497f34682ce7db3126" title="function for adding client;" alt="" coords="253,169,366,205"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,583,287,219,292,221,88,586"/>
+<area shape="rect" id="Node000018" href="$da/de9/clientsmenu_8c.html#a1aa5fbc029a7e320bf6f6c3a2e6e27cc" title="Wrapper around clientChoose frees extracted client instanntly." alt="" coords="191,645,428,681"/>
+<area shape="poly" id="edge9_Node000001_Node000018" title=" " alt="" coords="144,618,220,638,219,643,143,623"/>
+<area shape="rect" id="Node000041" href="$da/de9/clientsmenu_8c.html#a3785053dd7fa7ee54cb52674dadf5941" title="Edit client." alt="" coords="255,448,364,484"/>
+<area shape="poly" id="edge15_Node000001_Node000041" title=" " alt="" coords="105,583,261,490,264,495,108,587"/>
+<area shape="rect" id="Node000043" href="$da/de9/clientsmenu_8c.html#ae81aa78f6e32fdd87e554ba85c063111" title="Remove client." alt="" coords="233,585,386,621"/>
+<area shape="poly" id="edge23_Node000001_Node000043" title=" " alt="" coords="143,601,215,601,215,606,143,606"/>
+<area shape="rect" id="Node000045" href="$d7/dba/menuutil_8c.html#a949419e66b27ac75475821fb7aba527d" title="Handle all operation and functions for menu." alt="" coords="240,855,379,890"/>
+<area shape="poly" id="edge30_Node000001_Node000045" title=" " alt="" coords="93,620,283,839,279,843,89,623"/>
+<area shape="rect" id="Node000003" href="$da/de9/clientsmenu_8c.html#a6edce5784156f2643efd7ccc086716e3" title="Function for editing client." alt="" coords="515,275,674,310"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="352,203,477,254,514,266,512,272,475,259,350,208"/>
+<area shape="rect" id="Node000012" href="$dd/d93/client_8c.html#acd575326bfff582215541a74fc4a7bc7" title="Dealloactes client." alt="" coords="825,615,941,650"/>
+<area shape="poly" id="edge3_Node000002_Node000012" title=" " alt="" coords="367,195,476,217,513,221,547,221,605,218,632,219,659,225,687,239,715,261,736,286,747,310,751,334,751,359,749,410,753,438,764,469,784,506,807,541,854,600,850,603,803,544,779,509,759,471,748,440,744,411,745,359,745,335,741,312,731,289,711,265,684,243,657,230,632,225,605,224,547,227,513,226,476,222,366,201"/>
+<area shape="rect" id="Node000013" href="$dd/d93/client_8c.html#a673f8913ce042048c6a8d7e77434dc18" title="Checks if every field despite Client::m_ID in Client is set." alt="" coords="504,5,685,41"/>
+<area shape="poly" id="edge4_Node000002_Node000013" title=" " alt="" coords="328,167,390,113,431,83,475,57,502,45,504,50,477,62,434,88,393,117,331,171"/>
+<area shape="rect" id="Node000014" href="$dd/d93/client_8c.html#a2ecd1e440fb6f0c7ceb787859a7d284a" title="Allocates and returns client containing nothing." alt="" coords="826,197,940,233"/>
+<area shape="poly" id="edge5_Node000002_Node000014" title=" " alt="" coords="336,166,397,131,436,113,475,101,542,86,595,80,649,84,714,101,754,117,791,138,851,183,848,188,788,142,751,121,713,106,648,89,595,85,543,91,477,106,437,118,400,135,339,171"/>
+<area shape="rect" id="Node000015" href="$d3/df4/dbhandle_8c.html#a10cc2cd742cf382f48c04428af09189f" title="Insert client into db." alt="" coords="484,115,706,150"/>
+<area shape="poly" id="edge6_Node000002_Node000015" title=" " alt="" coords="365,174,481,152,482,157,366,179"/>
+<area shape="rect" id="Node000017" href="$d7/dba/menuutil_8c.html#ae6ed898f3726361b1edde3f8707f0260" title="Displays message box on the screen with title and message." alt="" coords="768,423,998,458"/>
+<area shape="poly" id="edge8_Node000002_Node000017" title=" " alt="" coords="366,175,439,169,529,169,577,174,624,183,671,197,715,217,743,235,768,257,812,308,846,360,869,405,865,408,842,363,808,311,765,261,740,239,712,222,669,202,623,188,576,179,528,175,439,174,366,181"/>
+<area shape="poly" id="edge7_Node000015_Node000017" title=" " alt="" coords="684,149,715,167,864,406,859,409,711,170,681,153"/>
+<area shape="poly" id="edge14_Node000018_Node000012" title=" " alt="" coords="429,678,565,687,640,686,713,679,766,668,815,654,817,659,767,674,714,684,640,691,565,692,428,683"/>
+<area shape="rect" id="Node000019" href="$da/de9/clientsmenu_8c.html#a1d711b31a5a18af01cdd582e537ff921" title="Invokes ListView of clients." alt="" coords="522,615,668,650"/>
+<area shape="poly" id="edge10_Node000018_Node000019" title=" " alt="" coords="428,648,504,640,504,645,429,653"/>
+<area shape="poly" id="edge11_Node000019_Node000012" title=" " alt="" coords="668,630,808,630,808,635,668,635"/>
+<area shape="poly" id="edge13_Node000019_Node000017" title=" " alt="" coords="667,617,712,599,755,570,795,536,856,470,859,474,799,540,759,575,715,604,669,622"/>
+<area shape="rect" id="Node000027" href="$da/de9/clientsmenu_8c.html#a25908570659c30ef67cf297ef0af107e" title="Given client generates string repesenting client string in listView friendly format...." alt="" coords="761,723,1005,758"/>
+<area shape="poly" id="edge12_Node000019_Node000027" title=" " alt="" coords="645,648,818,714,816,719,644,653"/>
+<area shape="poly" id="edge19_Node000041_Node000003" title=" " alt="" coords="325,446,386,384,428,350,475,321,497,311,499,316,477,326,432,354,390,388,328,449"/>
+<area shape="poly" id="edge20_Node000041_Node000012" title=" " alt="" coords="364,468,523,492,619,513,714,541,782,570,840,603,838,608,779,575,712,546,618,518,522,497,364,474"/>
+<area shape="poly" id="edge16_Node000041_Node000019" title=" " alt="" coords="329,482,391,540,432,572,477,599,506,611,504,616,475,604,429,577,388,544,326,486"/>
+<area shape="rect" id="Node000029" href="$dd/d93/client_8c.html#ad02c9ee4fe2e382b42ce897135f738af" title="make Clone of Client. It allocates memory internaly." alt="" coords="531,335,659,370"/>
+<area shape="poly" id="edge17_Node000041_Node000029" title=" " alt="" coords="341,445,402,413,475,381,513,368,514,374,477,386,404,418,343,450"/>
+<area shape="rect" id="Node000042" href="$d3/df4/dbhandle_8c.html#aaa0d1881c99c82d3e6dbf0965ae779fa" title="Update Client in database." alt="" coords="476,395,713,430"/>
+<area shape="poly" id="edge21_Node000041_Node000042" title=" " alt="" coords="364,453,478,431,479,437,365,458"/>
+<area shape="poly" id="edge18_Node000029_Node000014" title=" " alt="" coords="658,337,712,319,783,282,843,242,846,246,786,286,714,324,660,342"/>
+<area shape="poly" id="edge22_Node000042_Node000017" title=" " alt="" coords="714,421,751,425,750,430,714,427"/>
+<area shape="poly" id="edge25_Node000043_Node000012" title=" " alt="" coords="387,617,429,631,453,647,463,654,477,659,520,668,564,673,653,673,737,663,807,650,808,655,737,669,653,678,564,679,519,674,475,664,460,658,450,651,427,636,385,622"/>
+<area shape="poly" id="edge29_Node000043_Node000017" title=" " alt="" coords="357,582,475,541,636,496,781,460,783,465,637,501,477,546,359,587"/>
+<area shape="poly" id="edge24_Node000043_Node000019" title=" " alt="" coords="386,608,504,621,504,626,386,614"/>
+<area shape="poly" id="edge26_Node000043_Node000027" title=" " alt="" coords="387,614,429,632,445,644,454,657,463,669,477,680,542,706,611,723,679,734,744,739,743,745,679,739,610,728,540,711,475,684,459,673,450,660,441,648,427,636,385,619"/>
+<area shape="rect" id="Node000044" href="$d3/df4/dbhandle_8c.html#a4bfe377ba6dd3a7e3024c825de1485dd" title="Remove clinet from database." alt="" coords="477,555,713,590"/>
+<area shape="poly" id="edge27_Node000043_Node000044" title=" " alt="" coords="386,592,459,584,460,590,386,598"/>
+<area shape="poly" id="edge28_Node000044_Node000017" title=" " alt="" coords="635,552,825,464,827,469,637,557"/>
+<area shape="rect" id="Node000046" href="$d7/dba/menuutil_8c.html#acef3bbabe9293534ee600e9b89eda07b" title="Calculate minimum window width." alt="" coords="515,825,674,861"/>
+<area shape="poly" id="edge31_Node000045_Node000046" title=" " alt="" coords="379,863,498,850,498,856,380,868"/>
+<area shape="rect" id="Node000047" href="$de/dc9/mmenu_8c.html#a29c2128f12316ca1ce77fd1d686f6ec7" title="Invokes menu." alt="" coords="534,885,656,921"/>
+<area shape="poly" id="edge32_Node000045_Node000047" title=" " alt="" coords="380,877,516,892,516,897,379,883"/>
+<area shape="rect" id="Node000071" href="$d7/dba/menuutil_8c.html#ae9bbf0350539ebe186df7d627930ca51" title="Control menu navigation and invoke option that we chose." alt="" coords="479,945,711,981"/>
+<area shape="poly" id="edge33_Node000045_Node000071" title=" " alt="" coords="359,888,477,930,503,938,501,943,475,935,357,893"/>
+</map>

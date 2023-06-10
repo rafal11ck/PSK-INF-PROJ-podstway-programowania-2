@@ -1,0 +1,9 @@
+<map id="dbHandlClientRemove" name="dbHandlClientRemove">
+<area shape="rect" id="Node000001" title="Remove clinet from database." alt="" coords="650,5,887,41"/>
+<area shape="rect" id="Node000002" href="$da/de9/clientsmenu_8c.html#ae81aa78f6e32fdd87e554ba85c063111" title="Remove client." alt="" coords="450,5,602,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="633,26,603,26,603,20,633,20"/>
+<area shape="rect" id="Node000003" href="$da/de9/clientsmenu_8c.html#ad2a8354e045a2d4deb82f4b3b20ad5a4" title="Handles displaying of clients menu." alt="" coords="265,5,402,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="433,26,402,26,402,20,433,20"/>
+<area shape="rect" id="Node000004" href="$de/dc9/mmenu_8c.html#a315bc1f41a79da39147ec73e38cfc9e7" title="Handles main menu." alt="" coords="5,5,217,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="247,26,217,26,217,20,247,20"/>
+</map>

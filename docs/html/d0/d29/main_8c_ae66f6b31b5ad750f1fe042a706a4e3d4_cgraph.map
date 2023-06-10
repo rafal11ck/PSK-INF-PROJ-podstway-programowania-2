@@ -1,0 +1,23 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title="main." alt="" coords="5,172,74,208"/>
+<area shape="rect" id="Node000002" href="$d3/df4/dbhandle_8c.html#a20aaa4385efb6e120e0159b7230162a8" title="Ensure that database exists." alt="" coords="139,112,334,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,175,121,158,146,150,148,155,122,163,75,180"/>
+<area shape="rect" id="Node000003" href="$de/dc9/mmenu_8c.html#a29c2128f12316ca1ce77fd1d686f6ec7" title="Invokes menu." alt="" coords="175,172,298,208"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="74,187,157,187,157,193,74,193"/>
+<area shape="rect" id="Node000021" href="$d7/dba/menuutil_8c.html#ae6ed898f3726361b1edde3f8707f0260" title="Displays message box on the screen with title and message." alt="" coords="122,232,351,268"/>
+<area shape="poly" id="edge12_Node000001_Node000021" title=" " alt="" coords="75,200,122,217,148,224,146,229,121,222,73,205"/>
+<area shape="rect" id="Node000004" href="$de/dc9/mmenu_8c.html#a315bc1f41a79da39147ec73e38cfc9e7" title="Handles main menu." alt="" coords="399,115,610,150"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="297,174,401,152,402,157,299,179"/>
+<area shape="rect" id="Node000005" href="$dc/dc6/carsmenu_8c.html#a7adcbb9b8798811ec24e33760623ebc0" title="Handles displaying of cars menu." alt="" coords="670,5,787,41"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="542,112,674,47,676,51,544,117"/>
+<area shape="rect" id="Node000049" href="$d7/dba/menuutil_8c.html#a949419e66b27ac75475821fb7aba527d" title="Handle all operation and functions for menu." alt="" coords="847,115,986,150"/>
+<area shape="poly" id="edge9_Node000004_Node000049" title=" " alt="" coords="586,111,658,101,729,95,799,101,838,107,837,113,798,106,729,101,659,106,587,117"/>
+<area shape="rect" id="Node000052" href="$da/de9/clientsmenu_8c.html#ad2a8354e045a2d4deb82f4b3b20ad5a4" title="Handles displaying of clients menu." alt="" coords="660,115,797,150"/>
+<area shape="poly" id="edge7_Node000004_Node000052" title=" " alt="" coords="611,130,642,130,642,135,611,135"/>
+<area shape="rect" id="Node000073" href="$d6/dc5/rentalsmenu_8c.html#a4cad208e714dfe28ce655b7853a3d5fd" title="Handles Rentals Menu." alt="" coords="658,175,799,210"/>
+<area shape="poly" id="edge10_Node000004_Node000073" title=" " alt="" coords="575,148,644,167,642,172,573,154"/>
+<area shape="poly" id="edge5_Node000005_Node000049" title=" " alt="" coords="767,39,800,57,874,103,872,107,797,61,765,44"/>
+<area shape="poly" id="edge6_Node000049_Node000003" title=" " alt="" coords="900,153,858,191,830,210,800,224,759,233,705,236,573,232,434,219,315,204,315,199,434,214,574,227,705,231,758,228,798,219,827,206,855,187,897,149"/>
+<area shape="poly" id="edge8_Node000052_Node000049" title=" " alt="" coords="798,130,829,130,829,135,798,135"/>
+<area shape="poly" id="edge11_Node000073_Node000049" title=" " alt="" coords="786,171,841,154,843,159,788,177"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="listCreateList" name="listCreateList">
+<area shape="rect" id="Node000001" title="Returns empty list." alt="" coords="705,36,852,72"/>
+<area shape="rect" id="Node000002" href="$d3/df4/dbhandle_8c.html#a93d9b43b32495dc8630963c174aeba05" title="Given query and callback function create List based on the query." alt="" coords="389,36,657,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="688,57,658,57,658,51,688,51"/>
+<area shape="rect" id="Node000003" href="$d5/df2/car_8c.html#ad946b04e98242aa73d41af8cd6963335" title="Get list of cars." alt="" coords="210,5,331,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="371,38,330,33,331,28,372,33"/>
+<area shape="rect" id="Node000015" href="$dd/d93/client_8c.html#ae9344815031f09e5f54986014cea5f29" title="Get list of clients." alt="" coords="200,65,341,101"/>
+<area shape="poly" id="edge4_Node000002_Node000015" title=" " alt="" coords="372,74,342,78,341,72,371,69"/>
+<area shape="rect" id="Node000004" href="$dc/dc6/carsmenu_8c.html#ad451b82b7f3d31d1bb3fc4c210941579" title="Invokes the listView of cars." alt="" coords="16,5,141,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="192,26,142,26,142,21,192,21"/>
+<area shape="rect" id="Node000016" href="$da/de9/clientsmenu_8c.html#a1d711b31a5a18af01cdd582e537ff921" title="Invokes ListView of clients." alt="" coords="5,65,152,101"/>
+<area shape="poly" id="edge5_Node000015_Node000016" title=" " alt="" coords="182,86,152,86,152,81,182,81"/>
+</map>

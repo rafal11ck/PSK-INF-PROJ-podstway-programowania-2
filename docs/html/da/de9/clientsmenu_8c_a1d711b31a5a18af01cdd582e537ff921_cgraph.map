@@ -1,0 +1,46 @@
+<map id="clientChoose" name="clientChoose">
+<area shape="rect" id="Node000001" title="Invokes ListView of clients." alt="" coords="5,213,152,249"/>
+<area shape="rect" id="Node000002" href="$dd/d93/client_8c.html#acd575326bfff582215541a74fc4a7bc7" title="Dealloactes client." alt="" coords="263,65,380,101"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,211,135,161,165,134,198,111,245,93,247,98,201,116,168,139,139,165,95,215"/>
+<area shape="rect" id="Node000003" href="$dd/d93/client_8c.html#ae9344815031f09e5f54986014cea5f29" title="Get list of clients." alt="" coords="251,185,392,221"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="152,220,233,211,233,216,152,225"/>
+<area shape="rect" id="Node000011" href="$d7/dba/menuutil_8c.html#ae6ed898f3726361b1edde3f8707f0260" title="Displays message box on the screen with title and message." alt="" coords="822,236,1052,272"/>
+<area shape="poly" id="edge24_Node000001_Node000011" title=" " alt="" coords="152,230,805,248,805,253,152,236"/>
+<area shape="rect" id="Node000015" href="$da/de9/clientsmenu_8c.html#a25908570659c30ef67cf297ef0af107e" title="Given client generates string repesenting client string in listView friendly format...." alt="" coords="200,456,443,492"/>
+<area shape="poly" id="edge10_Node000001_Node000015" title=" " alt="" coords="87,248,101,289,124,341,157,395,178,420,201,441,207,445,204,450,198,445,174,424,153,398,119,343,96,291,82,250"/>
+<area shape="rect" id="Node000016" href="$da/de9/clientsmenu_8c.html#a12535dbea3961ee9186a47a4988d2208" title="extract client given ListNode." alt="" coords="251,125,392,161"/>
+<area shape="poly" id="edge11_Node000001_Node000016" title=" " alt="" coords="113,210,199,171,233,160,235,165,201,176,115,215"/>
+<area shape="rect" id="Node000018" href="$d7/dba/menuutil_8c.html#aca301edf9d04aa391571851b148355ba" title="List Viewer for lists." alt="" coords="242,396,401,432"/>
+<area shape="poly" id="edge14_Node000001_Node000018" title=" " alt="" coords="105,247,284,383,281,387,102,251"/>
+<area shape="rect" id="Node000004" href="$dd/d93/client_8c.html#a903cc00cfe46a85c92b09861aba1f26c" title="CallBack function for dbHandleGetResultAsList . Transforms row into Client." alt="" coords="491,65,774,101"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="392,191,418,182,441,170,456,157,465,142,473,126,489,112,499,106,502,111,493,116,477,130,469,144,461,160,445,175,420,187,393,196"/>
+<area shape="rect" id="Node000008" href="$dd/d93/client_8c.html#aca1c3909e30e8a13a7f49a0bc74640bd" title="Generates SQL query." alt="" coords="519,125,747,161"/>
+<area shape="poly" id="edge6_Node000003_Node000008" title=" " alt="" coords="392,187,519,162,520,168,393,192"/>
+<area shape="rect" id="Node000009" href="$d3/df4/dbhandle_8c.html#a93d9b43b32495dc8630963c174aeba05" title="Given query and callback function create List based on the query." alt="" coords="499,185,767,221"/>
+<area shape="poly" id="edge7_Node000003_Node000009" title=" " alt="" coords="392,201,481,201,481,206,392,206"/>
+<area shape="rect" id="Node000005" href="$dd/d93/client_8c.html#a2ecd1e440fb6f0c7ceb787859a7d284a" title="Allocates and returns client containing nothing." alt="" coords="880,5,994,41"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="726,62,862,35,863,40,727,67"/>
+<area shape="rect" id="Node000006" href="$d7/d40/list_8c.html#a339df7b81560e9469a44d37ad966870f" title="Adds item at the end of list." alt="" coords="864,65,1010,101"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="775,81,847,81,847,86,775,86"/>
+<area shape="poly" id="edge8_Node000009_Node000011" title=" " alt="" coords="744,219,810,230,809,235,743,224"/>
+<area shape="rect" id="Node000014" href="$d7/dba/menuutil_8c.html#a14ca6bd9893f550a2051ca6cd5a689ac" title="Print boarders of window." alt="" coords="1100,264,1326,300"/>
+<area shape="poly" id="edge9_Node000011_Node000014" title=" " alt="" coords="1052,263,1082,266,1082,271,1052,268"/>
+<area shape="rect" id="Node000017" href="$dd/d93/client_8c.html#ad02c9ee4fe2e382b42ce897135f738af" title="make Clone of Client. It allocates memory internaly." alt="" coords="569,5,697,41"/>
+<area shape="poly" id="edge12_Node000016_Node000017" title=" " alt="" coords="392,131,418,122,441,110,456,97,465,82,473,66,490,52,519,38,550,29,552,34,521,43,492,56,477,70,469,84,461,100,445,115,420,127,393,136"/>
+<area shape="poly" id="edge13_Node000017_Node000005" title=" " alt="" coords="697,21,862,21,862,26,697,26"/>
+<area shape="poly" id="edge23_Node000018_Node000014" title=" " alt="" coords="371,393,428,374,490,358,649,330,808,309,1082,286,1082,291,809,314,649,335,492,363,429,379,373,398"/>
+<area shape="rect" id="Node000019" href="$d7/d40/list_8c.html#a0837532833bd96d83104386c1aa69c10" title="How many elements are there in List." alt="" coords="892,396,982,432"/>
+<area shape="poly" id="edge15_Node000018_Node000019" title=" " alt="" coords="401,395,491,382,633,374,775,382,875,397,874,403,774,387,633,379,491,387,401,400"/>
+<area shape="rect" id="Node000020" href="$d7/dba/menuutil_8c.html#a6229d06cea0b18a996e9f378719c56bb" title="frees internal List of listView." alt="" coords="547,396,719,432"/>
+<area shape="poly" id="edge16_Node000018_Node000020" title=" " alt="" coords="401,411,529,411,529,417,401,417"/>
+<area shape="rect" id="Node000025" href="$d7/dba/menuutil_8c.html#a5cf01d8794a16c8f4d79eed99ec0b560" title="frees memory used by listView internal Menu" alt="" coords="537,516,729,552"/>
+<area shape="poly" id="edge18_Node000018_Node000025" title=" " alt="" coords="402,424,444,442,461,457,469,473,477,487,492,501,521,514,518,519,490,505,473,491,465,475,456,460,442,447,400,428"/>
+<area shape="rect" id="Node000026" href="$d7/dba/menuutil_8c.html#a6154454b5c30466c33806a07ce7578d5" title=" " alt="" coords="507,576,758,612"/>
+<area shape="poly" id="edge19_Node000018_Node000026" title=" " alt="" coords="402,420,425,429,445,442,458,457,465,473,469,504,474,534,480,548,493,561,497,565,494,569,489,565,476,551,469,535,464,504,460,474,453,460,441,447,422,434,400,425"/>
+<area shape="rect" id="Node000027" href="$d7/dba/menuutil_8c.html#a06a2ceb28df68b49e42d701e49f324c9" title="Allocates and fills MENU, based on List content." alt="" coords="544,456,721,492"/>
+<area shape="poly" id="edge20_Node000018_Node000027" title=" " alt="" coords="401,426,528,451,527,456,400,432"/>
+<area shape="rect" id="Node000028" href="$d7/dba/menuutil_8c.html#adc98ee6c310a6ad6286dde9a1426db38" title="Prints header row of table." alt="" coords="530,636,735,672"/>
+<area shape="poly" id="edge22_Node000018_Node000028" title=" " alt="" coords="402,419,425,428,445,443,462,465,469,488,469,534,468,557,469,579,477,600,493,621,515,637,512,641,489,625,472,603,464,580,462,557,464,534,464,489,457,468,441,446,422,433,400,424"/>
+<area shape="poly" id="edge17_Node000020_Node000019" title=" " alt="" coords="719,411,875,411,875,417,719,417"/>
+<area shape="poly" id="edge21_Node000027_Node000019" title=" " alt="" coords="721,454,874,423,875,429,722,459"/>
+</map>

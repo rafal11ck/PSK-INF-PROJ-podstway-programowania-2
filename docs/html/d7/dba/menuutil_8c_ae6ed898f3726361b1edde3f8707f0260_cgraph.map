@@ -1,0 +1,9 @@
+<map id="menuUtilMessagebox" name="menuUtilMessagebox">
+<area shape="rect" id="Node000001" title="Displays message box on the screen with title and message." alt="" coords="5,65,235,101"/>
+<area shape="rect" id="Node000002" href="$d7/dba/menuutil_8c.html#ac6b71fcc47a9cdec8ac08b98e754239c" title="Get length of longest string in array of strings." alt="" coords="283,5,533,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,62,302,42,303,48,210,67"/>
+<area shape="rect" id="Node000003" href="$d7/dba/menuutil_8c.html#a9941ed217da0309cd9453bdb776d5c51" title="Add basic functionality to the shitty language which C is." alt="" coords="377,65,439,101"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="235,81,359,81,359,86,235,86"/>
+<area shape="rect" id="Node000004" href="$d7/dba/menuutil_8c.html#a14ca6bd9893f550a2051ca6cd5a689ac" title="Print boarders of window." alt="" coords="295,125,521,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="210,99,303,119,302,124,209,104"/>
+</map>
